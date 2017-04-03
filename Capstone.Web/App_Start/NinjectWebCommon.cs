@@ -10,21 +10,23 @@ namespace Capstone.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-
-    public static class NinjectWebCommon 
+    using System.Configuration;
+    using DAL;
+    
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -32,7 +34,7 @@ namespace Capstone.Web.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -61,6 +63,16 @@ namespace Capstone.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+            // Dependency Injection Configuration
+            // The connection string is required for each of the DAL classes.
+            // The connection string is located in our web.config file.
+            kernel.Bind<IUserDAL>().To<UserSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+            
+            
+            
+
+
+        }
     }
 }

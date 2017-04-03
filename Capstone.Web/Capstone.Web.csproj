@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -139,16 +143,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
+    <Compile Include="DAL\IUserDAL.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\IRecipeDAL.cs" />
-    <Compile Include="DAL\User.cs" />
+    <Compile Include="DAL\UserSqlDAL.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionKeys.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -162,6 +171,9 @@
     <Content Include="Views\Ingredient\SuccessfullyAddedIngredient.cshtml" />
     <Content Include="Views\Recipe\SuccessfullyAddedRecipe.cshtml" />
     <Content Include="Views\Recipe\Recipes.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Shared\_AuthenticatedNav.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
