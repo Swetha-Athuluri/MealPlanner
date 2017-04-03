@@ -141,6 +141,7 @@
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DAL\IngredientSqlDAL.cs" />
     <Compile Include="DAL\IRecipeDAL.cs" />
     <Compile Include="DAL\User.cs" />
     <Compile Include="Global.asax.cs">
