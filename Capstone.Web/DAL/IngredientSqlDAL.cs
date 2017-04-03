@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
             List<Ingredient> listOfIngredients = new List<Ingredient>();
             try
             {
-                using (SqlConnection conn = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=ingredients;User ID=te_student;Password=sqlserver1"))
+                using (SqlConnection conn = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=mealplanner;User ID=te_student;Password=sqlserver1"))
                 {
                     conn.Open();
 
