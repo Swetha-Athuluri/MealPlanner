@@ -11,7 +11,7 @@ namespace Capstone.Web.Models
         public string Description { get; set; }
         public int RecipeId { get; set; }
         public string ImageName { get; set; }
-        private string PreparationSteps { get; set; }
+        public string PreparationSteps { get; set; }
      
 
 
