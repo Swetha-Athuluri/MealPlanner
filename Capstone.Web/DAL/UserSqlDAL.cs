@@ -42,8 +42,8 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    user.Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue); SELECT CAST(SCOPE_IDENTITY() as int);",
-                        new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password });
+                    user.Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue, @saltValue); SELECT CAST(SCOPE_IDENTITY() as int);",
+                        new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password, saltValue = user.Salt });
                 }
             }
             catch (SqlException ex)

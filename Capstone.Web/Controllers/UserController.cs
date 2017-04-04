@@ -1,4 +1,5 @@
-﻿using Capstone.Web.DAL;
+﻿using Capstone.Web.Crypto;
+using Capstone.Web.DAL;
 using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -63,18 +64,37 @@ namespace Capstone.Web.Controllers
             }
 
             User user = userDal.GetUser(model.EmailAddress);
-            // user does not exist or password is wrong
-            if (user == null || user.Password != model.Password)
+            if (user != null)
             {
-                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
-                return View("Login", model);
+                HashProvider hashProvider = new HashProvider();
+                bool doesPasswordMatch = hashProvider.VerifyPasswordMatch(user.Password, model.Password, user.Salt); //user.Salt)
+
+                if (!doesPasswordMatch)
+                {
+                    ModelState.AddModelError("invalid-login", "The username or password combination is not valid");
+                    return View("Login", model);
+                }
             }
             else
             {
-                FormsAuthentication.SetAuthCookie(user.Email, true);
-                Session[SessionKeys.Username] = user.Email;
-                Session[SessionKeys.UserId] = user.Id;
+                ModelState.AddModelError("invalid-login", "The username or password combination is not valid");
+                return View("Login", model);
             }
+           
+
+            // user does not exist or password is wrong
+            //if (user == null || user.Password != model.Password)
+            //{
+            //    ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+            //    return View("Login", model);
+            //}
+
+            //else
+            //{
+            //    FormsAuthentication.SetAuthCookie(user.Email, true);
+            //    Session[SessionKeys.Username] = user.Email;
+            //    Session[SessionKeys.UserId] = user.Id;
+            //}
 
             return RedirectToAction("Index", "Home");
         }
@@ -103,12 +123,16 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                // Convert from the ViewModel to a Data Model and Savae
+                HashProvider hashProvider = new HashProvider();
+                string hashedPassword = hashProvider.HashPassword(model.Password);
+                string salt = hashProvider.SaltValue; //<-- the user doesn't have  a salt value in the DAL 
+                // Convert from the ViewModel to a Data Model and Save
                 user = new User()
                 {
                     Username = model.Username,
                     Email = model.EmailAddress,
-                    Password = model.Password
+                    Password = hashedPassword,
+                    Salt = salt
                 };
                 userDal.SaveUser(user);
 

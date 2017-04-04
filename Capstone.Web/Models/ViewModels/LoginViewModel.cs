@@ -13,5 +13,6 @@ namespace Capstone.Web.Models.ViewModels
 
         [Required(ErrorMessage = "*")]
         public string Password { get; set; }
+
     }
 }
