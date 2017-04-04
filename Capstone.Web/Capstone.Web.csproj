@@ -115,6 +115,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\background-woodgrain.jpg" />
     <Content Include="Content\img\HelloSummer.jpg" />
+    <Content Include="Content\img\shrimp-banner.jpeg" />
     <Content Include="Content\styleSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -149,7 +150,7 @@
     <Compile Include="DAL\IUserDAL.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="DAL\RecipeIngredientDAL.cs" />
-    <Compile Include="Models\ViewModels\ReciepeViewModel.cs" />
+    <Compile Include="Models\ViewModels\RecipeViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\IngredientSqlDAL.cs" />
