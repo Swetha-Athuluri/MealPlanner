@@ -5,27 +5,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Capstone.Web.Models.ViewModels;
 
 namespace Capstone.Web.Controllers
 {
     public class RecipeController : Controller
     {
-        private IRecipeDAL recipeDAL; 
+        private IRecipeDAL recipeDAL;
+        private IUserDAL userDAL; 
 
-        public RecipeController (IRecipeDAL recipeDAL)
+        public RecipeController(IRecipeDAL recipeDAL, IUserDAL userDal)
         {
-            this.recipeDAL = recipeDAL; 
+            this.recipeDAL = recipeDAL;
+            this.userDAL = userDal; 
         }
         // GET: Recipe
         public ActionResult Index()
         {
-            return View("Recipes"); 
+            return View("Recipes");
         }
         public ActionResult Detail(int recipeId)
         {
             Recipe model = recipeDAL.GetRecipe(recipeId);
 
-            return View("Detail", model); 
+            return View("Detail", model);
+        }
+
+        [HttpGet]
+        public ActionResult CreateRecipe()
+        {
+            return View("CreateRecipe"); 
+        }
+
+        [HttpPost]
+        public ActionResult CreateRecipe(RecipeViewModel model)
+        { 
+            
+            if (model != null)
+            {
+                Recipe r = new Recipe();
+                r.Name = model.RecipeName;
+                r.Description = model.RecipeDescription;
+                r.ImageName = model.RecipeName;
+                r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
+                r.UserId = (int)Session[SessionKeys.UserId];  
+
+                recipeDAL.SaveRecipe(r);
+            }
+
+
+            return View("SuccessfullyAddedRecipe", model);
+
+
         }
     }
 }

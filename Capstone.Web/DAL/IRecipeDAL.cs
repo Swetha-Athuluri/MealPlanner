@@ -11,7 +11,7 @@ namespace Capstone.Web.DAL
         List<Recipe> GetAllRecipes();
         Recipe GetRecipe(int recipeId);
         void SaveRecipe(Recipe newRecipe);
-        List<Recipe> GetUsersRecipes(User userName); 
+        List<Recipe> GetUsersRecipes(User userName);
 
     }
 }
