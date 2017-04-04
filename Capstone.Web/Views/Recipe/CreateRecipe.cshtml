@@ -1,0 +1,21 @@
+﻿@using Capstone.Web.Models
+@model Recipe
+@{
+    ViewBag.Title = "CreateRecipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h2>CreateRecipe</h2>
+    @using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
+    {
+        <div>
+            @Html.Label("RecipeName", "Recipe Name")
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div>
+            @Html.Label("Ingredient", "Ingredient")
+            @Html.TextBoxFor(m => m.Ingredients.Add(new Ingredient (n))
+        </div>
+    }
+</div>
+

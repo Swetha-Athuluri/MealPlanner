@@ -145,6 +145,8 @@
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="DAL\IUserDAL.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="DAL\RecipeIngredientDAL.cs" />
+    <Compile Include="Models\ViewModels\ReciepeViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\IngredientSqlDAL.cs" />
@@ -176,6 +178,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\_AuthenticatedNav.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
