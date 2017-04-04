@@ -25,8 +25,7 @@ namespace Capstone.Web.DAL
                         Ingredient i = new Ingredient()
                         {
                             Name = Convert.ToString(reader["ingredient_name"]),
-                            Id = int.Parse(Convert.ToString(reader["ingredient_id"])),
-                            quantity = Convert.ToString(reader["quantity"])
+                            Id = int.Parse(Convert.ToString(reader["ingredient_id"]))
                             };
                         listOfIngredients.Add(i);
                     }
