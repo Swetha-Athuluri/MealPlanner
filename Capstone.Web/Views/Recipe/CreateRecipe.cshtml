@@ -10,10 +10,10 @@
     {
         
         <div class="recipeForm">
-            <div>
+            @*<div>
                 @Html.ValidationMessage("NUMBERS ONLY")
-            </div>
-            <table class="form-group">
+            </div>*@
+            <table class="form-group" >
                 <tbody>
                     <tr>
                         <td>@Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Recipe Name" })</td>
@@ -49,10 +49,19 @@
                     
                 </tbody>
             </table>
+            <table class="form-group" id="myTable">
+                <tbody>
+
+                    <tr>
+                        <td colspan="3" placeholder="preparationsteps"> </td>
+
+                    </tr>
+                   
+
+                </tbody>
+            </table>
             @*  <button #addItem> Add Ingredient </button>*@
-            <a href="">
-                <img src="~/Content/img/AddImage.png" id ="addItem" alt="Add Ingredient" style="max-height:20px"/>
-            </a>
+            
             <div class="createButton">
                 <button class="btn-default"> Create Recipe </button>
             </div>
@@ -61,7 +70,28 @@
         </div>
     }
 </div>
+<a href="">
+    <img src="~/Content/img/AddImage.png" id="addItem" alt="Add Ingredient" onclick="addItem(), getData(e);" style="max-height:20px" />
+</a>
 
+<button onclick="myCreateFunction()">Add Prepartion Step</button>
+<button onclick="myDeleteFunction()">Delete Preparation Step</button>
+
+<script>
+function myCreateFunction() {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = "Preparation Step"
+        //"${@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })}"; 
+    
+}
+
+function myDeleteFunction() {
+    document.getElementById("myTable").deleteRow(0);
+}
+</script>
 @*<script>
                         $(document).ready(function(){
                             $("#addItem").click(function(){

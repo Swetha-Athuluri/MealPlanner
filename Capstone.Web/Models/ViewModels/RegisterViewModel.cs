@@ -15,9 +15,13 @@ namespace Capstone.Web.Models.ViewModels
         //[RegularExpression("^(?=.*[A-Z])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Password *")]
+        [Required(ErrorMessage = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Confirm Email")]
+        [Compare("EmailAddress", ErrorMessage = "Email does not match ")]
+        public string ConfirmEmailAddress { get; set; }
 
     }
 }
