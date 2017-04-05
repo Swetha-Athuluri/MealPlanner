@@ -142,6 +142,7 @@ namespace Capstone.Web.Controllers
             FormsAuthentication.SignOut();
             Session.Remove(SessionKeys.EmailAddress);
             Session.Remove(SessionKeys.UserId);
+            Session.Remove(SessionKeys.Username); 
             return RedirectToAction("Index", "Home");
         }
 
