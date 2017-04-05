@@ -1,4 +1,5 @@
 ﻿using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace Capstone.Web.DAL
     {
         List<Recipe> GetAllRecipes();
         Recipe GetRecipe(int recipeId);
-        void SaveRecipe(Recipe newRecipe, List<string> steps);
+        //void SaveRecipe(Recipe newRecipe, List<string> steps);
+        void SaveRecipe(RecipeViewModel rvm);
         List<Recipe> GetUsersRecipes(User userName);
 
     }

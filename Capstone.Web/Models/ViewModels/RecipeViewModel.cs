@@ -13,13 +13,18 @@ namespace Capstone.Web.Models.ViewModels
         public string RecipeName { get; set; }
         public string RecipeDescription { get; set; }
         public string RecipeImageName { get; set; }
+        public int RecipeId { get; set; }
 
         [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
         public int RecipeCookTimeInMinutes { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
-        public string Measurement { get; set; }
-        public string IngredientName { get; set; }
-        public string QuantityOfIngredients { get; set; }
+        // public List<Ingredient> Ingredients { get; set; }
+        public int IngredientId { get; set; }
+        public List<int> IngredientQuantity { get; set; }
+        public List<string> IngredientName { get; set; }
+        public List<string> IngredientMeasurementOptions { get; set; }
+        //public string Measurement { get; set; }
+       // public string IngredientName { get; set; }
+        //public string QuantityOfIngredients { get; set; }
         public string RecipeType { get; set; }
         public string Email { get; set; }
         public List<string> Steps { get; set; }

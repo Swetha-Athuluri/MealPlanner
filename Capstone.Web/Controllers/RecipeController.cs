@@ -34,7 +34,17 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult CreateRecipe()
         {
-            return View("CreateRecipe"); 
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
+            {
+                // model.UserId = (int)Session[SessionKeys.UserId];
+                //recipeDAL.SaveRecipe(r,m.steps);
+               return  RedirectToAction("Login","User");
+            }
+            else
+            {
+                return View("CreateRecipe");
+            }
+           // return View("CreateRecipe"); 
         }
 
         [HttpPost]
@@ -51,8 +61,9 @@ namespace Capstone.Web.Controllers
                 r.RecipeType = model.RecipeType;
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
-                r.UserId = (int)Session[SessionKeys.UserId];
-                recipeDAL.SaveRecipe(r, model.Steps);
+                model.UserId = (int)Session[SessionKeys.UserId];
+                    //recipeDAL.SaveRecipe(r,m.steps);
+                recipeDAL.SaveRecipe(model);
                 }
                 else
                 {
