@@ -113,12 +113,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-<<<<<<< HEAD
     <Content Include="Content\img\background-woodgrain.jpg" />
     <Content Include="Content\img\HelloSummer.jpg" />
+    <Content Include="Content\img\Meal Planner.png" />
     <Content Include="Content\img\shrimp-banner.jpeg" />
-=======
->>>>>>> 3cb6f8388eddd30acbd8e3454d7cc6a87c02c458
     <Content Include="Content\styleSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -153,13 +151,13 @@
     <Compile Include="DAL\IUserDAL.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="DAL\RecipeIngredientDAL.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\RecipeViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\IngredientSqlDAL.cs" />
     <Compile Include="DAL\IRecipeDAL.cs" />
     <Compile Include="DAL\UserSqlDAL.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="DAL\RecipeSqlDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -186,6 +184,7 @@
     <Content Include="Views\Shared\_AuthenticatedNav.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
+    <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

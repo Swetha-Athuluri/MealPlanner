@@ -1,4 +1,5 @@
 ﻿using Capstone.Web.DAL;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.DAL
 {

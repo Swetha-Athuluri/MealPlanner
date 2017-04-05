@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace Capstone.Web.Controllers
         [ChildActionOnly]
         public ActionResult Navigation()
         {
-            if (Session[SessionKeys.Username] == null)
+            if (Session[SessionKeys.EmailAddress] == null)
             {
                 return PartialView("_AnonymousNav");
             }
@@ -75,7 +76,7 @@ namespace Capstone.Web.Controllers
                     
                     FormsAuthentication.SetAuthCookie(user.Email, true);
                     Session[SessionKeys.Username] = user.Username;
-                    Session[SessionKeys.EmailAddress] = model.EmailAddress;
+                    Session[SessionKeys.EmailAddress] = user.Email;
                     Session[SessionKeys.UserId] = user.Id;
                     return View("Login", model);
                 }

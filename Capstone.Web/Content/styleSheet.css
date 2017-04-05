@@ -1,22 +1,42 @@
 ﻿.marginTop {
-    margin: 50px 0px 0px 15px; 
+    /*margin: 0px 0px 0px 15px;*/ 
 }
 #banner {
-<<<<<<< HEAD
     background-size: contain; 
     position: center; 
-    max-height: 240px;  
-    background-color: 	#DAE3E2;     
+   background-color: white;   
 }
-#helloSummerImg{
+/*#helloSummerImg{
     max-height: 240px; 
-}
-body{
-    background-color: 	#DAE3E2;     
+}*/
 
-=======
-    background-size: contain;
-    background-repeat: repeat; 
-    
->>>>>>> 3cb6f8388eddd30acbd8e3454d7cc6a87c02c458
+.createRecipe{
+    display: block; 
+    text-align: center; 
+    padding: 50px; 
+}
+.createButton{
+    margin-left: 40%; 
+    padding: 10px;
+}
+.recipeForm {
+    display: inline-block; 
+    margin-left: auto; 
+    margin-right: auto; 
+    text-align: left; 
+    border: 1px solid black; 
+}
+td {
+    padding: 5px; 
+}
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    text-align: center; 
+}
+
+main {
+    flex: 1;
 }

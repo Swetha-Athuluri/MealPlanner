@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Dapper; 
-
+using Dapper;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.DAL
 {

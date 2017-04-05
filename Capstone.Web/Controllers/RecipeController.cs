@@ -48,9 +48,17 @@ namespace Capstone.Web.Controllers
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeName;
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
-                r.UserId = (int)Session[SessionKeys.UserId];  
-
+                if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
+                {
+                User u = userDAL.GetUser((string)Session[SessionKeys.EmailAddress]);
+                    r.UserId = u.Id;
                 recipeDAL.SaveRecipe(r);
+                }
+                else
+                {
+                    return View("Login", "User"); 
+                }
+                
             }
 
 

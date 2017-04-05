@@ -12,27 +12,26 @@ namespace Capstone.Web.Models.ViewModels
         public int UserId { get; set; }
         public string RecipeName { get; set; }
         public string RecipeDescription { get; set; }
-
         public string RecipeImageName { get; set; }
 
+        [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
         public int RecipeCookTimeInMinutes { get; set; }
         public List<Ingredient> Ingredients { get; set; }
         public string Measurement { get; set; }
         public string IngredientName { get; set; }
         public string QuantityOfIngredients { get; set; }
-        public string Number { get; set; }
         public string RecipeType { get; set; }
         public string Email { get; set; }
 
         public static List<SelectListItem> RecipeTypes { get; } = new List<SelectListItem>()
         {
             new SelectListItem() {Text = "Vegan", Value = "Vegan" },
-             new SelectListItem() {Text = "Vegetarian", Value = "Vegetarian" },
-              new SelectListItem() {Text = "Kid Friendly", Value = "Kid Friendly" },
-               new SelectListItem() {Text = "Meat Lover", Value = "Meat Lover" },
-                new SelectListItem() {Text = "Cheesy Deliciousness", Value = "Cheesy Deliciousness" },
-                new SelectListItem() {Text = "Under 30 minutes", Value = "Under 30 Minutes" },
-               new SelectListItem() {Text = "Healthy", Value = "Healthy" },
+            new SelectListItem() {Text = "Vegetarian", Value = "Vegetarian" },
+            new SelectListItem() {Text = "Kid Friendly", Value = "Kid Friendly" },
+            new SelectListItem() {Text = "Meat Lover", Value = "Meat Lover" },
+            new SelectListItem() {Text = "Cheesy Deliciousness", Value = "Cheesy Deliciousness" },
+            new SelectListItem() {Text = "Under 30 minutes", Value = "Under 30 Minutes" },
+            new SelectListItem() {Text = "Healthy", Value = "Healthy" }
 
         };
         public static List<SelectListItem> Measurements { get; } = new List<SelectListItem>()
