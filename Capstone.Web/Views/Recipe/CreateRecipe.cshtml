@@ -1,146 +1,94 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model RecipeViewModel
+
 @{
     ViewBag.Title = "CreateRecipe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script>
-$(document).ready(function(){
-   
-    $("#btn1").click(function(){
-        $("#td1").append("<tr><td>new ingredient</td></tr>");
-    });
-    $("#btn2").click(function () {
-        $("#td1").append("<tr><td>new preparation ster</td></tr>");
-    });
-});
-</script>
-<div class="container createRecipe">
-    <h2>Create a recipe</h2>
+<style>
+    #sortable {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 60%;
+    }
+
+        #sortable li {
+            margin: 0 3px 3px 3px;
+            padding: 0.4em;
+            padding-left: 1.5em;
+            font-size: 1.4em;
+            height: 18px;
+        }
+
+            #sortable li span {
+                position: absolute;
+                margin-left: -1.3em;
+            }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+    .ui-draggable, .ui-droppable {
+        background-position: top;
+    }
+</style>
+<div class="form-group-lg">
     @using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
     {
-        
-        <div class="recipeForm">
-            @*<div>
-                @Html.ValidationMessage("NUMBERS ONLY")
-<<<<<<< HEAD
-            </div>
-            <button id="btn1">Add Ingredient</button>
-            <button id="btn2">Add Preparation Step</button>
-            <table class="form-group">
-                
-                <tbody id="td1">
-=======
-            </div>*@
-            <table class="form-group" >
-                <tbody>
->>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
-                    <tr>
-                        <td>@Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Recipe Name" })</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Recipe Description" })</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DropDownListFor(m => m.RecipeType, RecipeViewModel.RecipeTypes, "Choose a recipe type")</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Cook Time in Minutes" })
-                            @Html.ValidationMessageFor(m => m.RecipeCookTimeInMinutes)
-                        </td>
-                    </tr>
-                  
-                    @for (int i = 0; i < 3; i++)
-                    {
-                        <tr>
-                            <td>@Html.TextBoxFor(m => m.IngredientName, new { placeholder = "ingredient" })</td>
-                            <td>@Html.TextBoxFor(m => m.IngredientQuantity, new { placeholder = "Quantity" })</td>
-                            <td>@Html.DropDownListFor(m => m.IngredientMeasurementOptions, RecipeViewModel.Measurements, "Choose a measurement type")</td>
-                        </tr>
-                    }
+        @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg", @id = "lgFormGroupInput" })
+        @Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Enter Recipe Description", @class = "form-control", @row = "3" })
+        <ul id="sortable">
 
-                    @for (int i = 0; i < 3; i++)
-                    {
-                        <tr>
-                            <td colspan="3">@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })</td>
+            <li class="ui-state-default">
+                <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                @Html.TextBoxFor(m => m.IngredientName, new { placeholder = "Ingredient", @id = "frm1" })
+            </li>
+            <li id="demo">
+                jdlkjasoifdjaof
+            </li>
 
-                        </tr>
-                    }
-                
-                    
-                        
-                    
-                </tbody>
-            </table>
-<<<<<<< HEAD
-            
-            
-           
-            <a href="">
-                <img src="~/Content/img/AddImage.png" id ="addItem" alt="Add Ingredient" style="max-height:20px"/>
-            </a>
-=======
-            <table class="form-group" id="myTable">
-                <tbody>
+        </ul>
 
-                    <tr>
-                        <td colspan="3" placeholder="preparationsteps"> </td>
-
-                    </tr>
-                   
-
-                </tbody>
-            </table>
-            @*  <button #addItem> Add Ingredient </button>*@
-            
->>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
-            <div class="createButton">
-                <button class="btn-default"> Create Recipe </button>
-            </div>
-            <p>@Session[SessionKeys.EmailAddress]</p>
-            <p>@Session[SessionKeys.UserId]</p> 
-        </div>
     }
-    
+
+
+
+
+
+
+
 </div>
-<a href="">
-    <img src="~/Content/img/AddImage.png" id="addItem" alt="Add Ingredient" onclick="addItem(), getData(e);" style="max-height:20px" />
-</a>
-
-<button onclick="myCreateFunction()">Add Prepartion Step</button>
-<button onclick="myDeleteFunction()">Delete Preparation Step</button>
-
-<<<<<<< HEAD
-
-=======
 <script>
-function myCreateFunction() {
-    var table = document.getElementById("myTable");
-    var row = table.insertRow(0);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = "Preparation Step"
-        //"${@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })}"; 
-    
-}
 
-function myDeleteFunction() {
-    document.getElementById("myTable").deleteRow(0);
-}
+    $(function () {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+    });
+    $("li").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            var counter = 1;
+
+            if (counter > 1) {
+                $("#sortable").append("<li id=\"demo" + counter + "> <li>")
+                var x = document.getElementById("frm1").value;
+                document.getElementById("demo" + counter).innerHTML = x;
+                counter++;
+            }
+            else {
+                $("#sortable").append("<li id=\"demo" + counter +"> <li>")
+                var x = document.getElementById("frm1").value;
+                document.getElementById("demo" + counter).innerHTML = x;
+                counter++;
+            }
+        }
+    });
+
 </script>
->>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
-@*<script>
-                
-        //$(document).ready(function(){
-        //                        $("#addItem").click(function(){
-        //                            $("tr").append(
-        //                                <tr>
-        //                            <td><input id="IngredientName" name="IngredientName" placeholder="ingredient" type="text" value="" /></td>
-        //                            <td><input id="QuantityOfIngredients" name="QuantityOfIngredients" placeholder="Quantity" type="text" value="" /></td>
-        //                            <td><select id="Measurement" name="Measurement"><option value="">Choose a measurement type</option>
-        //                            <tr>
-        //                                );
-        //                        });
-        //                    });
-    </script>*@
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
