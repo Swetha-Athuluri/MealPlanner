@@ -13,7 +13,7 @@ namespace Capstone.Web.DAL
         Recipe GetRecipe(int recipeId);
         //void SaveRecipe(Recipe newRecipe, List<string> steps);
         void SaveRecipe(RecipeViewModel rvm);
-        List<Recipe> GetUsersRecipes(User userName);
+        List<Recipe> GetUsersRecipes(int userId);
 
     }
 }

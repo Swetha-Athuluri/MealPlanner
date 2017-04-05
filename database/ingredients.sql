@@ -1,3 +1,12 @@
+CREATE TABLE ingredient(
+ingredient_id INT IDENTITY(1,1) PRIMARY KEY,
+ingredient_name VARCHAR(255),
+quantity INT 
+);
+
+UPDATE ingredient SET quantity = 0 WHERE quantity IS NULL;
+ALTER TABLE ingredient ALTER COLUMN quantity INTEGER NOT NULL;
+
 INSERT INTO ingredient (ingredient_name) VALUES ('YOKAN');
 INSERT INTO ingredient (ingredient_name) VALUES ('YOGURT PARFAIT');
 INSERT INTO ingredient (ingredient_name) VALUES ('YOGURT');
