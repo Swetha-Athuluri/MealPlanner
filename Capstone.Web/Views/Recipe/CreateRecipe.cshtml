@@ -8,66 +8,12 @@
     <h2>Create a recipe</h2>
     @using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
     {
-        @*<div>
-                @Html.Label("RecipeName", "Recipe Name")
-                @Html.TextBoxFor(m => m.RecipeName)
-            </div>
-            <div>
-                @Html.Label("Ingredient", "Ingredient")
-                @Html.TextBoxFor(m => m.IngredientName);
-            </div>
-
-            <div>
-                @Html.Label("Quantity", "Quantity")
-                @Html.TextBoxFor(m => m.QuantityOfIngredients)
-            </div>
-            <div>
-                @Html.Label("Measurement", "Measurement")
-                @Html.DropDownListFor(m => m.Measurement, RecipeViewModel.Measurements, "Choose a measurement type")
-            </div>
-            <div>
-                @Html.Label("ImageName", "ImageName")
-                @Html.HiddenFor(m => m.RecipeName)
-            </div>
-            <div>
-                @Html.Label("CookTimeInMinutes", "CookTimeInMinutes")
-                @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes)
-            </div>*@
+        
         <div class="recipeForm">
-            @*<div class="form-group">
-                    @Html.Label("Email", "Email")
-                    @Html.TextBoxFor(m => m.Email)
-                </div>
-                <div class="form-group">
-                    @Html.Label("RecipeName", "Recipe Name")
-                    @Html.TextBoxFor(m => m.RecipeName)
-                </div>
-                <div class="form-group">
-                    @Html.Label("Description", "Description")
-                    @Html.TextAreaFor(m => m.RecipeDescription, 1)
-                </div>
-                <div class="form-group">
-                    @Html.Label("RecipeType", "RecipeType")
-                    @Html.DropDownListFor(m => m.RecipeType, RecipeViewModel.RecipeTypes, "Choose a recipe type")
-                </div>
-                <div class="form-group">
-                    @Html.HiddenFor(m => m.RecipeName)
-                    @Html.Label("Cook Time", "Cook Time")
-
-
-
-                </div>*@
             <div>
                 @Html.ValidationMessage("NUMBERS ONLY")
             </div>
             <table class="form-group">
-                @*<thead>
-                        <tr>
-                            <td>Ingredient</td>
-                            <td>Quantity</td>
-                            <td>Type of Measurement</td>
-                        </tr>
-                    </thead>*@
                 <tbody>
                     <tr>
                         <td>@Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Recipe Name" })</td>
@@ -97,18 +43,21 @@
                 </tbody>
             </table>
             @*  <button #addItem> Add Ingredient </button>*@
-
+            <a href="">
+                <img src="~/Content/img/AddImage.png" id ="addItem" alt="Add Ingredient" style="max-height:20px"/>
+            </a>
             <div class="createButton">
                 <button class="btn-default"> Create Recipe </button>
             </div>
-
+            <p>@Session[SessionKeys.EmailAddress]</p>
+            <p>@Session[SessionKeys.UserId]</p> 
         </div>
     }
 </div>
 
 @*<script>
                         $(document).ready(function(){
-                            $("#addItem").dblclick(function(){
+                            $("#addItem").click(function(){
                                 $("tr").append(
                                     <tr>
                                 <td><input id="IngredientName" name="IngredientName" placeholder="ingredient" type="text" value="" /></td>

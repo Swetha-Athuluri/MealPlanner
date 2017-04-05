@@ -53,7 +53,7 @@ namespace Capstone.Web.Models.ViewModels
 
         //public void AddIngredientToList(string input)
         //{
-        //    Ingredients.Add(new Ingredient { Name = input, Id = 0 });
+        //    Ingredients.Add(new Ingredient { Name = input, User_Id = 0 });
         //}
 
     }

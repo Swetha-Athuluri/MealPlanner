@@ -73,11 +73,8 @@ namespace Capstone.Web.Controllers
                 if (!doesPasswordMatch)
                 {
                     ModelState.AddModelError("invalid-login", "The username or password combination is not valid");
-                    
-                    FormsAuthentication.SetAuthCookie(user.Email, true);
-                    Session[SessionKeys.Username] = user.Username;
-                    Session[SessionKeys.EmailAddress] = user.Email;
-                    Session[SessionKeys.UserId] = user.Id;
+
+
                     return View("Login", model);
                 }
             }
@@ -86,7 +83,10 @@ namespace Capstone.Web.Controllers
                 ModelState.AddModelError("invalid-login", "The username or password combination is not valid");
                 return View("Login", model);
             }
-
+            FormsAuthentication.SetAuthCookie(user.Email, true);
+            Session[SessionKeys.Username] = user.Username;
+            Session[SessionKeys.EmailAddress] = user.Email;
+            Session[SessionKeys.UserId] = user.User_Id;
             return RedirectToAction("Index", "Home");
         }
 
@@ -130,7 +130,7 @@ namespace Capstone.Web.Controllers
                 FormsAuthentication.SetAuthCookie(user.Email, true);
                 Session[SessionKeys.Username] = model.Username;
                 Session[SessionKeys.EmailAddress] = model.EmailAddress;
-                Session[SessionKeys.UserId] = user.Id;
+                Session[SessionKeys.UserId] = user.User_Id;
             }
 
             return RedirectToAction("Index", "Home");

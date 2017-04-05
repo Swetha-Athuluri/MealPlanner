@@ -9,6 +9,6 @@ namespace Capstone.Web
     {
         public static string Username = "Username";
         public static string EmailAddress = "EmailAddress"; 
-        public static string UserId = "UserId";
+        public static string UserId = "User_Id";
     }
 }

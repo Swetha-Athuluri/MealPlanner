@@ -50,8 +50,7 @@ namespace Capstone.Web.Controllers
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
-                User u = userDAL.GetUser((string)Session[SessionKeys.EmailAddress]);
-                    r.UserId = u.Id;
+                r.UserId = (int)Session[SessionKeys.UserId];
                 recipeDAL.SaveRecipe(r);
                 }
                 else
