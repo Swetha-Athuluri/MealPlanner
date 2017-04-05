@@ -22,7 +22,7 @@ namespace Capstone.Web.Models.ViewModels
         public string QuantityOfIngredients { get; set; }
         public string RecipeType { get; set; }
         public string Email { get; set; }
-
+        public List<string> Steps { get; set; }
         public static List<SelectListItem> RecipeTypes { get; } = new List<SelectListItem>()
         {
             new SelectListItem() {Text = "Vegan", Value = "Vegan" },

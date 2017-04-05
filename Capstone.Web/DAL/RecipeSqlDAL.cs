@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Capstone.Web.Models;
 using System.Data.SqlClient;
-using Dapper; 
+using Dapper;
 
 
 
@@ -64,17 +64,17 @@ namespace Capstone.Web.DAL
         {
             return null;
         }
-        public void SaveRecipe(Recipe newRecipe)
+        public void SaveRecipe(Recipe newRecipe, List<string> steps)
         {
             try
             {
-                using(SqlConnection conn  = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    newRecipe.RecipeId = conn.QueryFirst<int>("Insert INTO recipe VALUES(@nameValue, @descriptionValue, @imageNameValue, @recipeTypeValue, @cookTimeInMinutes, @userIdValue); SELECT CAST (SCOPE_IDENTITY() as int);",
-                        new { nameValue = newRecipe.Name, descriptionValue = newRecipe.Description, imageNameValue = newRecipe.Name, recipeTypeValue = newRecipe.RecipeType, cookTimeInMinutes = newRecipe.CookTimeInMinutes, userIdValue = newRecipe.UserId});
+                    newRecipe.RecipeId = conn.QueryFirst<int>("Insert INTO recipe VALUES(@nameValue, @recipeTypeValue,@imageNameValue,@descriptionValue, @cookTimeInMinutes, @userIdValue); SELECT CAST (SCOPE_IDENTITY() as int);",
+                        new { nameValue = newRecipe.Name, recipeTypeValue = newRecipe.RecipeType, imageNameValue = newRecipe.Name, descriptionValue = newRecipe.Description, cookTimeInMinutes = newRecipe.CookTimeInMinutes, userIdValue = newRecipe.UserId });
 
-    }
+                }
             }
             catch (Exception ex)
             {

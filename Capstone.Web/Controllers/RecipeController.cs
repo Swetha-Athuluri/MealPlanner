@@ -48,10 +48,11 @@ namespace Capstone.Web.Controllers
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeName;
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
+                r.RecipeType = model.RecipeType;
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
                 r.UserId = (int)Session[SessionKeys.UserId];
-                recipeDAL.SaveRecipe(r);
+                recipeDAL.SaveRecipe(r, model.Steps);
                 }
                 else
                 {
