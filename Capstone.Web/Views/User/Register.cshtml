@@ -18,6 +18,9 @@
                     @Html.ValidationMessageFor(m => m.EmailAddress)
                 </div>
                 <div class="has-error">
+                    @Html.ValidationMessageFor(m => m.ConfirmEmailAddress)
+                </div>
+                <div class="has-error">
                     @Html.ValidationMessageFor(m => m.ConfirmPassword)
                 </div>
                <div class="has-error">
@@ -28,16 +31,19 @@
 
 
             <div>
-                @Html.TextBoxFor(m => m.Username, new { placeholder = "test_123", @class = "form-group" })
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Nickname", @class = "form-group" })
             </div>
             <div>
-                @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "test@mealplanner.com", @class = "form-group" })
+                @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "Enter email", @class = "form-group" })
             </div>
             <div>
-                @Html.PasswordFor(m => m.Password, new { placeholder = "password", @class = "form-group" })
+                @Html.TextBoxFor(m => m.ConfirmEmailAddress, new { placeholder = "Confirm email", @class = "form-group" })
             </div>
             <div>
-                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "type password again", @class = "form-group" })
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-group" })
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm password", @class = "form-group" })
             </div>
 
             <button>Register</button>

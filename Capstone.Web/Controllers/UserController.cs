@@ -73,8 +73,6 @@ namespace Capstone.Web.Controllers
                 if (!doesPasswordMatch)
                 {
                     ModelState.AddModelError("invalid-login", "The username or password combination is not valid");
-
-
                     return View("Login", model);
                 }
             }

@@ -4,17 +4,37 @@
     ViewBag.Title = "CreateRecipe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
+$(document).ready(function(){
+   
+    $("#btn1").click(function(){
+        $("#td1").append("<tr><td>new ingredient</td></tr>");
+    });
+    $("#btn2").click(function () {
+        $("#td1").append("<tr><td>new preparation ster</td></tr>");
+    });
+});
+</script>
 <div class="container createRecipe">
     <h2>Create a recipe</h2>
     @using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
     {
         
         <div class="recipeForm">
-            <div>
+            @*<div>
                 @Html.ValidationMessage("NUMBERS ONLY")
+<<<<<<< HEAD
             </div>
+            <button id="btn1">Add Ingredient</button>
+            <button id="btn2">Add Preparation Step</button>
             <table class="form-group">
+                
+                <tbody id="td1">
+=======
+            </div>*@
+            <table class="form-group" >
                 <tbody>
+>>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
                     <tr>
                         <td>@Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Recipe Name" })</td>
                     </tr>
@@ -25,34 +45,56 @@
                         <td>@Html.DropDownListFor(m => m.RecipeType, RecipeViewModel.RecipeTypes, "Choose a recipe type")</td>
                     </tr>
                     <tr>
-                        <td> 
-                            @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Cook Time in Minutes" }) 
+                        <td>
+                            @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Cook Time in Minutes" })
                             @Html.ValidationMessageFor(m => m.RecipeCookTimeInMinutes)
                         </td>
                     </tr>
+                  
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <tr>
+                            <td>@Html.TextBoxFor(m => m.IngredientName, new { placeholder = "ingredient" })</td>
+                            <td>@Html.TextBoxFor(m => m.IngredientQuantity, new { placeholder = "Quantity" })</td>
+                            <td>@Html.DropDownListFor(m => m.IngredientMeasurementOptions, RecipeViewModel.Measurements, "Choose a measurement type")</td>
+                        </tr>
+                    }
 
                     @for (int i = 0; i < 3; i++)
-                        {
-                            <tr>
-                                <td>@Html.TextBoxFor(m => m.IngredientName, new { placeholder = "ingredient" })</td>
-                                <td>@Html.TextBoxFor(m => m.IngredientQuantity, new { placeholder = "Quantity" })</td>
-                                <td>@Html.DropDownListFor(m => m.IngredientMeasurementOptions, RecipeViewModel.Measurements, "Choose a measurement type")</td>
-                            </tr>
-                        }
-                   @for (int i = 0; i < 3; i++)
-                   {
-                    <tr>
-                        <td colspan="3">@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })</td>
-                       
-                    </tr>
-                   }
+                    {
+                        <tr>
+                            <td colspan="3">@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })</td>
+
+                        </tr>
+                    }
+                
+                    
+                        
                     
                 </tbody>
             </table>
-            @*  <button #addItem> Add Ingredient </button>*@
+<<<<<<< HEAD
+            
+            
+           
             <a href="">
                 <img src="~/Content/img/AddImage.png" id ="addItem" alt="Add Ingredient" style="max-height:20px"/>
             </a>
+=======
+            <table class="form-group" id="myTable">
+                <tbody>
+
+                    <tr>
+                        <td colspan="3" placeholder="preparationsteps"> </td>
+
+                    </tr>
+                   
+
+                </tbody>
+            </table>
+            @*  <button #addItem> Add Ingredient </button>*@
+            
+>>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
             <div class="createButton">
                 <button class="btn-default"> Create Recipe </button>
             </div>
@@ -60,18 +102,45 @@
             <p>@Session[SessionKeys.UserId]</p> 
         </div>
     }
+    
 </div>
+<a href="">
+    <img src="~/Content/img/AddImage.png" id="addItem" alt="Add Ingredient" onclick="addItem(), getData(e);" style="max-height:20px" />
+</a>
 
+<button onclick="myCreateFunction()">Add Prepartion Step</button>
+<button onclick="myDeleteFunction()">Delete Preparation Step</button>
+
+<<<<<<< HEAD
+
+=======
+<script>
+function myCreateFunction() {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = "Preparation Step"
+        //"${@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })}"; 
+    
+}
+
+function myDeleteFunction() {
+    document.getElementById("myTable").deleteRow(0);
+}
+</script>
+>>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
 @*<script>
-                        $(document).ready(function(){
-                            $("#addItem").click(function(){
-                                $("tr").append(
-                                    <tr>
-                                <td><input id="IngredientName" name="IngredientName" placeholder="ingredient" type="text" value="" /></td>
-                                <td><input id="QuantityOfIngredients" name="QuantityOfIngredients" placeholder="Quantity" type="text" value="" /></td>
-                                <td><select id="Measurement" name="Measurement"><option value="">Choose a measurement type</option>
-                                <tr>
-                                    );
-                            });
-                        });
-</script>*@
+                
+        //$(document).ready(function(){
+        //                        $("#addItem").click(function(){
+        //                            $("tr").append(
+        //                                <tr>
+        //                            <td><input id="IngredientName" name="IngredientName" placeholder="ingredient" type="text" value="" /></td>
+        //                            <td><input id="QuantityOfIngredients" name="QuantityOfIngredients" placeholder="Quantity" type="text" value="" /></td>
+        //                            <td><select id="Measurement" name="Measurement"><option value="">Choose a measurement type</option>
+        //                            <tr>
+        //                                );
+        //                        });
+        //                    });
+    </script>*@
