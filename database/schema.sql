@@ -28,3 +28,14 @@ quantity int not null,
 
 constraint pk_recipe_ingredient primary key (recipe_id, ingredient_id)
 );
+  alter table recipe_ingredient add measurement varchar(255) not null;
+  alter table recipe_ingredient add constraint fk_rid_ritable foreign key (recipe_id) references recipe(recipe_id);
+  alter table recipe_ingredient add constraint fk_ingid_ritable foreign key (ingredient_id) references ingredient(ingredient_id);
+
+  create table preparation_steps(
+  recipe_id int ,
+  step_id INT IDENTITY (1,1) ,
+  steps varchar(255) not null,
+  constraint pk_preparation_steps primary key (step_id, recipe_id),
+  constraint fk_preparation_steps foreign key (recipe_id)references recipe(recipe_id)
+);

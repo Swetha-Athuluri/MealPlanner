@@ -95,9 +95,10 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
-        public List<Recipe> GetUsersRecipes(User userName)
+        public List<RecipeViewModel> GetUsersRecipes(int userId)
         {
             return null;
+            
         }
     }
 }
