@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 using System.Data.SqlClient;
 using Dapper;
 
@@ -64,16 +65,28 @@ namespace Capstone.Web.DAL
         {
             return null;
         }
-        public void SaveRecipe(Recipe newRecipe, List<string> steps)
+        public void SaveRecipe(RecipeViewModel rvm)
         {
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    newRecipe.RecipeId = conn.QueryFirst<int>("Insert INTO recipe VALUES(@nameValue, @recipeTypeValue,@imageNameValue,@descriptionValue, @cookTimeInMinutes, @userIdValue); SELECT CAST (SCOPE_IDENTITY() as int);",
-                        new { nameValue = newRecipe.Name, recipeTypeValue = newRecipe.RecipeType, imageNameValue = newRecipe.Name, descriptionValue = newRecipe.Description, cookTimeInMinutes = newRecipe.CookTimeInMinutes, userIdValue = newRecipe.UserId });
-
+                    rvm.RecipeId = conn.QueryFirst<int>("Insert INTO recipe VALUES(@nameValue, @recipeTypeValue,@imageNameValue,@descriptionValue, @cookTimeInMinutes, @userIdValue); SELECT CAST (SCOPE_IDENTITY() as int);",
+                        new { nameValue = rvm.RecipeName, recipeTypeValue = rvm.RecipeType, imageNameValue = rvm.RecipeName, descriptionValue = rvm.RecipeDescription, cookTimeInMinutes = rvm.RecipeCookTimeInMinutes, userIdValue = rvm.UserId});
+                    for (int i = 0; i < rvm.Steps.Count; i++)
+                    {
+                        conn.Execute("Insert Into preparation_steps VALUES(@recipeid, @step);",
+                        new { recipeid = rvm.RecipeId, step = rvm.Steps[i] });
+                    }
+                    for (int i = 0; i < rvm.IngredientQuantity.Count; i++)
+                    {
+                        rvm.IngredientId=conn.QueryFirst<int>("Insert Into ingredient VALUES(@ingredient_name);Select cast(scope_identity() as int);",
+                        new { ingredient_name=rvm.IngredientName[i] });
+                        conn.Execute("Insert into recipe_ingredient values(@recipe_id,@ingredient_id,@quantity,@measurement);",
+                            new { recipe_id = rvm.RecipeId, ingredient_id = rvm.IngredientId, quantity = rvm.IngredientQuantity[i], measurement = rvm.IngredientMeasurementOptions[i] });
+                    }
                 }
             }
             catch (Exception ex)

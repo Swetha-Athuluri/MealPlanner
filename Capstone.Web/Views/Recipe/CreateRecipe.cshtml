@@ -31,12 +31,12 @@
                         </td>
                     </tr>
 
-                    @for (int i = 0; i < 5; i++)
+                    @for (int i = 0; i < 3; i++)
                         {
                             <tr>
                                 <td>@Html.TextBoxFor(m => m.IngredientName, new { placeholder = "ingredient" })</td>
-                                <td>@Html.TextBoxFor(m => m.QuantityOfIngredients, new { placeholder = "Quantity" })</td>
-                                <td>@Html.DropDownListFor(m => m.Measurement, RecipeViewModel.Measurements, "Choose a measurement type")</td>
+                                <td>@Html.TextBoxFor(m => m.IngredientQuantity, new { placeholder = "Quantity" })</td>
+                                <td>@Html.DropDownListFor(m => m.IngredientMeasurementOptions, RecipeViewModel.Measurements, "Choose a measurement type")</td>
                             </tr>
                         }
                    @for (int i = 0; i < 3; i++)
