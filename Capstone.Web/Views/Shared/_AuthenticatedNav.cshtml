@@ -1,7 +1,16 @@
 ﻿
 @model Capstone.Web.Models.User
 
-<li>Hi @Session[SessionKeys.Username]</li>
-  
-<li class="right-aligned">@Html.ActionLink("Logout", "Logout", "User")</li>
+<ul class="nav navbar-nav">
+    <li><a href="~/Home">Home</a></li>
+    <li><a href="Recipe/CreateRecipe">Create Recipe</a></li>
+    <li><a href="#">Meal Planner</a></li>
+</ul>
+<ul class="nav navbar-nav navbar-right list-inline">
+
+    <li><a href=""> Hi @Session[SessionKeys.Username]</a></li>
+
+    <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+
+    </ul>
 

@@ -21,14 +21,20 @@ $(document).ready(function(){
     {
         
         <div class="recipeForm">
-            <div>
+            @*<div>
                 @Html.ValidationMessage("NUMBERS ONLY")
+<<<<<<< HEAD
             </div>
             <button id="btn1">Add Ingredient</button>
             <button id="btn2">Add Preparation Step</button>
             <table class="form-group">
                 
                 <tbody id="td1">
+=======
+            </div>*@
+            <table class="form-group" >
+                <tbody>
+>>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
                     <tr>
                         <td>@Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Recipe Name" })</td>
                     </tr>
@@ -67,12 +73,28 @@ $(document).ready(function(){
                     
                 </tbody>
             </table>
+<<<<<<< HEAD
             
             
            
             <a href="">
                 <img src="~/Content/img/AddImage.png" id ="addItem" alt="Add Ingredient" style="max-height:20px"/>
             </a>
+=======
+            <table class="form-group" id="myTable">
+                <tbody>
+
+                    <tr>
+                        <td colspan="3" placeholder="preparationsteps"> </td>
+
+                    </tr>
+                   
+
+                </tbody>
+            </table>
+            @*  <button #addItem> Add Ingredient </button>*@
+            
+>>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
             <div class="createButton">
                 <button class="btn-default"> Create Recipe </button>
             </div>
@@ -82,8 +104,32 @@ $(document).ready(function(){
     }
     
 </div>
+<a href="">
+    <img src="~/Content/img/AddImage.png" id="addItem" alt="Add Ingredient" onclick="addItem(), getData(e);" style="max-height:20px" />
+</a>
 
+<button onclick="myCreateFunction()">Add Prepartion Step</button>
+<button onclick="myDeleteFunction()">Delete Preparation Step</button>
 
+<<<<<<< HEAD
+
+=======
+<script>
+function myCreateFunction() {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = "Preparation Step"
+        //"${@Html.TextBoxFor(m => m.Steps, new { placeholder = "preparationsteps" })}"; 
+    
+}
+
+function myDeleteFunction() {
+    document.getElementById("myTable").deleteRow(0);
+}
+</script>
+>>>>>>> e49b1fc26c878cc64659f662fb58019a663fdba5
 @*<script>
                 
         //$(document).ready(function(){
