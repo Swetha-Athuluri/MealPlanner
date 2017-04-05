@@ -9,23 +9,39 @@
 
     @using (Html.BeginForm("Register", "User", FormMethod.Post))
     {
-        <div>
-            @Html.TextBoxFor(m=> m.Username, new { placeholder = "test_123"})
-            @Html.ValidationMessageFor(m => m.Username)
+        <div class="form-group">
+            <div>
+                <div class="has-error">
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+                <div class="has-error">
+                    @Html.ValidationMessageFor(m => m.EmailAddress)
+                </div>
+                <div class="has-error">
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
+               <div class="has-error">
+                    @Html.ValidationMessageFor(m => m.Password)
+               </div>
+              
+            </div>
+
+
+            <div>
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "test_123", @class = "form-group" })
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "test@mealplanner.com", @class = "form-group" })
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.Password, new { placeholder = "password", @class = "form-group" })
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "type password again", @class = "form-group" })
+            </div>
+
+            <button>Register</button>
+
         </div>
-        <div>
-            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "test@mealplanner.com" })
-            @Html.ValidationMessageFor(m => m.EmailAddress)
-            @Html.ValidationMessage("username-exists")
-        </div>
-        <div>
-            @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
-        <div>
-            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "type password again" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-        </div>
-        <button>Register</button>
     }
 </div>

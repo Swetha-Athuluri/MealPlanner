@@ -9,17 +9,23 @@
     <h2>Login</h2>
     @using (Html.BeginForm("Login", "User", FormMethod.Post))
     {
-        @Html.ValidationMessage("invalid-credentials")
+        <div class="container">
 
-        <div>
-            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email" })
-            @Html.ValidationMessageFor(m => m.EmailAddress)
-        </div>
-        <div>
-            @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
+        <div class="form-group field-validation-error">
+            @Html.ValidationMessageFor(m => m.EmailAddress)  
+            <br />
             @Html.ValidationMessageFor(m => m.Password)
         </div>
+        <div>
+            @Html.TextBoxFor(m => m.EmailAddress, new { placeholder = "email",  @class = "form-group field-validation-error" } )
+           
+        </div>
+        <div>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "password", @class = "form-group field-validation-error" })
+            
+        </div>
         <button>Login</button>
+        </div>
     }
 </div>
 
