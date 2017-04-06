@@ -74,8 +74,27 @@ namespace Capstone.Web.Controllers
         {
 
             if (model != null)
+
+                
             {
+                
+                List<string> ingredients = model.IngredientName; 
+
                 Recipe r = new Recipe();
+                
+                foreach (var item in model.IngredientName)
+                {
+                    //RecipeIngredient ri = new RecipeIngredient(){}; 
+
+                    var recipeIngredient = item.Split(',');
+                    //ri.ingredientName = recipeIngredient[0];
+                    //ri.ingredientQuantity = recipeIngredient[1];
+                    //ri.ingredientMeasurement = recipeIngredient[2];
+
+
+                    //r.RecipeIngredients.Add(ri); 
+                } 
+
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeName;
