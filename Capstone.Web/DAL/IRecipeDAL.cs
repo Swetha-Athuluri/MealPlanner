@@ -10,10 +10,10 @@ namespace Capstone.Web.DAL
     public interface IRecipeDAL
     {
         List<Recipe> GetAllRecipes();
-        Recipe GetRecipe(int recipeId);
+        Recipe GetRecipe(int recipeId,int userId);
         //void SaveRecipe(Recipe newRecipe, List<string> steps);
         void SaveRecipe(RecipeViewModel rvm);
-        List<RecipeViewModel> GetUsersRecipes(int userId);
+        List<Recipe> GetUsersRecipes(int userId);
 
     }
 }

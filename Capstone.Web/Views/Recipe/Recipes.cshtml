@@ -4,7 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Capstone.Web.Models
+@model  List<Recipe>
+
 <h2>Recipes</h2>
 
 <p>this is the page with all of the recipes</p>
 
+<div>
+    @{
+        foreach (Recipe recipe in Model)
+        {
+            <div>
+                <p> @recipe.Name</p>
+                <p> @recipe.RecipeId </p>
+                <p> @recipe.ImageName</p> 
+            </div>
+        }
+
+    }
+</div>

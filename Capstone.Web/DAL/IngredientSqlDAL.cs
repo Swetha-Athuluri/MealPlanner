@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Capstone.Web.DAL
 {
-    public class IngredientSqlDAL
+    public class IngredientSqlDAL : IIngredientDAL
     {
         public List<Ingredient> GetAllIngredients()
         {
@@ -37,6 +37,11 @@ namespace Capstone.Web.DAL
                 throw;
             }
             return listOfIngredients;
+        }
+
+        public string GetIngredientName(int ingredientId)
+        {
+            return null;
         }
     }
 }
