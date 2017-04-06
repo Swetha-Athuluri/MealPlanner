@@ -17,17 +17,27 @@ namespace Capstone.Web.Models.ViewModels
 
         [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
         public int RecipeCookTimeInMinutes { get; set; }
+
         // public List<Ingredient> Ingredients { get; set; }
-        public int IngredientId { get; set; }
+        //public int IngredientId { get; set; }
+
+        public List<int> IngredientId { get; set; }
         public List<int> IngredientQuantity { get; set; }
         public List<string> IngredientName { get; set; }
         public List<string> IngredientMeasurementOptions { get; set; }
+<<<<<<< HEAD
         public string MeasurementType { get; set; }
+=======
+
+        //public string Measurement { get; set; }
+>>>>>>> c8a1f90f7dd116304ad69600cf7142d211946aef
        // public string IngredientName { get; set; }
         //public string QuantityOfIngredients { get; set; }
+
         public string RecipeType { get; set; }
         public string Email { get; set; }
         public List<string> Steps { get; set; }
+
         public static List<SelectListItem> RecipeTypes { get; } = new List<SelectListItem>()
         {
             new SelectListItem() {Text = "Vegan", Value = "Vegan" },
@@ -39,6 +49,7 @@ namespace Capstone.Web.Models.ViewModels
             new SelectListItem() {Text = "Healthy", Value = "Healthy" }
 
         };
+
         public static List<SelectListItem> Measurements { get; } = new List<SelectListItem>()
         {
             new SelectListItem() {Text = "bunch(es)", Value = "bunch(es)" },
