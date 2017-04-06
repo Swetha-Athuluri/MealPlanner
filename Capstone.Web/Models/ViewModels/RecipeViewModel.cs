@@ -25,12 +25,12 @@ namespace Capstone.Web.Models.ViewModels
         public List<int> IngredientQuantity { get; set; }
         public List<string> IngredientName { get; set; }
         public List<string> IngredientMeasurementOptions { get; set; }
-<<<<<<< HEAD
+
         public string MeasurementType { get; set; }
-=======
+
 
         //public string Measurement { get; set; }
->>>>>>> c8a1f90f7dd116304ad69600cf7142d211946aef
+
        // public string IngredientName { get; set; }
         //public string QuantityOfIngredients { get; set; }
 
