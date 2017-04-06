@@ -18,17 +18,15 @@ namespace Capstone.Web.Models.ViewModels
         [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
         public int RecipeCookTimeInMinutes { get; set; }
 
-<<<<<<< HEAD
         
         public string IngredientName { get; set; }
        
-=======
         // public List<Ingredient> Ingredients { get; set; }
         //public int IngredientId { get; set; }
 
         public List<int> IngredientId { get; set; }
         public List<int> IngredientQuantity { get; set; }
-        public List<string> IngredientName { get; set; }
+        //public List<string> IngredientName { get; set; }
         public List<string> IngredientMeasurementOptions { get; set; }
 
         public string MeasurementType { get; set; }
@@ -38,7 +36,6 @@ namespace Capstone.Web.Models.ViewModels
 
        // public string IngredientName { get; set; }
         //public string QuantityOfIngredients { get; set; }
->>>>>>> 4cf78fab7c7b0e1b60de2ae5076a712cbe51e107
 
         public List<RecipeIngredient> RecipeIngredient { get; set; }
        

@@ -78,7 +78,7 @@ namespace Capstone.Web.Controllers
                 
             {
                 
-                List<string> ingredients = model.IngredientName; 
+                //List<string> ingredients = model.IngredientName; 
 
                 Recipe r = new Recipe();
                 
@@ -86,7 +86,7 @@ namespace Capstone.Web.Controllers
                 {
                     //RecipeIngredient ri = new RecipeIngredient(){}; 
 
-                    var recipeIngredient = item.Split(',');
+                    //var recipeIngredient = item.Split(',');
                     //ri.ingredientName = recipeIngredient[0];
                     //ri.ingredientQuantity = recipeIngredient[1];
                     //ri.ingredientMeasurement = recipeIngredient[2];
