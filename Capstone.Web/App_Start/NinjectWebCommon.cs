@@ -67,11 +67,10 @@ namespace Capstone.Web.App_Start
             // The connection string is required for each of the DAL classes.
             // The connection string is located in our web.config file.
             kernel.Bind<IUserDAL>().To<UserSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
-            kernel.Bind<IRecipeDAL>().To<RecipeSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-            
-            
-            
-
+            kernel.Bind<IRecipeDAL>().To<RecipeSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
+            kernel.Bind<IIngredientDAL>().To<IngredientSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
+            kernel.Bind<IRecipeIngredientDAL>().To<RecipeIngredientSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
+            kernel.Bind<IPreparationStepsDAL>().To<PreparationStepsSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
 
         }
     }

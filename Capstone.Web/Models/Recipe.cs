@@ -14,7 +14,6 @@ namespace Capstone.Web.Models
         public string ImageName { get; set; }
         public string RecipeType { get; set; }
         public int CookTimeInMinutes { get; set; }
-        public List <Ingredient> Ingredients { get; set; }   
     }
 }
         

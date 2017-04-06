@@ -13,11 +13,17 @@ namespace Capstone.Web.Controllers
     {
         private IRecipeDAL recipeDAL;
         private IUserDAL userDAL;
+        private IRecipeIngredientDAL recipeIngredientDAL;
+        private IIngredientDAL ingredientDAL;
+        private IPreparationStepsDAL preparationStepsDAL;
 
-        public RecipeController(IRecipeDAL recipeDAL, IUserDAL userDal)
+        public RecipeController(IRecipeDAL recipeDAL, IUserDAL userDal, IRecipeIngredientDAL recipeIngredientDAL, IIngredientDAL ingredientDAL, IPreparationStepsDAL preparationStepsDAL)
         {
             this.recipeDAL = recipeDAL;
             this.userDAL = userDal;
+            this.recipeIngredientDAL = recipeIngredientDAL;
+            this.ingredientDAL = ingredientDAL;
+            this.preparationStepsDAL = preparationStepsDAL;
         }
         // GET: Recipe
         public ActionResult Index()
@@ -26,9 +32,25 @@ namespace Capstone.Web.Controllers
         }
         public ActionResult Detail(int recipeId)
         {
-            Recipe model = recipeDAL.GetRecipe(recipeId);
+            if (Session[SessionKeys.UserId] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
 
-            return View("Detail", model);
+          //  return View("Recipes", recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
+            Recipe r = recipeDAL.GetRecipe(recipeId, (int)Session[SessionKeys.UserId]);
+            List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipeId);
+            List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipeId);
+
+            RecipeViewModel rvm = new RecipeViewModel();
+            rvm.RecipeName = r.Name;
+            rvm.RecipeId = r.RecipeId;
+            rvm.RecipeCookTimeInMinutes = r.CookTimeInMinutes;
+            
+            rvm.RecipeIngredient = recipeIngredients;
+            rvm.Steps = steps;
+
+            return View("Detail", rvm);
         }
 
         [HttpGet]
@@ -91,22 +113,20 @@ namespace Capstone.Web.Controllers
 
             }
 
-
             return View("SuccessfullyAddedRecipe", model);
-
 
         }
 
         // GET: All User Recipes
-        public ActionResult UserRecipes()
+        public ActionResult Recipes()
         {
-            int userId = (int)Session[SessionKeys.UserId];
-            if(userId == null)
+           // int userId = (int)Session[SessionKeys.UserId];
+            if(Session[SessionKeys.UserId] == null)
             {
                 return RedirectToAction("Login", "User");
             }
 
-            return View("UserRecipes",recipeDAL.GetUsersRecipes(userId));
+            return View("Recipes",recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
         }
     }
 }
