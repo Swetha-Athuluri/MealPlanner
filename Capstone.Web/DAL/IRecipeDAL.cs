@@ -14,6 +14,7 @@ namespace Capstone.Web.DAL
         void SaveRecipe(Recipe recipe);
         List<Recipe> GetUsersRecipes(int userId);
         bool ModifyRecipe(Recipe recipe);
+        List<Recipe> GetTop10RecentlyAddedRecipes();
 
     }
 }
