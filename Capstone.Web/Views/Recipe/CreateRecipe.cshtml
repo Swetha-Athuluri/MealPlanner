@@ -37,10 +37,9 @@
             @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg", @id = "lgFormGroupInput" })
             @Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Enter Recipe Description", @class = "form-control", @row = "3" })
             @Html.DropDownList("recipeType", RecipeViewModel.RecipeTypes, new { placeholder = "Please select the Recipe Type", @class = "form-group" })
-            @Html.Hidden("RecipeTypes", "recipeType");
-            @Html.TextBox("cookTime", null, new { placeholder = "Cook Time", @class = "form-group", @id = "RecipeCookTimeInMinutes"})
-            <input type="hidden" name="RecipeCookTimeInMinutes" value="cookTime" />
-            
+            @Html.Hidden("RecipeTypes", "recipeType")
+            @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Total cook time", @class = "form-group", @id = "RecipeCookTimeInMinutes"})
+           
             <div class="container-fluid">
             <ul id="sortable">
                 <li class="ui-state-default ingredientList recipeIngredient">
@@ -88,7 +87,6 @@
 
     $(function () {
         $("#sortable").sortable();
-        //$("#ingred").disableSelection();
     });
     $("#nextStep").on('keyup', function (e) {
         if (e.keyCode == 13) {
@@ -146,41 +144,9 @@
         }
     });
 
-
-
-
-
-    //var input = document.createElement('input');
-    //input.type = "hidden";
-    //var preparationStep = "Steps[" + stepCount + "]";
-    //input.name = preparationStep;
-    //input.value = [prepStep];
-    //$("#steps").append(input);
-    //stepCount++;
-
-
-    //cloned.find("h2").html(prepStep);
-    //$("#steps").val("");
-    //cloned.insertAfter(current);
-
-
-    //$("li").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-
-    //    }
-    //});
 </script>
 
-@*<script>
-        $(function () {
-            $("#sortable").sortable();
-            $("#sortable").disableSelection();
-        });
 
-        });
-        //make a hidden input value and then put them into an order
-    </script>*@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 

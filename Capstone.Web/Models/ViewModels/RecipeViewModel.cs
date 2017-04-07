@@ -27,7 +27,7 @@ namespace Capstone.Web.Models.ViewModels
 
         public List<int> IngredientId { get; set; }
         public List<int> IngredientQuantity { get; set; }
-        //public List<string> IngredientName { get; set; }
+        //public List<string> Ingredient_Name { get; set; }
         public List<string> IngredientMeasurementOptions { get; set; }
 
         public string MeasurementType { get; set; }
@@ -35,7 +35,7 @@ namespace Capstone.Web.Models.ViewModels
 
         //public string Measurement { get; set; }
 
-       // public string IngredientName { get; set; }
+       // public string Ingredient_Name { get; set; }
         //public string QuantityOfIngredients { get; set; }
 
         public List<RecipeIngredient> RecipeIngredient { get; set; }

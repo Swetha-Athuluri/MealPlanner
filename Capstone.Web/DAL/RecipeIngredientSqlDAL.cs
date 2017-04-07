@@ -34,7 +34,7 @@ namespace Capstone.Web.DAL
                     while (reader.Read())
                     {
                         RecipeIngredient r = new RecipeIngredient();
-                        r.IngredientName = Convert.ToString(reader["ingredient_name"]);
+                        r.Ingredient_Name = Convert.ToString(reader["ingredient_name"]);
                         r.Measurement = Convert.ToString(reader["measurement"]);
                         r.Quantity = Convert.ToInt32(reader["quantity"]);
 
@@ -51,7 +51,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public void SaveRecipeIngredients(List<RecipeIngredient> recipeIngredients)
+        public void SaveRecipeIngredients(List<RecipeIngredient> recipeIngredients, int recipe_id)
         {
             try
             {
@@ -61,8 +61,8 @@ namespace Capstone.Web.DAL
                     foreach (var recipeIngredient in recipeIngredients)
                     {
                         
-                     recipeIngredient.Recipe_id = conn.QueryFirst<int>("INSERT INTO recipe_ingredient VALUES (@nameValue, @measurementValue, @quantityValue); SELECT CAST(SCOPE_IDENTITY() as int);",
-                        new { nameValue = recipeIngredient.IngredientName, measurementValue = recipeIngredient.Measurement, quantityValue = recipeIngredient.Quantity });
+                     conn.Execute("INSERT INTO recipe_ingredient VALUES (@recipeIdValue, @nameValue,  @quantityValue, @measurementValue);",
+                        new { recipeIdValue = recipe_id, nameValue = recipeIngredient.Ingredient_Name,  quantityValue = recipeIngredient.Quantity, measurementValue = recipeIngredient.Measurement });
 
                     }
                 }
