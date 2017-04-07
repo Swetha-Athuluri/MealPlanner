@@ -83,15 +83,17 @@ namespace Capstone.Web.Controllers
                 foreach (var item in model.QuantityMeasurementIngredient)
                 {
                     var QMIP = item.Split(',');
-
-                    RecipeIngredient recipeIngredient = new RecipeIngredient()
+                    if (QMIP[0] != "")
                     {
-                        Quantity = Convert.ToInt32(QMIP[0]),
-                        Measurement = QMIP[1],
-                        IngredientName = QMIP[2],
-                    };
-                    recipeIngredients.Add(recipeIngredient);
+                        RecipeIngredient recipeIngredient = new RecipeIngredient()
+                        {
+                            Quantity = Convert.ToInt32(QMIP[0]),
+                            Measurement = QMIP[1],
+                            IngredientName = QMIP[2],
+                        };
 
+                        recipeIngredients.Add(recipeIngredient);
+                    }
                 }
                 foreach (var step in model.PrepSteps)
                 {
@@ -115,7 +117,7 @@ namespace Capstone.Web.Controllers
 
                 }
             }
-            return RedirectToAction("Login", "User"); 
+            return RedirectToAction("Login", "User");
         }
 
         // GET: All User Recipes
