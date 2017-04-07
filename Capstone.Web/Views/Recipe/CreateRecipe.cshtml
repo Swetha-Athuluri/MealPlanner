@@ -12,6 +12,7 @@
         padding: 0;
         width: 60%;
     }
+
         #sortable li, #ingred li {
             margin: 0 3px 3px 3px;
             padding: 0.4em;
@@ -19,10 +20,12 @@
             font-size: 1.4em;
             height: 18px;
         }
+
             #sortable li span, #ingred li span {
                 position: absolute;
                 margin-left: -1.3em;
             }
+
     .ui-draggable, .ui-droppable {
         background-position: top;
     }
@@ -30,50 +33,51 @@
 <div class="form-group-lg">
     @using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
     {
-        <div>
-            @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg", @id = "lgFormGroupInput" })
-            @Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Enter Recipe Description", @class = "form-control", @row = "3" })
-            <br />
-            <ul id="ingred">
-                <li class="ui-state-default">
-                    <div style="display: inline-flex">
-                        @Html.TextBox("nextQuantity", null, new { placeholder = "Quantity", @class = "form-group", @id = "nextQuantity" })
-                        @Html.DropDownList("measurementType", RecipeViewModel.Measurements, new { placeholder = "Please Select Measurement", @class = "form-group", @id = "measurementType" })
-                        @Html.TextBox("nextIngredient", null, new { placeholder = "Ingredient", @class = "form-group", @id = "nextIngredient" })
-                        @*@Html.DropDownListFor(m => m.RecipeType, RecipeViewModel.RecipeTypes, new { placeholder = "Please select the Recipe Type", @class = "form-group" })
-                            @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Cook Time", @class = "form-group" })*@
-                    </div>
-                </li>
-            </ul>
-            <br />
-            <div class="container">
-                <ul id="sortable" class="form-group-lg">
-                    <li class="ui-state-default ingredientList recipeIngredient">
-                        <h3 class="clone">
-                            Ingredients
-                        </h3>
-                    </li>
-                </ul>
-            </div>
-            <div class="container-fluid">
-                <ul>
-                    <li>
-                        @Html.TextBox("nextStep", null, new { placeholder = "Please enter preparation steps (press ENTER after each step)", @class = "form-control form-control-lg", @id = "nextStep" })
-                    </li>
-                </ul>
-            </div>
+    <div>
+        @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg", @id = "lgFormGroupInput" })
+        @Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Enter Recipe Description", @class = "form-control", @row = "3" })
+        @Html.DropDownList("recipeType", RecipeViewModel.RecipeTypes, new { placeholder = "Please select the Recipe Type", @class = "form-group" })
+        @Html.Hidden("RecipeTypes", "recipeType");
+        @Html.TextBox("cookTime", null, new { placeholder = "Cook Time", @class = "form-group", @id = "cookTime" })
+        @Html.Hidden("RecipeCookTimeInMinutes", "cookTime");<br />
+        <ul id="ingred">
+            <li class="ui-state-default">
+                <div style="display: inline-flex">
+                    @Html.TextBox("nextQuantity", null, new { placeholder = "Quantity", @class = "form-group", @id = "nextQuantity" })
+                    @Html.DropDownList("measurementType", RecipeViewModel.Measurements, new { placeholder = "Please Select Measurement", @class = "form-group", @id = "measurementType" })
+                    @Html.TextBox("nextIngredient", null, new { placeholder = "Ingredient", @class = "form-group", @id = "nextIngredient" })
+
+                </div>
+            </li>
+        </ul>
+        <div class="container">
             <ul id="sortable" class="form-group-lg">
-                <li class="ui-state-default preparationSteps steps">
-                    <h2>Preparation Steps</h2>
+                <li class="ui-state-default ingredientList recipeIngredient">
+                    <h3 class="clone">
+                        Ingredients
+                    </h3>
                 </li>
             </ul>
-            <input type="submit" value="Create" class="createButton btn-default" autofocus>
         </div>
+        <div class="container-fluid">
+            <ul>
+                <li>
+                    @Html.TextBox("nextStep", null, new { placeholder = "Please enter preparation steps (press ENTER after each step)", @class = "form-control form-control-lg", @id = "nextStep" })
+                </li>
+            </ul>
+        </div>
+        <ul id="sortable" class="form-group-lg">
+            <li class="ui-state-default preparationSteps steps">
+                <h2>Preparation Steps</h2>
+            </li>
+        </ul>
+        <input type="submit" value="Create" class="createButton btn-default" autofocus>
+    </div>
     }
 </div>
 <script>
     var ingredientCount = 0;
-    var stepCount = 0;
+    var stepNumber = 0;
 
     $(document).ready(function () {
         $(window).keydown(function (event) {
@@ -88,49 +92,63 @@
         $("#sortable").sortable();
         //$("#ingred").disableSelection();
     });
-    $("li").on('keyup', function (e) {
+    $("#nextStep").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            
-                var current = $(".ingredientList").last();
-                var cloned = current.clone();
-                var ingredient = $("#nextIngredient").val();
-                var measurement = $("#measurementType").val();
-                var quantity = $("#nextQuantity").val();
 
-                var input = document.createElement('input');
-                input.type = "hidden";
-                var ingredientName = "ingredientName[" + ingredientCount + "]";
-                input.name = ingredientName;
-                input.value = [ingredient, measurement, quantity];
-                $("#steps").append(input);
-                ingredientCount++;
+            var lastPrepStep = $(".preparationSteps").last();
+            var clonedPrepStep = lastPrepStep.clone();
+            var insertedValue = $("#nextStep").val();
+            var input = document.createElement('input');
+            var prepStepName = "PrepSteps["+stepNumber+"]";
 
-                cloned.find("h3").html(quantity + " " + measurement + " " + ingredient);
-                $("#nextIngredient").val("");
-                $("#measurement").val("");
-                $("#quantity").val("");
-                cloned.insertAfter(current);
-            
-            
-                //var current = $(".preparationSteps").last();
-                //var cloned = current.clone();
-                //var prepStep = $("#nextStep").val();
-
-                //var input = document.createElement('input');
-                //input.type = "hidden";
-                //var preparationStep = "Steps[" + stepCount + "]";
-                //input.name = preparationStep;
-                //input.value = [prepStep];
-                //$("#steps").append(input);
-                //stepCount++;
-
-
-                //cloned.find("h2").html(prepStep);
-                //$("#steps").val("");
-                //cloned.insertAfter(current);
-
+            input.type = "hidden";
+            input.name = prepStepName;
+            input.value = [insertedValue];
+            $("#steps").append(input);
+            stepNumber++;
+            clonedPrepStep.find("h2").html(insertedValue)
+            $("#nextStep").val("");
+            clonedPrepStep.insertAfter(lastPrepStep);
         }
     });
+
+    //var currentIngredient = $(".ingredientList").last();
+    //var clonedIngredient = currentIngredient.clone();
+    //var ingredient = $("#nextIngredient").val();
+    //var measurement = $("#measurementType").val();
+    //var quantity = $("#nextQuantity").val();
+
+    //var input = document.createElement('input');
+    //input.type = "hidden";
+    //var ingredientName = "QuantityMeasurementIngredientPrepStep[" + ingredientCount + "]";
+    //input.name = ingredientName;
+    //input.value = [quantity, measurement, ingredient, prepStep];
+    //$("#steps").append(input);
+    //ingredientCount++;
+
+    //clonedIngredient.find("h3").html(quantity + " " + measurement + " of " + ingredient);
+    //$("#nextIngredient").val("");
+    //$("#measurementType").val("");
+    //$("#nextQuantity").val("");
+    //clonedIngredient.insertAfter(currentIngredient);
+
+
+
+
+
+    //var input = document.createElement('input');
+    //input.type = "hidden";
+    //var preparationStep = "Steps[" + stepCount + "]";
+    //input.name = preparationStep;
+    //input.value = [prepStep];
+    //$("#steps").append(input);
+    //stepCount++;
+
+
+    //cloned.find("h2").html(prepStep);
+    //$("#steps").val("");
+    //cloned.insertAfter(current);
+
 
     //$("li").on('keyup', function (e) {
     //    if (e.keyCode == 13) {

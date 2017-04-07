@@ -7,6 +7,7 @@ namespace Capstone.Web.Models
 {
     public class RecipeIngredient
     {
+        public int Recipe_id { get; set; }
         public string IngredientName { get; set; }
         public int Quantity { get; set; }
         public string Measurement { get; set; }

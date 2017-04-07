@@ -37,7 +37,7 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "User");
             }
 
-          //  return View("Recipes", recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
+            //  return View("Recipes", recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
             Recipe r = recipeDAL.GetRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipeId);
             List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipeId);
@@ -46,7 +46,7 @@ namespace Capstone.Web.Controllers
             rvm.RecipeName = r.Name;
             rvm.RecipeId = r.RecipeId;
             rvm.RecipeCookTimeInMinutes = r.CookTimeInMinutes;
-            
+
             rvm.RecipeIngredient = recipeIngredients;
             rvm.Steps = steps;
 
@@ -73,60 +73,61 @@ namespace Capstone.Web.Controllers
         public ActionResult CreateRecipe(RecipeViewModel model)
         {
 
-            if (model != null)
-
-                
+            if (model != null && model.QuantityMeasurementIngredient != null && model.PrepSteps != null)
             {
-                
-                //List<string> ingredients = model.IngredientName; 
+
+                List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
+                PreparationSteps pS = new PreparationSteps();
+                List<string> prepSteps = new List<string>();
+
+                foreach (var item in model.QuantityMeasurementIngredient)
+                {
+                    var QMIP = item.Split(',');
+
+                    RecipeIngredient recipeIngredient = new RecipeIngredient()
+                    {
+                        Quantity = Convert.ToInt32(QMIP[0]),
+                        Measurement = QMIP[1],
+                        IngredientName = QMIP[2],
+                    };
+                    recipeIngredients.Add(recipeIngredient);
+
+                }
+                foreach (var step in model.PrepSteps)
+                {
+                    prepSteps.Add(step);
+                }
 
                 Recipe r = new Recipe();
-                
-                foreach (var item in model.IngredientName)
-                {
-                    //RecipeIngredient ri = new RecipeIngredient(){}; 
-
-                    //var recipeIngredient = item.Split(',');
-                    //ri.ingredientName = recipeIngredient[0];
-                    //ri.ingredientQuantity = recipeIngredient[1];
-                    //ri.ingredientMeasurement = recipeIngredient[2];
-
-
-                    //r.RecipeIngredients.Add(ri); 
-                } 
-
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeName;
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
                 r.RecipeType = model.RecipeType;
+
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
                     model.UserId = (int)Session[SessionKeys.UserId];
-                    //recipeDAL.SaveRecipe(r,m.steps);
                     recipeDAL.SaveRecipe(model);
-                }
-                else
-                {
-                    return View("Login", "User");
-                }
+                    recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients);
+                    preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
+                    return View("SuccessfullyAddedRecipe", model);
 
+                }
             }
-
-            return View("SuccessfullyAddedRecipe", model);
-
+            return RedirectToAction("Login", "User"); 
         }
 
         // GET: All User Recipes
         public ActionResult Recipes()
         {
-           // int userId = (int)Session[SessionKeys.UserId];
-            if(Session[SessionKeys.UserId] == null)
+            // int userId = (int)Session[SessionKeys.UserId];
+            if (Session[SessionKeys.UserId] == null)
             {
                 return RedirectToAction("Login", "User");
             }
 
-            return View("Recipes",recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
+            return View("Recipes", recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Web;
 using Capstone.Web.Models;
 using System.Data.SqlClient;
 using Capstone.Web.Models.ViewModels;
+using Dapper; 
 
 namespace Capstone.Web.DAL
 {
@@ -43,6 +44,28 @@ namespace Capstone.Web.DAL
 
                 }
                 return recipeIngredient;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public void SaveRecipeIngredients(List<RecipeIngredient> recipeIngredients)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    foreach (var recipeIngredient in recipeIngredients)
+                    {
+                        
+                     recipeIngredient.Recipe_id = conn.QueryFirst<int>("INSERT INTO recipe_ingredient VALUES (@nameValue, @measurementValue, @quantityValue); SELECT CAST(SCOPE_IDENTITY() as int);",
+                        new { nameValue = recipeIngredient.IngredientName, measurementValue = recipeIngredient.Measurement, quantityValue = recipeIngredient.Quantity });
+
+                    }
+                }
             }
             catch (SqlException ex)
             {

@@ -14,8 +14,9 @@ namespace Capstone.Web.Models.ViewModels
         public string RecipeDescription { get; set; }
         public string RecipeImageName { get; set; }
         public int RecipeId { get; set; }
-
-        [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
+        public List <string> QuantityMeasurementIngredient { get; set; }
+        public List <string> PrepSteps { get; set; }
+        //[RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
         public int RecipeCookTimeInMinutes { get; set; }
 
         
