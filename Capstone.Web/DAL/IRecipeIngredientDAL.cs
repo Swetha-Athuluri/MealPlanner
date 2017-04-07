@@ -11,7 +11,8 @@ namespace Capstone.Web.DAL
    public interface IRecipeIngredientDAL
     {
         List<RecipeIngredient> GetRecipeIngredients(int recipeId);
-        void SaveRecipeIngredients(List<RecipeIngredient> recipeIngredients, int recipe_id); 
+        void SaveRecipeIngredients(List<RecipeIngredient> recipeIngredients, int recipe_id);
+        bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount);
        
     }
 }

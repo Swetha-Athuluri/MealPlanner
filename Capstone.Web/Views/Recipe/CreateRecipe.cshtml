@@ -120,11 +120,6 @@
             var clonedMeasurement = currentMeasurement.clone();
             var clonedQuantity = currentQuantity.clone();
             
-            
-            //var quantityMeasurementIngredient = $("#quantityMeasurementIngredient").val();
-            //var lastQuantityMeasurementIngredient = $("#quantityMeasurementIngredient").last();
-            //var currentQuantityMeasurementIngredient = lastQuantityMeasurementIngredient.clone();
-
             var input = document.createElement('input');
             input.type = "hidden";
             var quantityMeasurementIngredient = "QuantityMeasurementIngredient[" + ingredientCount + "]";
@@ -138,7 +133,7 @@
             $("#nextIngredient").val("");
             $("#measurementType").val("");
             $("#nextQuantity").val("");
-            clonedQuantity.insertAfter(quantity);
+            clonedQuantity.insertAfter(currentQuantity);
             clonedMeasurement.insertAfter(clonedQuantity);
             clonedIngredient.insertAfter(clonedMeasurement); 
         }

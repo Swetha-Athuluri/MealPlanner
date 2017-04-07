@@ -41,4 +41,12 @@ body {
 main {
     flex: 1;
 }
+.recipeTile{
+    display:inline-flex;
+     width:500px;
+     margin-left:3.3%;
+    margin-right:3.3%;
+}
+.recipeList{
 
+}
