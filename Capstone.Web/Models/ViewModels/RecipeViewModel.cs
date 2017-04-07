@@ -16,10 +16,11 @@ namespace Capstone.Web.Models.ViewModels
         public int RecipeId { get; set; }
         public List <string> QuantityMeasurementIngredient { get; set; }
         public List <string> PrepSteps { get; set; }
-        //[RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
+
+        [Required]
         public int RecipeCookTimeInMinutes { get; set; }
 
-        
+        [Required]
         public string IngredientName { get; set; }
        
         // public List<Ingredient> Ingredients { get; set; }
@@ -43,7 +44,7 @@ namespace Capstone.Web.Models.ViewModels
         public string RecipeType { get; set; }
         public string Email { get; set; }
         public List<PreparationSteps> Steps { get; set; }
-
+        public MultiSelectList RecipeSelectionTypes { get; set; }
         public static List<SelectListItem> RecipeTypes { get; } = new List<SelectListItem>()
         {
             new SelectListItem() {Text = "Vegan", Value = "Vegan" },
