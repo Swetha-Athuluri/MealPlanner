@@ -1,13 +1,13 @@
-﻿
+﻿@using Capstone.Web.Models
+@model List<Recipe>
+
 @{
-    ViewBag.Title = "Recipes";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using Capstone.Web.Models
-@model  List<Recipe>
 
-<h2>Recipes</h2>
+<h1>Recipes</h1>
 
 <p>this is the page with all of the recipes</p>
 
@@ -15,12 +15,20 @@
     @{
         foreach (Recipe recipe in Model)
         {
-            <div>
-                <p> @recipe.Name</p>
-                <p> @recipe.RecipeId </p>
-                <p> @recipe.ImageName</p> 
-            </div>
+            
+                <div class="row recipeTile">
+                    <div class="col container-fluid recipeList">
+                        <a href="~/Views/Recipe/Detail?user_id=@recipe.UserId"><img src="~/Content/img/@(recipe.ImageName).jpg" class="img-thumbnail" /> </a>
+                        <a href="~/Views/Recipe/Detail?user_id=@recipe.UserId"><h2 class="recipeText">@recipe.Name</h2></a>
+                        <p class="parkText">@recipe.Description</p>  
+                    </div>
+                    
+                </div>
+            
         }
-
     }
 </div>
+
+
+
+

@@ -29,7 +29,13 @@ namespace Capstone.Web.Controllers
         // GET: Recipe
         public ActionResult Index()
         {
-            return View("Recipes");
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
+            {
+                int userId = (int)Session[SessionKeys.UserId];
+                List<Recipe> model = recipeDAL.GetUsersRecipes(userId);
+                return View("Recipes", model);
+            }
+            return RedirectToAction("Login", "User");
         }
 
         public ActionResult Detail(int recipeId)
