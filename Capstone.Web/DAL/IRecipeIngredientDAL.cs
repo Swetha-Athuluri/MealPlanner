@@ -12,7 +12,7 @@ namespace Capstone.Web.DAL
     {
         List<RecipeIngredient> GetRecipeIngredients(int recipeId);
         void SaveRecipeIngredients(List<RecipeIngredient> recipeIngredients, int recipe_id);
-        bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount);
+        //bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount);
        
     }
 }

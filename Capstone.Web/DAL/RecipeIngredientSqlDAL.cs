@@ -74,10 +74,12 @@ namespace Capstone.Web.DAL
 
         }
 
+
         public bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount)
         {
             throw new NotImplementedException();
         }
+
 
         //public bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount)
         //{
@@ -92,6 +94,17 @@ namespace Capstone.Web.DAL
         //                {
 
         //                }
+
+        //            }
+        //        }
+
+        //              return true;
+        //            catch
+            
+
+            }
+        }
+
 
         //            }
 
@@ -109,5 +122,3 @@ namespace Capstone.Web.DAL
 
         //    }
         //}
-    }
-}

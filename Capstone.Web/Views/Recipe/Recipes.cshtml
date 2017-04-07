@@ -22,7 +22,7 @@
                         <a href="~/Views/Recipe/Detail?user_id=@recipe.UserId"><h2 class="recipeText">@recipe.Name</h2></a>
                         <p class="parkText">@recipe.Description</p>  
                     </div>
-                    
+                    @Html.ActionLink("Detail", "Detail", "Recipe", new { id = 2 }, null)
                 </div>
             
         }
