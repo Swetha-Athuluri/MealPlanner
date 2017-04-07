@@ -7,6 +7,96 @@
 @model RecipeViewModel
 
 <h2>Detail</h2>
+<style>
+    .flex-container {
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+        display: inline-flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .flex-item1 {
+        padding: 0px;
+        margin: 0px;
+        display: inline-flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+        margin-top: 8px;
+        height: 200px;
+        float: left;
+    }
+
+    .div-image {
+        height: 190px;
+        width: 190px;
+    }
+
+    .div-content {
+        height: 190px;
+        max-width: 700px;
+        margin-left: 100px;
+        text-align: left;
+    }
+
+    .flex-item2 {
+        clear: both;
+        border-bottom: solid;
+        text-align: left;
+    }
+
+    .flex-item3 {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    img {
+        height: 190px;
+    }
+</style>
+
+<head>
+</head>
+<section>
+    <div class="flex-item1">
+        
+        <div class="div-image">
+        <img id="11" src="~/Content/images/@(Model.RecipeName).jpg" />
+    </div>
+        <div class="div-content">
+            <h4><strong>@Model.RecipeName</strong></h4>
+            <p>@Model.RecipeType</p>
+            <p><strong>Cook Time </strong> @(Model.RecipeCookTimeInMinutes) minutes </p>
+            <p>@Model.RecipeDescription</p>
+        </div>
+    </div>
+
+    <div class="flex-item2">
+        <p><strong>Ingredients</strong></p>
+        <ul>
+            @for (int i = 0; i < Model.RecipeIngredient.Count; i++)
+            {
+                <li>@Model.RecipeIngredient[i].Quantity @Model.RecipeIngredient[i].Measurement @Model.RecipeIngredient[i].Ingredient_Name</li>
+            }
+        </ul>
+    </div>
+
+    <div class="flex-item3">
+        <p><strong>Preparation</strong></p>
+        <ol>
+            @foreach (var step in Model.PrepSteps)
+            {
+                <li>
+                    @step
+                </li>
+            }
+        </ol>
+        <p style="color:white">AAA</p>
+
+    </div>
+</section>
 
 
 
