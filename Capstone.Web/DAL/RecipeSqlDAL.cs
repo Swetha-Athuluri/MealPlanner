@@ -20,6 +20,7 @@ namespace Capstone.Web.DAL
 
         private const string SqlGetUserRecipeSteps = @"select steps from preparation_steps inner join recipe on recipe.recipe_id=@recipeId;";
         private const string SqlGetRecipe = @"select * from recipe where user_id=@userId and recipe_id=@recipeId;";
+        private const string SqlModifyRecipe = @"update recipe set recipe_type = @recipe_type, image_name=@image_name, recipe_description=@recipe_description, cook_time=@cook_time where user_id=@user_id and recipe_id=@recipe_id;";
         public RecipeSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -67,7 +68,7 @@ namespace Capstone.Web.DAL
 
 
         }
-        public Recipe GetRecipe(int recipeId,int userId)
+        public Recipe GetRecipe(int recipeId, int userId)
         {
             Recipe r = new Recipe();
             try
@@ -81,7 +82,7 @@ namespace Capstone.Web.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                       
+
                         r.UserId = Convert.ToInt32(reader["user_id"]);
                         r.RecipeId = Convert.ToInt32(reader["recipe_id"]);
                         r.Name = Convert.ToString(reader["recipe_name"]);
@@ -110,7 +111,7 @@ namespace Capstone.Web.DAL
                     conn.Open();
                     recipe.RecipeId = conn.QueryFirst<int>("Insert INTO recipe VALUES(@nameValue, @recipeTypeValue,@imageNameValue,@descriptionValue, @cookTimeInMinutes, @userIdValue); SELECT CAST (SCOPE_IDENTITY() as int);",
                         new { nameValue = recipe.Name, recipeTypeValue = recipe.RecipeType, imageNameValue = recipe.ImageName, descriptionValue = recipe.Description, cookTimeInMinutes = recipe.CookTimeInMinutes, userIdValue = recipe.UserId });
-         
+
                 }
             }
             catch (Exception ex)
@@ -144,6 +145,32 @@ namespace Capstone.Web.DAL
             catch (Exception ex)
             {
 
+                throw;
+            }
+        }
+        public bool ModifyRecipe(Recipe recipe)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlModifyRecipe, conn);
+                    cmd.Parameters.AddWithValue("@recipe_id", recipe.RecipeId);
+                    cmd.Parameters.AddWithValue("@user_id", recipe.UserId);
+                    cmd.Parameters.AddWithValue("@recipe_type", recipe.RecipeType);
+                    cmd.Parameters.AddWithValue("@image_name", recipe.ImageName);
+                    cmd.Parameters.AddWithValue("@recipe_description", recipe.Description);
+                    cmd.Parameters.AddWithValue("@cook_time", recipe.CookTimeInMinutes);
+
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return (rowsAffected > 0); //true if one row was affected
+                }
+                
+            }
+            catch (SqlException ex)
+            {
                 throw;
             }
         }
