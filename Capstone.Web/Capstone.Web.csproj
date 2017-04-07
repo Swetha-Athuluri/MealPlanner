@@ -194,6 +194,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
+    <Content Include="Views\Shared\_UploadPhoto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -3,8 +3,30 @@
 
 <ul class="nav navbar-nav">
     <li><a href="~/Home">Home</a></li>
-    <li><a href="Recipe/CreateRecipe">Create Recipe</a></li>
-    <li><a href="#">Meal Planner</a></li>
+    @*<li><a href="Recipe/CreateRecipe">Create Recipe</a></li>*@
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="Recipe/Recipes">
+            Recipes
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("My Recipes", "Index", "Recipe")</li>
+            <li>@Html.ActionLink("Add Recipe", "CreateRecipe", "Recipe")</li>
+            <li>@Html.ActionLink("Modify Recipe", "ModifyRecipe", "Recipe")</li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="Recipe/Recipes">
+            Meals
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("My Meals", "Index", "Meal")</li>
+            <li>@Html.ActionLink("Create Meal", "CreateMeal", "Meal")</li>
+            <li>@Html.ActionLink("Modify Meal", "ModifyMeal", "Meal")</li>
+        </ul>
+    </li>
+
 </ul>
 <ul class="nav navbar-nav navbar-right list-inline">
 
@@ -12,5 +34,5 @@
 
     <li>@Html.ActionLink("Logout", "Logout", "User")</li>
 
-    </ul>
+</ul>
 
