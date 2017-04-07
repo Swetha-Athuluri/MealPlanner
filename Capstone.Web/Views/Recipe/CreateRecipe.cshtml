@@ -29,14 +29,17 @@
     .ui-draggable, .ui-droppable {
         background-position: top;
     }
+    .recipeCreate{
+        margin: 0% 5% 15% 5%; 
+    }
 </style>
 <div class="form-group-lg">
     @using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
     {
-        <div>
-            @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg", @id = "lgFormGroupInput" })
+        <div class="recipeCreate">
+            @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg" })
             @Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Enter Recipe Description", @class = "form-control", @row = "3" })
-            @Html.DropDownList("recipeType", RecipeViewModel.RecipeTypes, new { placeholder = "Please select the Recipe Type", @class = "form-group" })
+            @Html.ListBox("recipeType", RecipeViewModel.RecipeTypes, new { @class = "form-group" })
             @Html.Hidden("RecipeTypes", "recipeType")
             @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Total cook time", @class = "form-group", @id = "RecipeCookTimeInMinutes" })
 
@@ -74,7 +77,7 @@
             <input type="submit" value="Create" class="createButton btn-default" autofocus>
         </div>
     }
-    @Html.Action("UploadPhoto", "Home")
+    @*@Html.Action("UploadPhoto", "Home")*@
 </div>
 <script>
     var ingredientCount = 0;
