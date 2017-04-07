@@ -14,5 +14,15 @@ namespace Capstone.Web.Controllers
         {
             return View("Index");
         }
+
+        [ChildActionOnly]
+        public ActionResult UploadPhoto()
+        {
+            if (Session[SessionKeys.EmailAddress] != null)
+            {
+                return PartialView("_UploadPhoto");
+            }
+            return RedirectToAction("Login", "User");
+        }
     }
 }

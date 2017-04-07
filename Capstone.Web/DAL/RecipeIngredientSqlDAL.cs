@@ -76,33 +76,38 @@ namespace Capstone.Web.DAL
 
         public bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount)
         {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    if (modifiedIngredientCount > existingIngredientCount)
-                    {
-                        for (int i = 1; i < existingIngredientCount; i++)
-                        {
-
-                        }
-
-                    }
-
-                    
-                }
-
-
-               
-            }
-             return true;
-
-
-            catch
-            {
-
-            }
+            throw new NotImplementedException();
         }
+
+        //public bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            if (modifiedIngredientCount > existingIngredientCount)
+        //            {
+        //                for (int i = 1; i < existingIngredientCount; i++)
+        //                {
+
+        //                }
+
+        //            }
+
+
+        //        }
+
+
+
+        //    }
+        //     return true;
+
+
+        //    catch
+        //    {
+
+        //    }
+        //}
     }
 }
