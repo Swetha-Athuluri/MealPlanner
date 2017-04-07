@@ -71,6 +71,7 @@ namespace Capstone.Web.App_Start
             kernel.Bind<IIngredientDAL>().To<IngredientSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
             kernel.Bind<IRecipeIngredientDAL>().To<RecipeIngredientSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
             kernel.Bind<IPreparationStepsDAL>().To<PreparationStepsSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
+            kernel.Bind<IMealDAL>().To<MealSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["mealplanner"].ConnectionString);
 
         }
     }
