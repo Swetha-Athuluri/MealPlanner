@@ -53,4 +53,31 @@ constraint fk_preparation_steps foreign key (recipe_id) references recipe(recipe
 );
 
 select * from users
-set IDENTITY_INSERT OFF
+
+alter table users add salt varchar(64);
+select * from users;
+select * from recipe;
+
+Insert INTO recipe VALUES('vegetable salad', 'vegetarian','vegetable salad','fresh garden vegetables health treat', '10', '2');
+
+insert into recipe_ingredient values(1,1,1,'cup');
+insert into recipe_ingredient values(1,2,1,'bunch');
+insert into recipe_ingredient values(1,3,2,'cup');
+insert into recipe_ingredient values(1,4,1,'bunch');
+
+insert into preparation_steps values(1,'Mix fresh vegetables.');
+insert into preparation_steps values(1,'Add Olive oil.');
+insert into preparation_steps values(1,'Add italian dressing.');
+insert into preparation_steps values(1,'add pinch of salt.');
+
+Insert INTO recipe VALUES('Hard boiled egg', 'vegetarian','Hard boiled egg','proteinicious breakfast', '10', '2');
+
+insert into recipe_ingredient values(2,70,100,'ml');
+insert into recipe_ingredient values(2,955,3,'each');
+insert into recipe_ingredient values(2,355,1,'tsp');
+insert into recipe_ingredient values(2,516,1,'sprinkle');
+
+insert into preparation_steps values(2,'add eggs in a container.');
+insert into preparation_steps values(2,'Add water.');
+insert into preparation_steps values(2,'Add salt and boil for 15 min.');
+insert into preparation_steps values(2,'peal the shell and sprinkle pepper and enjoy.');
