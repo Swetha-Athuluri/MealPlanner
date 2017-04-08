@@ -18,11 +18,11 @@
             
                 <div class="row recipeTile">
                     <div class="col container-fluid recipeList">
-                        <a href="~/Views/Recipe/Detail?user_id=@recipe.UserId"><img src="~/Content/img/@(recipe.ImageName).jpg" class="img-thumbnail" /> </a>
-                        <a href="~/Views/Recipe/Detail?user_id=@recipe.UserId"><h2 class="recipeText">@recipe.Name</h2></a>
+                        <a href="/Recipe/Detail?RecipeId=@recipe.RecipeId"><img src="~/Content/img/@(recipe.ImageName).jpg" class="img-thumbnail" /> </a>
+                        <a href="/Recipe/Detail?RecipeId=@recipe.RecipeId"><h2 class="recipeText">@recipe.Name</h2></a>
                         <p class="parkText">@recipe.Description</p>  
                     </div>
-                    @Html.ActionLink("Detail", "Detail", "Recipe", new { id = 2 }, null)
+                   
                 </div>
             
         }

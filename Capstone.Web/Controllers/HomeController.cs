@@ -29,32 +29,65 @@ namespace Capstone.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<Recipe> recipes = recipeDAL.GetTop10RecentlyAddedRecipes();
+
+            // return View("Index");
+
             List<RecipeViewModel> listOfRecipesView = new List<RecipeViewModel>();
-            foreach (Recipe recipe in recipes)
+            if (Session[SessionKeys.EmailAddress] != null)
             {
-                List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipe.RecipeId);
-                List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipe.RecipeId);
-                RecipeViewModel rvm = new RecipeViewModel();
-                rvm.RecipeName = recipe.Name;
-                rvm.RecipeId = recipe.RecipeId;
-                rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
-
-                rvm.RecipeIngredient = recipeIngredients;
-                //rvm.PrepSteps = new List<string>();
-                rvm.PrepSteps=new List<string>();
-                if(steps!=null)
+                List<Recipe> recipes = recipeDAL.GetTop10RecentlyAddedUserRecipes((int)Session[SessionKeys.UserId]);
+                //List<RecipeViewModel> listOfRecipesView = new List<RecipeViewModel>();
+                foreach (Recipe recipe in recipes)
                 {
-                    foreach(var step in steps)
-                    {
-                        rvm.PrepSteps.Add(step.Steps);
-                    }
-                }
-                listOfRecipesView.Add(rvm);
-            }
-           
+                    List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipe.RecipeId);
+                    List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipe.RecipeId);
+                    RecipeViewModel rvm = new RecipeViewModel();
+                    rvm.RecipeName = recipe.Name;
+                    rvm.RecipeId = recipe.RecipeId;
+                    rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
 
-            return View("Index",listOfRecipesView);
+                    rvm.RecipeIngredient = recipeIngredients;
+                    //rvm.PrepSteps = new List<string>();
+                    rvm.PrepSteps = new List<string>();
+                    if (steps != null)
+                    {
+                        foreach (var step in steps)
+                        {
+                            rvm.PrepSteps.Add(step.Steps);
+                        }
+                    }
+                    listOfRecipesView.Add(rvm);
+                }
+            }
+            else
+            {
+                List<Recipe> recipes = recipeDAL.GetTop10RecentlyAddedRecipes();
+
+                foreach (Recipe recipe in recipes)
+                {
+                    List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipe.RecipeId);
+                    List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipe.RecipeId);
+                    RecipeViewModel rvm = new RecipeViewModel();
+                    rvm.RecipeName = recipe.Name;
+                    rvm.RecipeId = recipe.RecipeId;
+                    rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
+
+                    rvm.RecipeIngredient = recipeIngredients;
+                    //rvm.PrepSteps = new List<string>();
+                    rvm.PrepSteps = new List<string>();
+                    if (steps != null)
+                    {
+                        foreach (var step in steps)
+                        {
+                            rvm.PrepSteps.Add(step.Steps);
+                        }
+                    }
+                    listOfRecipesView.Add(rvm);
+                }
+            }
+
+            return View("Index", listOfRecipesView);
+
         }
 
         [ChildActionOnly]
