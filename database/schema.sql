@@ -8,6 +8,22 @@
 
 --COMMIT;
 
+create table meal(
+meal_id INT IDENTITY (1,1) Primary key,
+meal_name varchar(100)
+);
+create table meal_recipe(
+meal_recipe_id INT IDENTITY (1,1) ,
+meal_name varchar(100),
+meal_id int,
+recipe_id int,
+user_id int,
+constraint pk_meal_recipe primary key (meal_recipe_id),
+constraint fk_mr_meal foreign key (meal_id) references meal(meal_id),
+constraint fk_mr_recipe foreign key (recipe_id) references recipe(recipe_id),
+constraint fk_mr_user foreign key (user_id) references users(user_id)
+);
+
 create table recipe(
 recipe_id INT IDENTITY (1,1) Primary Key,
 recipe_name varchar(255) ,
