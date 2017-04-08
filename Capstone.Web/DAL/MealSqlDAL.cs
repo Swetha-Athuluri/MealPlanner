@@ -38,27 +38,26 @@ namespace Capstone.Web.DAL
         {
             throw new NotImplementedException();
         }
-
-    }
-}
-
-
-
-
-
-public void SaveUser(User user)
-{
-    try
-    {
-        using (SqlConnection conn = new SqlConnection(connectionString))
+        public void SaveUser(User user)
         {
-            conn.Open();
-            user.User_Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue, @saltValue); SELECT CAST(SCOPE_IDENTITY() as int);",
-                new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password, saltValue = user.Salt });
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    user.User_Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue, @saltValue); SELECT CAST(SCOPE_IDENTITY() as int);",
+                        new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password, saltValue = user.Salt });
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
         }
     }
-    catch (SqlException ex)
-    {
-        throw;
-    }
 }
+
+
+
+
+

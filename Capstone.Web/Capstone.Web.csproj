@@ -118,6 +118,7 @@
     <Content Include="Content\img\HelloSummer.jpg" />
     <Content Include="Content\img\Meal Planner.png" />
     <Content Include="Content\img\shrimp-banner.jpeg" />
+    <Content Include="Content\img\steakandpotatoes.jpg" />
     <Content Include="Content\img\stock.jpg" />
     <Content Include="Content\styleSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -198,7 +199,6 @@
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <Content Include="Views\Shared\_UploadPhoto.cshtml" />
-    <Content Include="Views\Shared\_RecipeSelectionTypes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

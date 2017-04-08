@@ -30,30 +30,33 @@
     }
 
     .div-image {
-        height: 190px;
-        width: 190px;
+        height: 300px;
+        width: 300px;
     }
 
     .div-content {
         height: 190px;
         max-width: 700px;
-        margin-left: 100px;
+        margin-left: 120px;
         text-align: left;
     }
 
     .flex-item2 {
         clear: both;
-        border-bottom: solid;
+        
         text-align: left;
+        margin-left:10%
     }
 
     .flex-item3 {
         text-align: left;
         margin-bottom: 15px;
+        margin-left:10%;
     }
 
     img {
         height: 190px;
+        margin-left:30%;
     }
 </style>
 
@@ -63,7 +66,7 @@
     <div class="flex-item1">
         
         <div class="div-image">
-        <img id="11" src="~/Content/images/@(Model.RecipeName).jpg" />
+        <img src="~/Content/img/@(Model.RecipeName.Replace(" ","")).jpg" />
     </div>
         <div class="div-content">
             <h2><strong>@Model.RecipeName</strong></h2>

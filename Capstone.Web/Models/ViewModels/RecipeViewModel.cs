@@ -18,7 +18,7 @@ namespace Capstone.Web.Models.ViewModels
         [Required]
         public List <string> PrepSteps { get; set; }
 
-        //[RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
+        [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
 
         [Required]
         public int RecipeCookTimeInMinutes { get; set; }
