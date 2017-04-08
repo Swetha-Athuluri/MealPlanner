@@ -38,6 +38,7 @@ namespace Capstone.Web.DAL
         {
             throw new NotImplementedException();
         }
+
         public void SaveUser(User user)
         {
             try
@@ -54,7 +55,10 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
+
     }
+
+   
 }
 
 
