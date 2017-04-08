@@ -151,12 +151,15 @@
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Crypto\HashProvider.cs" />
     <Compile Include="DAL\IIngredientDAL.cs" />
+    <Compile Include="DAL\IMealDAL.cs" />
     <Compile Include="DAL\IPreparationStepsDAL.cs" />
     <Compile Include="DAL\IRecipeIngredientDAL.cs" />
     <Compile Include="DAL\IUserDAL.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="DAL\MealSqlDAL.cs" />
     <Compile Include="DAL\PreparationStepsSqlDAL.cs" />
     <Compile Include="DAL\RecipeIngredientSqlDAL.cs" />
+    <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\PreparationSteps.cs" />
     <Compile Include="Models\RecipeIngredient.cs" />
     <Compile Include="Models\User.cs" />
@@ -195,6 +198,7 @@
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <Content Include="Views\Shared\_UploadPhoto.cshtml" />
+    <Content Include="Views\Shared\_RecipeSelectionTypes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

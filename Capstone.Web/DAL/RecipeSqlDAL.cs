@@ -15,6 +15,7 @@ namespace Capstone.Web.DAL
     {
         private readonly string connectionString;
         private const string SqlGetUserRecipes = @"Select * from recipe where user_id=@userId;";
+        private const string SqlGetTop10Recipes = @"Select top 10 * from recipe order by recipe_id desc;";
         private const string SqlGetUserRecipeIngredient = @"select ingredient.ingredient_name,recipe_ingredient.quantity,recipe_ingredient.measurement from recipe_ingredient
                                                           inner join ingredient on recipe_ingredient.ingredient_id=ingredient.ingredient_id and recipe_ingredient.recipe_id=@recipeId;";
 
@@ -173,6 +174,38 @@ namespace Capstone.Web.DAL
             {
                 throw;
             }
+        }
+        public List<Recipe> GetTop10RecentlyAddedRecipes()
+        {
+            List<Recipe> recipes = new List<Recipe>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlGetTop10Recipes, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        Recipe r = new Recipe();
+                        r.UserId = Convert.ToInt32(reader["user_id"]);
+                        r.RecipeId = Convert.ToInt32(reader["recipe_id"]);
+                        r.Name = Convert.ToString(reader["recipe_name"]);
+                        r.RecipeType = Convert.ToString(reader["recipe_type"]);
+                        r.ImageName = Convert.ToString(reader["image_name"]);
+                        r.Description = Convert.ToString(reader["recipe_description"]);
+                        r.CookTimeInMinutes = Convert.ToInt32(reader["cook_time"]);
+                        recipes.Add(r);
+                    }
+                }
+                    
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            return recipes;
         }
 
     }

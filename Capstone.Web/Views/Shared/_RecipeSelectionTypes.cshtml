@@ -1,0 +1,12 @@
+﻿@using (var db = new NorthWindContext())
+{
+    var model = new CategoryViewModel();
+    var categories = db.Categories.Select(c => new
+    {
+        CategoryID = c.CategoryID,
+        CategoryName = c.CategoryName
+    }).ToList();
+    model.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
+    model.CategoryId = new[] { 1, 3, 7 };
+    return View(model);
+}
