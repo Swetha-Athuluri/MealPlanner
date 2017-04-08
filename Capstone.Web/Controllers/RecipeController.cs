@@ -37,7 +37,7 @@ namespace Capstone.Web.Controllers
             }
             return RedirectToAction("Login", "User");
         }
-
+        [HttpGet]
         public ActionResult Detail(int recipeId)
         {
             if (Session[SessionKeys.UserId] == null)
@@ -55,7 +55,16 @@ namespace Capstone.Web.Controllers
             rvm.RecipeCookTimeInMinutes = r.CookTimeInMinutes;
 
             rvm.RecipeIngredient = recipeIngredients;
-            rvm.Steps = steps;
+            rvm.PrepSteps = new List<string>(); 
+            if (steps != null)
+            {
+                foreach (var step in steps)
+                {
+                    rvm.PrepSteps.Add(step.Steps);
+                }
+            }
+
+
 
             return View("Detail", rvm);
         }
