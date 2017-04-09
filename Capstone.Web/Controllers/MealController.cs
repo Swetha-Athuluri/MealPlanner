@@ -29,26 +29,15 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-            List <Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
-            MealRecipeViewModel mRVM = new MealRecipeViewModel(); 
+            List<Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
+            MealRecipeViewModel mRVM = new MealRecipeViewModel();
+           
 
-            //foreach (var recipe in r)
-            //{
-            //    mRVM.RecipeNames.Add(recipe.Name);
-            //    mRVM.RecipeIds.Add(recipe.RecipeId);
-            //}
-            
-            
-           MealRecipeViewModel.RecipeList = r.ConvertAll(RecipeNames =>
+            foreach (var recipe in r)
             {
-   
-                return new SelectListItem()
-                {
-                    Text = RecipeNames.Name,
-                    Value = RecipeNames.Name,
-                    Selected = false
-                };
-            });
+                mRVM.RecipeList.Add(new SelectListItem { Text = recipe.Name, Value = Convert.ToString(recipe.RecipeId) });
+
+            }
 
             return View("CreateMeal", mRVM);
         }
