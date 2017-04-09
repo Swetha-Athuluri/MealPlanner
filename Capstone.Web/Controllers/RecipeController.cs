@@ -108,15 +108,6 @@ namespace Capstone.Web.Controllers
                 }
                 string ingredient1 = recipeIngredients[0].Ingredient_Name; 
 
-                foreach (var step in model.PrepSteps)
-                {
-                    if(step != "")
-                    {
-
-                    prepSteps.Add(step);
-                    }
-                }
-
                 Recipe r = new Recipe();
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
