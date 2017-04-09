@@ -36,7 +36,7 @@ namespace Capstone.Web.DAL
                         RecipeIngredient r = new RecipeIngredient();
                         r.Ingredient_Name = Convert.ToString(reader["ingredient_name"]);
                         r.Measurement = Convert.ToString(reader["measurement"]);
-                        r.Quantity = Convert.ToInt32(reader["quantity"]);
+                        r.Quantity = Convert.ToString(reader["quantity"]);
 
                         recipeIngredient.Add(r);
 

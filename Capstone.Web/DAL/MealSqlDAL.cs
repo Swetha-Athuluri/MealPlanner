@@ -5,6 +5,7 @@ using System.Web;
 using Capstone.Web.Models;
 using Dapper;
 using System.Data.SqlClient;
+using Capstone.Web.Models.ViewModels;
 
 namespace Capstone.Web.DAL
 {
@@ -34,9 +35,31 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public void SaveMeal()
+        public void SaveMeal(MealRecipeViewModel mealRecipeViewModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    mealRecipeViewModel.MealId = conn.QueryFirst<int>("INSERT INTO meal VALUES (@meal_name); Select CAST(SCOPE_IDENTITY() as int);",
+                        new { meal_name = mealRecipeViewModel.MealName });
+                    //user.User_Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue, @saltValue); SELECT CAST(SCOPE_IDENTITY() as int);",
+                    //    new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password, saltValue = user.Salt });
+                }
+                //using (SqlConnection conn = new SqlConnection(connectionString))
+                //{ 
+                //    foreach (var recipe in mealRecipeViewModel.ListOfRecipies)
+                //    {
+                //        conn.QueryFirst("Insert into meal_recipe values(@mealId,@recipeId,@userId,@mealType);",
+                //            new { mealId = mealRecipeViewModel.MealId, recipeId = recipe.RecipeId, userId = mealRecipeViewModel.UserId, mealType = mealRecipeViewModel.MealType });
+                //    }
+                //}
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
         }
 
         public void SaveUser(User user)

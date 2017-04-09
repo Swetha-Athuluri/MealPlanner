@@ -7,66 +7,13 @@
 }
 
 
-<style>
-    .flex-container {
-        padding: 0px;
-        margin: 0px;
-        list-style: none;
-        display: inline-flex;
-        flex-flow: column;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-
-    .flex-item1 {
-        padding: 0px;
-        margin: 0px;
-        display: inline-flex;
-        flex-flow: column;
-        flex-wrap: wrap;
-        margin-top: 8px;
-        height: 200px;
-        float: left;
-    }
-
-    .div-image {
-        height: 300px;
-        width: 300px;
-    }
-
-    .div-content {
-        height: 190px;
-        max-width: 700px;
-        margin-left: 120px;
-        text-align: left;
-    }
-
-    .flex-item2 {
-        clear: both;
-        
-        text-align: left;
-        margin-left:10%
-    }
-
-    .flex-item3 {
-        text-align: left;
-        margin-bottom: 15px;
-        margin-left:10%;
-    }
-
-    img {
-        height: 190px;
-        margin-left:30%;
-    }
-</style>
-
 <head>
 </head>
 <section>
     <div class="flex-item1">
         
         <div class="div-image">
-        <img src="~/Content/img/@(Model.RecipeName.Replace(" ","")).jpg" />
+        <img src="~/Content/img/@(Model.RecipeImageName).jpg" />
     </div>
         <div class="div-content">
             <h2><strong>@Model.RecipeName</strong></h2>

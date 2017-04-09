@@ -150,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
+    <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Crypto\HashProvider.cs" />
     <Compile Include="DAL\IIngredientDAL.cs" />
     <Compile Include="DAL\IMealDAL.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Models\RecipeIngredient.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\DetailRecipeViewModel.cs" />
+    <Compile Include="Models\ViewModels\MealRecipeViewModel.cs" />
     <Compile Include="Models\ViewModels\RecipeViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -199,7 +201,15 @@
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <Content Include="Views\Shared\_UploadPhoto.cshtml" />
+
     <Content Include="Views\Recipe\ModifyRecipe.cshtml" />
+
+
+    <Content Include="Views\Meal\CreateMeal.cshtml" />
+
+    <Content Include="Views\Recipe\TestCreateRecipe.cshtml" />
+
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -221,7 +231,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55601</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

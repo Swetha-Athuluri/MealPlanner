@@ -53,6 +53,7 @@ namespace Capstone.Web.Controllers
             rvm.RecipeName = r.Name;
             rvm.RecipeId = r.RecipeId;
             rvm.RecipeCookTimeInMinutes = r.CookTimeInMinutes;
+            rvm.RecipeImageName = r.ImageName; 
 
             rvm.RecipeIngredient = recipeIngredients;
             rvm.PrepSteps = new List<string>(); 
@@ -88,32 +89,30 @@ namespace Capstone.Web.Controllers
 
                 List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
                 PreparationSteps pS = new PreparationSteps();
-                List<string> prepSteps = new List<string>();
-
+                model.PrepSteps[0].Replace('\n', ' '); 
+                List<string> prepSteps = model.PrepSteps[0].Split('\r').ToList();
+                
                 foreach (var item in model.QuantityMeasurementIngredient)
                 {
-                    var QMIP = item.Split(',');
-                    if (QMIP[0] != "")
+                    
+                    if (item != "")
                     {
                         RecipeIngredient recipeIngredient = new RecipeIngredient()
                         {
-                            Quantity = Convert.ToInt32(QMIP[0]),
-                            Measurement = QMIP[1],
-                            Ingredient_Name = QMIP[2],
+                            Quantity = "",
+                            Measurement = "",
+                            Ingredient_Name = item,
                         };
 
                         recipeIngredients.Add(recipeIngredient);
                     }
                 }
-                foreach (var step in model.PrepSteps)
-                {
-                    prepSteps.Add(step);
-                }
+                string ingredient1 = recipeIngredients[0].Ingredient_Name; 
 
                 Recipe r = new Recipe();
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
-                r.ImageName = model.RecipeName;
+                r.ImageName = model.RecipeName.Replace(' ', '_');
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
                 r.RecipeType = model.RecipeType;
 

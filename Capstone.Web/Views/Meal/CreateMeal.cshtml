@@ -1,0 +1,18 @@
+﻿@using Capstone.Web.Models.ViewModels
+@model MealRecipeViewModel
+@{
+    ViewBag.Title = "CreateMeal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateMeal</h2>
+@using (Html.BeginForm("CreateMeal", "Meal", FormMethod.Post))
+{
+    <div>
+        @Html.TextBoxFor(m=>m.MealName, new { placeholder="Enter Meal Name"})
+        @Html.DropDownListFor(m => m.RecipeName, MealRecipeViewModel.RecipeList , new { placeholder="Please select recipies"})
+        @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes,new { placeholder = "Please select meal type" })
+
+    </div>
+}
+
