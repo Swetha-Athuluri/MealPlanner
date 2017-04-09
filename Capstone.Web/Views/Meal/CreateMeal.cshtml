@@ -10,7 +10,7 @@
 {
     <div>
         @Html.TextBoxFor(m=>m.MealName, new { placeholder="Enter Meal Name"})
-        @Html.DropDownList("Recipes",MealRecipeViewModel.RecipeList , new { placeholder="Please select recipies"})
+        @Html.DropDownListFor(m => m.RecipeName, MealRecipeViewModel.RecipeList , new { placeholder="Please select recipies"})
         @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes,new { placeholder = "Please select meal type" })
 
     </div>

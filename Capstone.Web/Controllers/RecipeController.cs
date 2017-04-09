@@ -53,6 +53,7 @@ namespace Capstone.Web.Controllers
             rvm.RecipeName = r.Name;
             rvm.RecipeId = r.RecipeId;
             rvm.RecipeCookTimeInMinutes = r.CookTimeInMinutes;
+            rvm.RecipeImageName = r.ImageName; 
 
             rvm.RecipeIngredient = recipeIngredients;
             rvm.PrepSteps = new List<string>(); 

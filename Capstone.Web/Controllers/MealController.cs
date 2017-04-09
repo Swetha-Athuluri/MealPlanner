@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 
 namespace Capstone.Web.Controllers
 {
@@ -27,7 +29,28 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-            return View("CreateMeal", recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
+            List <Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
+            MealRecipeViewModel mRVM = new MealRecipeViewModel(); 
+
+            //foreach (var recipe in r)
+            //{
+            //    mRVM.RecipeNames.Add(recipe.Name);
+            //    mRVM.RecipeIds.Add(recipe.RecipeId);
+            //}
+            
+            
+           MealRecipeViewModel.RecipeList = r.ConvertAll(RecipeNames =>
+            {
+   
+                return new SelectListItem()
+                {
+                    Text = RecipeNames.Name,
+                    Value = RecipeNames.Name,
+                    Selected = false
+                };
+            });
+
+            return View("CreateMeal", mRVM);
         }
 
         [HttpPost]
