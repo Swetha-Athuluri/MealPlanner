@@ -26,6 +26,18 @@ namespace Capstone.Web.Models.ViewModels
         public int MealId { get; set; }
         public string MealName { get; set; }
         public string RecipeName { get; set; }
-        List<Recipe> ListOfRecipies { get; set; }
+        public static List<Recipe> ListOfRecipies { get; set; }
+        public static List<SelectListItem> RecipeList = ListOfRecipies.ConvertAll(ListOfRecipies =>
+        {
+            return new SelectListItem()
+            {
+                Text = ListOfRecipies.Name,
+                Value = ListOfRecipies.RecipeId.ToString(),
+                Selected = false
+            };
+        });
+
+
+
     }
 }
