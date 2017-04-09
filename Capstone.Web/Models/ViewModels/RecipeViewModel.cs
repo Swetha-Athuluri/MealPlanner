@@ -10,20 +10,22 @@ namespace Capstone.Web.Models.ViewModels
     public class RecipeViewModel
     {
         public int UserId { get; set; }
+        [Required]
         public string RecipeName { get; set; }
         public string RecipeDescription { get; set; }
         public string RecipeImageName { get; set; }
         public int RecipeId { get; set; }
-        public List <string> QuantityMeasurementIngredient { get; set; }
         [Required]
+        public List <string> QuantityMeasurementIngredient { get; set; }
+        
         public List <string> PrepSteps { get; set; }
 
-        [RegularExpression("^(?=.*[0-9].*[0-9].*[0-9])$")]
+       
 
-        [Required]
+        //[Required]
         public int RecipeCookTimeInMinutes { get; set; }
 
-        [Required]
+       
         public string IngredientName { get; set; }
        
         // public List<Ingredient> Ingredients { get; set; }

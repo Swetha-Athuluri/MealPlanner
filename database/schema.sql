@@ -7,6 +7,7 @@
 -- CREATE statements go here
 
 --COMMIT;
+insert into meal_recipe values(1,7,4,'Side dish');
 
 create table meal(
 meal_id INT IDENTITY (1,1) Primary key,
@@ -23,6 +24,27 @@ constraint fk_mr_meal foreign key (meal_id) references meal(meal_id),
 constraint fk_mr_recipe foreign key (recipe_id) references recipe(recipe_id),
 constraint fk_mr_user foreign key (user_id) references users(user_id)
 );
+alter table meal_recipe drop column meal_name ;
+alter table meal_recipe add meal_type varchar(100);
+
+Insert into meal (meal_name) values('meal_test');
+Insert into meal (meal_name) values('meal_test1');
+Insert into meal (meal_name) values('meal_test2');
+Insert into meal (meal_name) values('meal_test3');
+Insert into meal_recipe values(1,1,4,'Main dish');
+Insert into meal_recipe values(1,2,4,'Side dish');
+Insert into meal_recipe values(1,6,4,'Desert');
+Insert into meal_recipe values(1,1,4,'Main dish');
+Insert into meal_recipe values(1,2,4,'Side dish');
+Insert into meal_recipe values(1,6,4,'Desert');
+
+
+select meal.meal_name,recipe.recipe_name,meal_recipe.meal_type from meal_recipe 
+inner join meal on meal.meal_id=meal_recipe.meal_id
+inner join recipe on recipe.recipe_id=meal_recipe.recipe_id
+inner join users on users.user_id=meal_recipe.user_id
+and users.user_id=4;
+
 
 create table recipe(
 recipe_id INT IDENTITY (1,1) Primary Key,
@@ -69,31 +91,6 @@ constraint fk_preparation_steps foreign key (recipe_id) references recipe(recipe
 );
 
 select * from users
+set IDENTITY_INSERT OFF
 
-alter table users add salt varchar(64);
-select * from users;
-select * from recipe;
-
-Insert INTO recipe VALUES('vegetable salad', 'vegetarian','vegetable salad','fresh garden vegetables health treat', '10', '2');
-
-insert into recipe_ingredient values(1,1,1,'cup');
-insert into recipe_ingredient values(1,2,1,'bunch');
-insert into recipe_ingredient values(1,3,2,'cup');
-insert into recipe_ingredient values(1,4,1,'bunch');
-
-insert into preparation_steps values(1,'Mix fresh vegetables.');
-insert into preparation_steps values(1,'Add Olive oil.');
-insert into preparation_steps values(1,'Add italian dressing.');
-insert into preparation_steps values(1,'add pinch of salt.');
-
-Insert INTO recipe VALUES('Hard boiled egg', 'vegetarian','Hard boiled egg','proteinicious breakfast', '10', '2');
-
-insert into recipe_ingredient values(2,70,100,'ml');
-insert into recipe_ingredient values(2,955,3,'each');
-insert into recipe_ingredient values(2,355,1,'tsp');
-insert into recipe_ingredient values(2,516,1,'sprinkle');
-
-insert into preparation_steps values(2,'add eggs in a container.');
-insert into preparation_steps values(2,'Add water.');
-insert into preparation_steps values(2,'Add salt and boil for 15 min.');
-insert into preparation_steps values(2,'peal the shell and sprinkle pepper and enjoy.');
+alter table recipe_ingredient drop UQ__recipe_i__9D97EE51CD734DC0
