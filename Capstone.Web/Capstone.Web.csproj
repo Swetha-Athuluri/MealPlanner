@@ -120,6 +120,7 @@
     <Content Include="Content\img\shrimp-banner.jpeg" />
     <Content Include="Content\img\steakandpotatoes.jpg" />
     <Content Include="Content\img\stock.jpg" />
+    <Content Include="Content\JavaScript.js" />
     <Content Include="Content\styleSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -202,16 +203,13 @@
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <Content Include="Views\Shared\_UploadPhoto.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Recipe\ModifyRecipe.cshtml" />
     <Content Include="Views\Meal\CreateMeal.cshtml" />
     <Content Include="Views\Recipe\TestCreateRecipe.cshtml" />
     <Content Include="Views\Shared\_detailRecipe.cshtml" />
-=======
     <Content Include="Views\Meal\CreateMeal.cshtml" />
     <Content Include="Views\Recipe\TestCreateRecipe.cshtml" />
     <Content Include="Views\Recipe\ModifyRecipeView.cshtml" />
->>>>>>> 653d54974898d474919c787d3118fe5f185cbf13
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

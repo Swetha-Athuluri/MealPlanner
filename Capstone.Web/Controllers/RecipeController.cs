@@ -215,7 +215,7 @@ namespace Capstone.Web.Controllers
             //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             RecipeViewModel rvm = new RecipeViewModel()
             {
-                RecipeType = recipe.RecipeType,
+                //RecipeType = recipe.RecipeType,
                 RecipeImageName =recipe.ImageName,
                 RecipeDescription = recipe.Description,
                 RecipeCookTimeInMinutes =recipe.CookTimeInMinutes,
