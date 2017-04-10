@@ -29,6 +29,23 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
+        public List<string> GetRecipeNames(int userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    return conn.Query<string>
+                    ("SELECT recipe_name FROM recipe WHERE user_id = @userIdValue",
+                        new { userIdValue = userId }).ToList();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
         public List<Recipe> GetAllRecipes()
         {
             List<Recipe> recipes = new List<Recipe>();

@@ -29,26 +29,15 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-            List <Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
-            MealRecipeViewModel mRVM = new MealRecipeViewModel(); 
+            List<Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
+            MealRecipeViewModel mRVM = new MealRecipeViewModel();
+           
 
-            //foreach (var recipe in r)
-            //{
-            //    mRVM.RecipeNames.Add(recipe.Name);
-            //    mRVM.RecipeIds.Add(recipe.RecipeId);
-            //}
-            
-            
-           MealRecipeViewModel.RecipeList = r.ConvertAll(RecipeNames =>
+            foreach (var recipe in r)
             {
-   
-                return new SelectListItem()
-                {
-                    Text = RecipeNames.Name,
-                    Value = RecipeNames.Name,
-                    Selected = false
-                };
-            });
+                mRVM.RecipeList.Add(new SelectListItem { Text = recipe.Name, Value = Convert.ToString(recipe.RecipeId) });
+
+            }
 
             return View("CreateMeal", mRVM);
         }
@@ -56,16 +45,28 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMeal(MealRecipeViewModel model)
         {
-            if (model != null && model.RecipeId != null && model.MealType != null)
+            if (model != null && model.RecipeId != 0 && model.MealType != null)
             {
-                model.UserId = (int)Session[SessionKeys.UserId];
-                mealDAL.SaveMeal(model);
-                //model.ListOfRecipies 
-                //foreach (var recipe in model.ListOfRecipies)
-                //{
-                //   // mealDAL.SaveMeal()
-                //}
+                int userId = (int)Session[SessionKeys.UserId];
+                List<int> recipeIds = new List<int>();
+                List<string> mealTypes = new List<string>(); 
+                foreach (var recipeMealType in model.RecipeIdMealType)
+                {
+                    List<string> recipeMeal = recipeMealType.Split(',').ToList();
+                    recipeIds.Add(Convert.ToInt32(recipeMeal[0]));
+                    mealTypes.Add(recipeMeal[1]);
+                }
 
+                Meal meal = new Meal()
+                {
+                    MealName = model.MealName,
+                    RecipeIds = recipeIds,
+                    MealTypes = mealTypes
+
+                };
+
+                mealDAL.SaveMeal(meal, userId);
+                
                 return View("SuccessfullyAddedRecipe", model);
             }
             return RedirectToAction("Login", "User");

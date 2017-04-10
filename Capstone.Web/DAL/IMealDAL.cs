@@ -11,8 +11,9 @@ namespace Capstone.Web.DAL
     public interface IMealDAL
     {
         List<Recipe> GetAllMeals(int userId);
-        void SaveMeal(MealRecipeViewModel mealRecipeViewModel);
-       // void SaveMealRecipe(MealRecipeViewModel mealRecipeViewModel);
+        void SaveMeal(Meal meal, int userId);
+        // void SaveMealRecipe(MealRecipeViewModel mealRecipeViewModel);
+        
 
     }
 }

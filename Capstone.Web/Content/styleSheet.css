@@ -16,7 +16,7 @@
     padding: 50px; 
 }
 .createButton{
-    margin-left: 40%; 
+    
     padding: 10px;
 }
 .recipeForm {
@@ -34,7 +34,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    text-align: center; 
+    /*text-align: center;*/ 
     margin-bottom: 5%; 
 }
 
@@ -99,4 +99,7 @@ main {
     img {
         height: 190px;
         margin-left:30%;
+    }
+    footer{
+        text-align: center;
     }

@@ -35,26 +35,25 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public void SaveMeal(MealRecipeViewModel mealRecipeViewModel)
+       
+
+        public void SaveMeal(Meal meal, int userId)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    mealRecipeViewModel.MealId = conn.QueryFirst<int>("INSERT INTO meal VALUES (@meal_name); Select CAST(SCOPE_IDENTITY() as int);",
-                        new { meal_name = mealRecipeViewModel.MealName });
-                    //user.User_Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue, @saltValue); SELECT CAST(SCOPE_IDENTITY() as int);",
-                    //    new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password, saltValue = user.Salt });
+                    meal.MealId = conn.QueryFirst<int>("INSERT INTO meal VALUES (@meal_name); Select CAST(SCOPE_IDENTITY() as int);",
+                        new { meal_name = meal.MealName });
+
+                    foreach (var recipe in meal.RecipeIds)
+                    {
+                        conn.Execute("Insert into meal_recipe values(@mealId, @recipeId, @userId, @mealType);",
+                            new { mealId = meal.MealId, recipeId = recipe, userId = userId, mealType = meal.MealTypes });
+                    }
                 }
-                //using (SqlConnection conn = new SqlConnection(connectionString))
-                //{ 
-                //    foreach (var recipe in mealRecipeViewModel.ListOfRecipies)
-                //    {
-                //        conn.QueryFirst("Insert into meal_recipe values(@mealId,@recipeId,@userId,@mealType);",
-                //            new { mealId = mealRecipeViewModel.MealId, recipeId = recipe.RecipeId, userId = mealRecipeViewModel.UserId, mealType = mealRecipeViewModel.MealType });
-                //    }
-                //}
+                
             }
             catch (SqlException ex)
             {
@@ -62,22 +61,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public void SaveUser(User user)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    user.User_Id = conn.QueryFirst<int>("INSERT INTO users VALUES (@userNameValue, @emailValue, @passwordValue, @saltValue); SELECT CAST(SCOPE_IDENTITY() as int);",
-                        new { userNameValue = user.Username, emailValue = user.Email, passwordValue = user.Password, saltValue = user.Salt });
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-        }
+        
 
     }
 

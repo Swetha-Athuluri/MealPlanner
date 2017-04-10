@@ -8,9 +8,10 @@ namespace Capstone.Web.Models
 {
     public class Meal
     {
-        List<Recipe> Recipes { get; set; }
-        string MealName { get; set; }
-        SelectListItem MealTypes { get; }
+        public List<int> RecipeIds { get; set; }
+        public string MealName { get; set; }
+        public List<string> MealTypes { get; set; }
+        public int MealId { get; set; }
 
     }
 }

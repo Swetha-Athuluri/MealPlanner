@@ -1,18 +1,86 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model MealRecipeViewModel
+
 @{
     ViewBag.Title = "CreateMeal";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>CreateMeal</h2>
-@using (Html.BeginForm("CreateMeal", "Meal", FormMethod.Post))
-{
-    <div>
-        @Html.TextBoxFor(m=>m.MealName, new { placeholder="Enter Meal Name"})
-        @Html.DropDownListFor(m => m.RecipeName, MealRecipeViewModel.RecipeList , new { placeholder="Please select recipies"})
-        @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes,new { placeholder = "Please select meal type" })
-
+<div class="row" style="margin:10px">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <h2>Create Meal</h2>
+        </div>
     </div>
-}
+    @using (Html.BeginForm("CreateMeal", "Meal", FormMethod.Post))
+    {
+        <div class="row form-group">
+            <div class="col-md-6 col-md-offset-2">
+                @Html.TextBoxFor(m => m.MealName, new { placeholder = "Enter Meal Name"})
+            </div>
+        </div>
 
+        @*<div class="wrapper">
+            
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>@Html.DropDownListFor(m => m.RecipeList, new MealRecipeViewModel().RecipeList )</h1>
+                        
+                        @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal" })
+
+                    </div>
+                </div>
+            
+        </div>*@
+
+        <div class="wrapper">
+                   <div class="col-md-6 input_fields_wrap">
+                        @Html.DropDownList("Choose Rcipe Name", Model.RecipeList, new { placeholder="Please select Recipe to Meal", @id = "nextStep"})
+                        @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal", @id = "mealtype" })
+                       <input type="hidden" name="RecipeAndMealType[0]" value=""><button class="add_field_button btn btn-success">Add Another Recipe</button>
+
+                    </div>
+                </div>
+      
+        <button type="submit" class="btn btn-primary">Create Meal</button>
+
+
+
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
+        var counter = 0;
+
+        var x = 1; //initlal text box count
+
+        $(".add_field_button").click(function (e) { //on add input button click
+            e.preventDefault();
+            //max input box allowed
+            x++; //text box increment
+            var recipe_id = $("#nextStep").val();
+            var mealtype = $("#mealtype").val(); 
+            
+            counter++;
+           // $(wrapper).append('<div><input type="hidden" name="RecipeIdMealType[' + counter + ']"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+           //$(wrapper).append( '<div class="col-md-6"> <input("Choose Rcipe Name", Model.RecipeList, new { placeholder="Please select Recipe to Meal"})  @@Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal" }) <input type="text" name="RecipeAndMealType[' + counter + ']" value=""><a href="#" class="remove_field">Remove</a></div>');
+            $(wrapper).append('<div class="remove_field"><p>Added recipe_id' + recipe_id + ' and mealtype ' + mealtype + '!!!<p></div>')
+        });
+
+        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+            e.preventDefault(); $(this).parent('div').hide(); x--;
+
+        })
+    });
+
+    //var input = document.createElement('input');
+    //input.type = "hidden";
+    //var quantityMeasurementIngredient = "QuantityMeasurementIngredient[" + ingredientCount + "]";
+    //input.name = quantityMeasurementIngredient;
+    //input.value = [quantity, measurement, ingredient];
+    //$("#quantityMeasurementIngredient").append(input);
+    //ingredientCount++;
+
+
+</script>
