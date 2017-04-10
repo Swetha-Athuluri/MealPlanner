@@ -141,5 +141,37 @@ namespace Capstone.Web.Controllers
 
             return View("Recipes", recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]));
         }
+
+        [HttpGet]
+        public ActionResult ModifyRecipeView(int recipeId)
+        {
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipeId);
+            Recipe recipe = recipeDAL.GetRecipe(recipeId, (int)Session[SessionKeys.UserId]);
+            List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipeId);
+            //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
+            RecipeViewModel rvm = new RecipeViewModel()
+            {
+                RecipeType = recipe.RecipeType,
+                RecipeImageName =recipe.ImageName,
+                RecipeDescription = recipe.Description,
+                RecipeCookTimeInMinutes =recipe.CookTimeInMinutes,
+                RecipeIngredient = recipeIngredients,
+                PrepSteps = new List<string>()
+            };
+                if (steps != null)
+            {
+                foreach(var step in steps)
+                {
+                    rvm.PrepSteps.Add(step.Steps);
+                }
+            }
+
+            
+                 return View("ModifyRecipeView", rvm); 
+        }
     }
 }

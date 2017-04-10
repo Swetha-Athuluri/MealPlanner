@@ -201,15 +201,9 @@
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <Content Include="Views\Shared\_UploadPhoto.cshtml" />
-
-    <Content Include="Views\Recipe\ModifyRecipe.cshtml" />
-
-
     <Content Include="Views\Meal\CreateMeal.cshtml" />
-
     <Content Include="Views\Recipe\TestCreateRecipe.cshtml" />
-
-
+    <Content Include="Views\Recipe\ModifyRecipeView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
