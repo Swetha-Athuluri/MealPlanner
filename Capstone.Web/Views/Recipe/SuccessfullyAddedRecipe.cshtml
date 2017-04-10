@@ -6,7 +6,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SuccessfullyAddedRecipe</h2>
+<div class="alert alert-success" role="alert">
+    <h5>SuccessfullyAddedRecipe</h5>
+    <p> Thank you for adding a recipe </p>
+</div>
 
-<p> Thank you for adding a recipe </p>
-<div>@Html.Action("SuccessfullyAddedDetails","Recipe")</div> 
+    
+    <div>@Html.Action("SuccessfullyAddedDetails", "Recipe")</div>
