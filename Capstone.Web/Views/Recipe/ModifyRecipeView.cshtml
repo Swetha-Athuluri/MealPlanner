@@ -41,22 +41,20 @@
 
 {
     <div class="row">
-        <h1>Add a new recipe</h1>
+        <h1>Modify @Model.RecipeName recipe</h1>
         <div class="col-md-10 col-md-offset-1" style="border:1px solid grey">
             <div class="row">
                 <div class="col-md-4">
                     <br />
-                    @*@Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg" })*@
-                    @Html.TextBoxFor(m => m.RecipeType, new { Value = Model.RecipeType})
+                    @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName })
                     <br />
-                    <p>@Model.RecipeType @Model.RecipeImageName</p>
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    @Html.TextAreaFor(m => m.RecipeDescription, new { placeholder = "Enter Recipe Description", @class = "form-control form-control-lg", @rows = 3 })
-                    <br />
+                    @Html.TextAreaFor(m => m.RecipeDescription, new { Value = Model.RecipeDescription })
+                   <br />
                 </div>
             </div>
             <div class="row">
@@ -66,7 +64,7 @@
                 </div>
 
                 <div class="col-md-2 col-md-offset-1">
-                    @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "Total cook time", @class = "form-group", @id = "RecipeCookTimeInMinutes" })
+                    @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { Value = Model.RecipeCookTimeInMinutes })
                 </div>
 
             </div>
@@ -76,13 +74,15 @@
 
                     <h2>Ingredients</h2>
 
-                    <div><input type="text" name="QuantityMeasurementIngredient[0]" value=""><a href="#" class="remove_field">Remove</a></div>
+                    @*<div><input type="text" name="QuantityMeasurementIngredient[0]" value=""><a href="#" class="remove_field">Remove</a></div>*@
+                  @for (var i=0;i<Model.RecipeIngredient.Count; i++)
+                  {
+                    <div><input type="text" name="QuantityMeasurementIngredient[@i]" data-id="@i" value="@Model.RecipeIngredient[i].Ingredient_Name"><a href="#" class="remove_field">Remove</a></div>
 
-
-                    @*@Html.TextBoxFor(m => m.QuantityMeasurementIngredient, new { placeholder = "Enter 1 Ingredient per line", @class = "form-control form-control-lg" })*@
-                    @*@Html.TextBox("nextQuantityMeasurementIngredient", null, new { placeholder = "Enter 1 Ingredient per line", @class = "form-control form-control-lg", @id = "nextQuantityMeasurementIngredient" })*@
+                  }
+                      
                 </div>
-                <button class="add_field_button btn btn-success">Add Ingredients</button>
+                <button class="add_field_button btn btn-success">Modify Ingredients</button>
             </div>
 
 
@@ -93,7 +93,7 @@
                     @*@Html.TextBox("nextStep", null, new { placeholder = "Please enter preparation steps (press ENTER after each step)", @class = "form-control form-control-lg", @id = "nextStep" })*@
                     <br />
 
-                    @Html.TextAreaFor(m => m.PrepSteps, new { placeholder = "Press enter after each step", @class = "form-control form-control-lg", @id = "nextStep", @rows = 5 })
+                    @Html.TextAreaFor(m => m.Steps, new { Value = Model.Steps })
                     <br />
 
                 </div>
