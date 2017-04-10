@@ -42,7 +42,7 @@
 
     }
 </style>
-@using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post))
+@using (Html.BeginForm("CreateRecipe", "Recipe", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     <div class="row">
         <div class="col-md-6 col-lg-offset-3"><h1>Add a new recipe</h1></div>
@@ -114,19 +114,7 @@
 
                 </div>
             </div>
-            @*<div class="row">
-                    <h3 class="clone">Ingredients</h3>
-                    <div class="col-md-3">
-                        @Html.TextBox("nextQuantity", null, new { placeholder = "Quantity", @class = "form-group", @id = "nextQuantity" })
-                    </div>
-                    <div class="col-md-3">
-                        @Html.DropDownList("measurementType", RecipeViewModel.Measurements, new { placeholder = "Please Select Measurement", @class = "form-group", @id = "measurementType" })
-                    </div>
-
-                    <div class="col-md-3">
-                        @Html.TextBox("nextIngredient", null, new { placeholder = "Ingredient", @class = "form-group", @id = "nextIngredient" })
-                    </div>
-                </div>*@
+           
 
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
@@ -137,139 +125,15 @@
         </div>
     </div>
 
-
-
+<div>
+    <input type="file" name="recipeImage" /> 
+</div>
 }
 
-@*<div class="form-group-lg">
-        <div class="recipeCreate">
-
-
-            <div class="form-group">
-                <ul id="sortable">
-                    <li class="ui-state-default ingredientList recipeIngredient">
-                        <h3 class="clone">Ingredients</h3>
-                    </li>
-                    <li></li>
-                    <li></li>
-                    <li class="ui-state-default quantityMeasurementIngredient">
-
-                    </li>
-                </ul>
-
-                <ul id="sortable">
-                    <li class="ui-state-default preparationSteps steps">
-                        <h2>Preparation Steps</h2>
-                    </li>
-                    <li></li>
-                    <li></li>
-
-                    <li>
-                        <p>
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
+@*
     Html.Action("UploadPhoto", "Home")  @*</div>*@
 
-<script>
-    //var ingredientCount = 0;
-    //var stepNumber = 0;
-
-    //$(document).ready(function () {
-    //    $(window).keydown(function (event) {
-    //        if (event.keyCode == 13) {
-    //            event.preventDefault();
-    //            return false;
-    //        }
-    //    });
-    //});
-
-    //$(function () {
-    //    $("#sortable").sortable();
-    //});
-    //$("#nextStep").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-    //        var lastPrepStep = $("#nextStep").last();
-    //        var clonedPrepStep = lastPrepStep.clone();
-    //        var insertedValue = $("#nextStep").val();
-    //        var input = document.createElement('input');
-    //        var prepStepName = "PrepSteps[" + stepNumber + "]";
-
-    //        input.type = "hidden";
-    //        input.name = prepStepName;
-    //        input.value = [insertedValue];
-    //        $("#nextStep").append(input);
-    //        stepNumber++;
-    //        clonedPrepStep.find("h2").html(insertedValue)
-    //        $("#nextStep").val("");
-    //        clonedPrepStep.insertAfter(lastPrepStep);
-    //    }
-    //});
-
-    //$("#nextQuantityMeasurementIngredient").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-    //        var lastPrepStep = $("#nextQuantityMeasurementIngredient").last();
-    //        var clonedPrepStep = lastPrepStep.clone();
-    //        var insertedValue = $("#nextQuantityMeasurementIngredient").val();
-    //        var input = document.createElement('input');
-    //        var nextQuantityMeasurementIngredientName = "QuantityMeasurementIngredient[" + ingredientCount + "]";
-    //        //var nextQuantityMeasurementIngredientName = "RecipeIngredient.Quantity[" + ingredientCount + "]";
-
-    //        //function nextQuantityMeasurementIngredientName(Quantity, Measurement, Ingredient_Name) {
-    //        //    Quantity = "RecipeIngredient.Quantity[" + ingredientCount + "]",
-    //        //    Measurement = "RecipeIngredient.Measurement[" + ingredientCount + "]",
-    //        //    Ingredient_Name = "RecipeIngredient.Ingredient_Name[" + ingredientCount + "]"
-    //        //}
-
-    //        input.type = "hidden";
-    //        input.name = nextQuantityMeasurementIngredientName;
-    //        input.value = [insertedValue];
-    //        $("#nextQuantityMeasurementIngredient").append(input);
-    //        ingredientCount++;
-    //        clonedPrepStep.find("h2").html(insertedValue)
-    //        $("#nextQuantityMeasurementIngredient").val("");
-    //        clonedPrepStep.insertAfter(lastPrepStep);
-    //    }
-    //});
-    //$("#nextIngredient").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-    //        var ingredient = $("#nextIngredient").val();
-    //        var measurement = $("#measurementType").val();
-    //        var quantity = $("#nextQuantity").val();
-    //        var currentIngredient = $("#nextIngredient").last();
-    //        var currentMeasurement = $("#measurementType").last();
-    //        var currentQuantity = $("#nextQuantity").last();
-    //        var currentDivQMI = $(".ingredientList").last();
-    //        var clonedIngredient = currentIngredient.clone();
-    //        var clonedMeasurement = currentMeasurement.clone();
-    //        var clonedQuantity = currentQuantity.clone();
-    //        var clonedDivQMI = $(".ingredientList").clone();
-
-    //        var input = document.createElement('input');
-    //        input.type = "hidden";
-    //        var quantityMeasurementIngredient = "QuantityMeasurementIngredient[" + ingredientCount + "]";
-    //        input.name = quantityMeasurementIngredient;
-    //        input.value = [quantity, measurement, ingredient];
-    //        $("#quantityMeasurementIngredient").append(input);
-    //        ingredientCount++;
-
-    //        currentQuantity.find("h3").html(quantity);
-    //        currentIngredient.find("h3").html(ingredient);
-    //        currentMeasurement.find("h3").html(measurement);
-
-    //        $("#nextIngredient").val("");
-    //        $("#measurementType").val("");
-    //        $("#nextQuantity").val("");
-    //        clonedDivQMI.insertAfter(currentDivQMI);
-    //    }
-    //});
+@*<script>
 
     $(document).ready(function () {
         var max_fields = 15; //maximum input boxes allowed
@@ -307,7 +171,7 @@
 
         })
     });
-</script>
+</script>*@
 
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

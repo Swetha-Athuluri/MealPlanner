@@ -120,6 +120,7 @@
     <Content Include="Content\img\shrimp-banner.jpeg" />
     <Content Include="Content\img\steakandpotatoes.jpg" />
     <Content Include="Content\img\stock.jpg" />
+    <Content Include="Content\JavaScript.js" />
     <Content Include="Content\styleSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -132,6 +133,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Recipe-Images\stock.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -201,6 +203,10 @@
     <Content Include="Views\Recipe\CreateRecipe.cshtml" />
     <Content Include="Views\Shared\_AnonymousNav.cshtml" />
     <Content Include="Views\Shared\_UploadPhoto.cshtml" />
+    <Content Include="Views\Recipe\ModifyRecipe.cshtml" />
+    <Content Include="Views\Meal\CreateMeal.cshtml" />
+    <Content Include="Views\Recipe\TestCreateRecipe.cshtml" />
+    <Content Include="Views\Shared\_detailRecipe.cshtml" />
     <Content Include="Views\Meal\CreateMeal.cshtml" />
     <Content Include="Views\Recipe\TestCreateRecipe.cshtml" />
     <Content Include="Views\Recipe\ModifyRecipeView.cshtml" />

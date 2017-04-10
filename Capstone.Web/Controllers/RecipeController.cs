@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Capstone.Web.Models.ViewModels;
+using System.IO;
 
 namespace Capstone.Web.Controllers
 {
@@ -37,6 +38,9 @@ namespace Capstone.Web.Controllers
             }
             return RedirectToAction("Login", "User");
         }
+        
+
+
         [HttpGet]
         public ActionResult Detail(int recipeId)
         {
@@ -81,12 +85,24 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateRecipe(RecipeViewModel model)
+        public ActionResult CreateRecipe(RecipeViewModel model, HttpPostedFileBase recipeImage)
         {
-
+            
             if (model != null && model.QuantityMeasurementIngredient != null && model.PrepSteps != null)
             {
-
+                if(recipeImage.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(recipeImage.FileName);
+                    var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
+                    recipeImage.SaveAs(fullPath);
+                    model.RecipeImageName = fileName;
+                }
+                else
+                {
+                    model.RecipeImageName = "stock.jpg";
+                }
+             
+            
                 List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
                 PreparationSteps pS = new PreparationSteps();
                 model.PrepSteps[0].Replace('\n', ' '); 
@@ -112,7 +128,7 @@ namespace Capstone.Web.Controllers
                 Recipe r = new Recipe();
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
-                r.ImageName = model.RecipeName.Replace(' ', '_');
+                r.ImageName = model.RecipeImageName;
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
                 var recipeType = "";
                     int counter = 0; 
@@ -137,11 +153,41 @@ namespace Capstone.Web.Controllers
 
                     recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
                     preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
-                    return View("SuccessfullyAddedRecipe", model);
+                    TempData["action"] = "save";
+                    return RedirectToAction("Detail", new { recipeId = r.RecipeId });
 
                 }
             }
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("CreateRecipe", "Recipe");
+        }
+
+       
+        public ActionResult SuccessfullyAddedDetails(RecipeViewModel model)
+        {
+            int recipeId = model.RecipeId;
+            Recipe r = recipeDAL.GetRecipe(recipeId, (int)Session[SessionKeys.UserId]);
+            List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipeId);
+            List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipeId);
+
+            RecipeViewModel rvm = new RecipeViewModel();
+            rvm.RecipeName = r.Name;
+            rvm.RecipeId = r.RecipeId;
+            rvm.RecipeCookTimeInMinutes = r.CookTimeInMinutes;
+            rvm.RecipeImageName = r.ImageName;
+
+            rvm.RecipeIngredient = recipeIngredients;
+            
+            rvm.PrepSteps = new List<string>();
+            if (steps != null)
+            {
+                foreach (var step in steps)
+                {
+                    rvm.PrepSteps.Add(step.Steps);
+                }
+            }
+
+            return PartialView("_detailRecipe",model);
+
         }
 
         // GET: All User Recipes
@@ -169,6 +215,7 @@ namespace Capstone.Web.Controllers
             
             string[] arrayOfStrings = recipe.RecipeType.Split(',');
             //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
+
             RecipeViewModel rvm = new RecipeViewModel();
 
             rvm.RecipeType = arrayOfStrings.ToList<string>();
@@ -178,6 +225,7 @@ namespace Capstone.Web.Controllers
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
             rvm.RecipeIngredient = recipeIngredients;
             rvm.PrepSteps = new List<string>();
+
 
                 if (steps != null)
             {

@@ -1,25 +1,13 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model RecipeViewModel
 
-@{
-    ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-<head>
-</head>
 
 <section>
-    @if(TempData["action"] != null)
-    {
-        <h2>Succesfully added recipe!</h2>
-    }
     <div class="flex-item1">
-        
+
         <div class="div-image">
-        <img src="~/Recipe-Images/@(Model.RecipeImageName)" />
-    </div>
+            <img src="~/Content/img/@(Model.RecipeImageName).jpg" />
+        </div>
         <div class="div-content">
             <h2><strong>@Model.RecipeName</strong></h2>
             <p>@Model.RecipeType</p>
@@ -33,7 +21,7 @@
         <ul>
             @for (int i = 0; i < Model.RecipeIngredient.Count; i++)
             {
-                <li>@*@Model.RecipeIngredient[i].Quantity @Model.RecipeIngredient[i].Measurement*@ @Model.RecipeIngredient[i].Ingredient_Name</li>
+                <li>@Model.RecipeIngredient[i].Quantity @Model.RecipeIngredient[i].Measurement @Model.RecipeIngredient[i].Ingredient_Name</li>
             }
         </ul>
     </div>
@@ -48,18 +36,11 @@
                 </li>
             }
         </ol>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-md-2 col-md-offset-5">
-                @*<input type="Modify" value="Modify" class="createButton btn-primary" autofocus>*@
-                <a href ="/Recipe/ModifyRecipeView?RecipeId=@Model.RecipeId">Modify</a>
-               
-                
-            </div>
+        <p style="color:white">AAA</p>
 
-        </div>
+    </div>
 </section>
+
 
 
 
