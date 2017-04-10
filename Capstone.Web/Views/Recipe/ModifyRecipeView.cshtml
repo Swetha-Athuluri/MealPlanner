@@ -39,22 +39,25 @@
     }
 </style>
 
+@using (Html.BeginForm("ModifyRecipe", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
     <div class="row">
-        <h1>Modify @Model.RecipeName recipe</h1>
+        <div class="col-md-6 col-lg-offset-3"><h1>Modify @Model.RecipeName recipe</h1></div>
+
         <div class="col-md-10 col-md-offset-1" style="border:1px solid grey">
             <div class="row">
                 <div class="col-md-4">
                     <br />
-                    @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName })
+                    @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName, @class = "form-control form-control-lg" })
                     <br />
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    @Html.TextAreaFor(m => m.RecipeDescription, new { Value = Model.RecipeDescription })
-                   <br />
+                    @Html.TextAreaFor(m => m.RecipeDescription, new { Value = Model.RecipeDescription, @class = "form-control form-control-lg", @rows = 3 })
+                    <br />
                 </div>
             </div>
             <div class="row">
@@ -63,26 +66,38 @@
                     @Html.Hidden("RecipeTypes", "recipeType")
                 </div>
 
-                <div class="col-md-2 col-md-offset-1">
-                    @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { Value = Model.RecipeCookTimeInMinutes })
+                <div class="col-md-1 col-md-offset-1">
+                    @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { Value = Model.RecipeCookTimeInMinutes, @class = "form-group", style = "width:50px;" })
+                </div>
+                <div class="col-md-2"><p style="margin-left:5px; margin-top:5px;">Minutes</p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-1">
+                    <h2>Recipe Type</h2>
+
+                    @Html.ListBox("recipeType", RecipeViewModel.RecipeTypes, new { @class = "form-group", size = 7 })
+                    @Html.Hidden("RecipeTypes", "recipeType")
+                    @*need to add logic to loop through and selet recipe types k*@
                 </div>
 
             </div>
-
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 input_fields_wrap">
 
                     <h2>Ingredients</h2>
 
                     @*<div><input type="text" name="QuantityMeasurementIngredient[0]" value=""><a href="#" class="remove_field">Remove</a></div>*@
-                  @for (var i=0;i<Model.RecipeIngredient.Count; i++)
-                  {
-                    <div><input type="text" name="QuantityMeasurementIngredient[@i]" data-id="@i" value="@Model.RecipeIngredient[i].Ingredient_Name"><a href="#" class="remove_field">Remove</a></div>
+                    @for (var i = 0; i < Model.RecipeIngredient.Count; i++)
+                {
+                        <div><input type="text" name="QuantityMeasurementIngredient[@i]" data-id="@i" value="@Model.RecipeIngredient[i].Ingredient_Name"><a href="#" class="remove_field">Remove</a></div>
 
-                  }
-                      
+                    }
+
                 </div>
-                <button class="add_field_button btn btn-success">Modify Ingredients</button>
+                <div class="col-md-10 col-md-offset-1">
+                    <br /><button class="add_field_button btn btn-success">Add Ingredients</button>
+                </div>
+
             </div>
 
 
@@ -90,193 +105,27 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <h2>Preparation Steps</h2>
-                    @*@Html.TextBox("nextStep", null, new { placeholder = "Please enter preparation steps (press ENTER after each step)", @class = "form-control form-control-lg", @id = "nextStep" })*@
                     <br />
-
-                    @Html.TextAreaFor(m => m.Steps, new { Value = Model.Steps })
-                    <br />
+                    <textarea type="text" name="PrepSteps" rows=5 class="form-control form-control-lg">
+                        @for (var i = 0; i < Model.PrepSteps.Count; i++)
+                        {
+                            @Model.PrepSteps[i] @("\r")
+                        }
+                    </textarea><br />
 
                 </div>
             </div>
-            @*<div class="row">
-                    <h3 class="clone">Ingredients</h3>
-                    <div class="col-md-3">
-                        @Html.TextBox("nextQuantity", null, new { placeholder = "Quantity", @class = "form-group", @id = "nextQuantity" })
-                    </div>
-                    <div class="col-md-3">
-                        @Html.DropDownList("measurementType", RecipeViewModel.Measurements, new { placeholder = "Please Select Measurement", @class = "form-group", @id = "measurementType" })
-                    </div>
-
-                    <div class="col-md-3">
-                        @Html.TextBox("nextIngredient", null, new { placeholder = "Ingredient", @class = "form-group", @id = "nextIngredient" })
-                    </div>
-                </div>*@
-
             <div class="row">
-                <div class="col-md-2 col-md-offset-5">
-                    <input type="submit" value="Create" class="createButton btn-primary" autofocus>
-
+                <div class="col-md-10 col-md-offset-5">
+                    <input type="submit" value="Modify" class="createButton btn-primary" autofocus />
                 </div>
             </div>
+
         </div>
+
     </div>
-
-
-
 }
 
-@*<div class="form-group-lg">
-        <div class="recipeCreate">
-
-
-            <div class="form-group">
-                <ul id="sortable">
-                    <li class="ui-state-default ingredientList recipeIngredient">
-                        <h3 class="clone">Ingredients</h3>
-                    </li>
-                    <li></li>
-                    <li></li>
-                    <li class="ui-state-default quantityMeasurementIngredient">
-
-                    </li>
-                </ul>
-
-                <ul id="sortable">
-                    <li class="ui-state-default preparationSteps steps">
-                        <h2>Preparation Steps</h2>
-                    </li>
-                    <li></li>
-                    <li></li>
-
-                    <li>
-                        <p>
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    Html.Action("UploadPhoto", "Home")  @*</div>*@
-
-<script>
-    //var ingredientCount = 0;
-    //var stepNumber = 0;
-
-    //$(document).ready(function () {
-    //    $(window).keydown(function (event) {
-    //        if (event.keyCode == 13) {
-    //            event.preventDefault();
-    //            return false;
-    //        }
-    //    });
-    //});
-
-    //$(function () {
-    //    $("#sortable").sortable();
-    //});
-    //$("#nextStep").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-    //        var lastPrepStep = $("#nextStep").last();
-    //        var clonedPrepStep = lastPrepStep.clone();
-    //        var insertedValue = $("#nextStep").val();
-    //        var input = document.createElement('input');
-    //        var prepStepName = "PrepSteps[" + stepNumber + "]";
-
-    //        input.type = "hidden";
-    //        input.name = prepStepName;
-    //        input.value = [insertedValue];
-    //        $("#nextStep").append(input);
-    //        stepNumber++;
-    //        clonedPrepStep.find("h2").html(insertedValue)
-    //        $("#nextStep").val("");
-    //        clonedPrepStep.insertAfter(lastPrepStep);
-    //    }
-    //});
-
-    //$("#nextQuantityMeasurementIngredient").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-    //        var lastPrepStep = $("#nextQuantityMeasurementIngredient").last();
-    //        var clonedPrepStep = lastPrepStep.clone();
-    //        var insertedValue = $("#nextQuantityMeasurementIngredient").val();
-    //        var input = document.createElement('input');
-    //        var nextQuantityMeasurementIngredientName = "QuantityMeasurementIngredient[" + ingredientCount + "]";
-    //        //var nextQuantityMeasurementIngredientName = "RecipeIngredient.Quantity[" + ingredientCount + "]";
-
-    //        //function nextQuantityMeasurementIngredientName(Quantity, Measurement, Ingredient_Name) {
-    //        //    Quantity = "RecipeIngredient.Quantity[" + ingredientCount + "]",
-    //        //    Measurement = "RecipeIngredient.Measurement[" + ingredientCount + "]",
-    //        //    Ingredient_Name = "RecipeIngredient.Ingredient_Name[" + ingredientCount + "]"
-    //        //}
-
-    //        input.type = "hidden";
-    //        input.name = nextQuantityMeasurementIngredientName;
-    //        input.value = [insertedValue];
-    //        $("#nextQuantityMeasurementIngredient").append(input);
-    //        ingredientCount++;
-    //        clonedPrepStep.find("h2").html(insertedValue)
-    //        $("#nextQuantityMeasurementIngredient").val("");
-    //        clonedPrepStep.insertAfter(lastPrepStep);
-    //    }
-    //});
-    //$("#nextIngredient").on('keyup', function (e) {
-    //    if (e.keyCode == 13) {
-
-    //        var ingredient = $("#nextIngredient").val();
-    //        var measurement = $("#measurementType").val();
-    //        var quantity = $("#nextQuantity").val();
-    //        var currentIngredient = $("#nextIngredient").last();
-    //        var currentMeasurement = $("#measurementType").last();
-    //        var currentQuantity = $("#nextQuantity").last();
-    //        var currentDivQMI = $(".ingredientList").last();
-    //        var clonedIngredient = currentIngredient.clone();
-    //        var clonedMeasurement = currentMeasurement.clone();
-    //        var clonedQuantity = currentQuantity.clone();
-    //        var clonedDivQMI = $(".ingredientList").clone();
-
-    //        var input = document.createElement('input');
-    //        input.type = "hidden";
-    //        var quantityMeasurementIngredient = "QuantityMeasurementIngredient[" + ingredientCount + "]";
-    //        input.name = quantityMeasurementIngredient;
-    //        input.value = [quantity, measurement, ingredient];
-    //        $("#quantityMeasurementIngredient").append(input);
-    //        ingredientCount++;
-
-    //        currentQuantity.find("h3").html(quantity);
-    //        currentIngredient.find("h3").html(ingredient);
-    //        currentMeasurement.find("h3").html(measurement);
-
-    //        $("#nextIngredient").val("");
-    //        $("#measurementType").val("");
-    //        $("#nextQuantity").val("");
-    //        clonedDivQMI.insertAfter(currentDivQMI);
-    //    }
-    //});
-
-    $(document).ready(function () {
-        var max_fields = 15; //maximum input boxes allowed
-        var wrapper = $(".input_fields_wrap"); //Fields wrapper
-        var add_button = $(".add_field_button"); //Add button ID
-        var counter = 0;
-
-        var x = 1; //initlal text box count
-        $(add_button).click(function (e) { //on add input button click
-            e.preventDefault();
-            if (x < max_fields) { //max input box allowed
-                x++; //text box increment
-                counter++;
-                $(wrapper).append('<div><input type="text" name="QuantityMeasurementIngredient[' + counter + ']"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
-            }
-        });
-
-        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-            e.preventDefault(); $(this).parent('div').hide(); x--;
-            $(this).parent('input').val("");
-        })
-    });
-</script>
 
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
