@@ -175,13 +175,7 @@ namespace Capstone.Web.Controllers
             rvm.RecipeDescription = recipe.Description;
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
             rvm.RecipeIngredient = recipeIngredients;
-                for (int i = 0; i < recipeIngredients.Count; i++)
-            {
-                string str = "";
-                str += recipeIngredients[i].Ingredient_Name;
-                rvm.QuantityMeasurementIngredient.Add(str);
-            }
-                  
+              
                 //PrepSteps = new List<string>()
             
                 if (steps != null)
