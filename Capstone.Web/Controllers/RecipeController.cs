@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Capstone.Web.Models.ViewModels;
+using System.IO;
 
 namespace Capstone.Web.Controllers
 {
@@ -81,20 +82,32 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateRecipe(RecipeViewModel model)
+        public ActionResult CreateRecipe(RecipeViewModel model, HttpPostedFileBase recipeImage)
         {
 
             if (model != null && model.QuantityMeasurementIngredient != null && model.PrepSteps != null)
             {
+                if (recipeImage.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(recipeImage.FileName);
+                    var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
+                    recipeImage.SaveAs(fullPath);
+                    model.RecipeImageName = fileName;
+                }
+                else
+                {
+                    model.RecipeImageName = "stock.jpg";
+                }
+
 
                 List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
                 PreparationSteps pS = new PreparationSteps();
-                model.PrepSteps[0].Replace('\n', ' '); 
+                model.PrepSteps[0].Replace('\n', ' ');
                 List<string> prepSteps = model.PrepSteps[0].Split('\r').ToList();
-                
+
                 foreach (var item in model.QuantityMeasurementIngredient)
                 {
-                    
+
                     if (item != "")
                     {
                         RecipeIngredient recipeIngredient = new RecipeIngredient()
@@ -107,15 +120,15 @@ namespace Capstone.Web.Controllers
                         recipeIngredients.Add(recipeIngredient);
                     }
                 }
-                string ingredient1 = recipeIngredients[0].Ingredient_Name; 
+                string ingredient1 = recipeIngredients[0].Ingredient_Name;
 
                 Recipe r = new Recipe();
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
-                r.ImageName = model.RecipeName.Replace(' ', '_');
+                r.ImageName = model.RecipeImageName;
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
                 var recipeType = "";
-                    int counter = 0; 
+                int counter = 0;
                 foreach (var item in model.RecipeType)
                 {
                     if (model.RecipeType.Count == counter)
@@ -123,9 +136,9 @@ namespace Capstone.Web.Controllers
                         recipeType += item;
                     }
                     else
-                    { 
-                    recipeType += item + ", ";
-                        counter++; 
+                    {
+                        recipeType += item + ", ";
+                        counter++;
                     }
                 }
                 r.RecipeType = recipeType;
@@ -137,11 +150,12 @@ namespace Capstone.Web.Controllers
 
                     recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
                     preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
-                    return View("SuccessfullyAddedRecipe", model);
+                    TempData["action"] = "save";
+                    return RedirectToAction("Detail", new { recipeId = r.RecipeId });
 
                 }
             }
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("CreateRecipe", "Recipe");
         }
 
         // GET: All User Recipes
