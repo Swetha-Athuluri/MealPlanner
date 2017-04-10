@@ -54,7 +54,6 @@
                     @Html.TextBoxFor(m => m.RecipeName, new { placeholder = "Enter Recipe Name", @class = "form-control form-control-lg" })
                     <br />
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
@@ -62,6 +61,14 @@
                     <br />
                 </div>
             </div>
+                <div class="row">
+                    <div class="file-tab panel-body col-md-6 col-md-offset-1">
+                        <label class="btn btn-default btn-file">
+                            <span>Browse</span>
+                            <input type="file" name="recipeImage">
+                        </label>
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-md-1 col-md-offset-1">
                     @Html.TextBoxFor(m => m.RecipeCookTimeInMinutes, new { placeholder = "000", @class = "form-group", @id = "RecipeCookTimeInMinutes", style ="width:50px;" })
@@ -125,13 +132,14 @@
         </div>
     </div>
 
-<div>
-    <input type="file" name="recipeImage" /> 
-</div>
+
+    @*<input type="file" name="recipeImage" />*@  
+    @*Html.Action("UploadPhoto", "Home")*@
+
 }
 
-@*
-    Html.Action("UploadPhoto", "Home")  @*</div>*@
+
+     @*</div>*@
 
 @*<script>
 
