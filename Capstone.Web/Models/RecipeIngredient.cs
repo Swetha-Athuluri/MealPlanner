@@ -12,5 +12,6 @@ namespace Capstone.Web.Models
         //public int Quantity { get; set; }
         public string Quantity { get; set; }
         public string Measurement { get; set; }
+        public static List<string> ingredientList { get; set; } 
     }
 }
