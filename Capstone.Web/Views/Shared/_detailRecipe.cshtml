@@ -1,24 +1,13 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model RecipeViewModel
 
-@{
-    ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-
-<head>
-</head>
 <section>
-    @if(TempData["action"] != null)
-    {
-        <h2>Succesfully added recipe!</h2>
-    }
     <div class="flex-item1">
-        
+
         <div class="div-image">
-        <img src="~/Recipe-Images/@(Model.RecipeImageName)" />
-    </div>
+            <img src="~/Content/img/@(Model.RecipeImageName).jpg" />
+        </div>
         <div class="div-content">
             <h2><strong>@Model.RecipeName</strong></h2>
             <p>@Model.RecipeType</p>
@@ -51,6 +40,7 @@
 
     </div>
 </section>
+
 
 
 
