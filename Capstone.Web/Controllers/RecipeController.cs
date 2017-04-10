@@ -114,7 +114,21 @@ namespace Capstone.Web.Controllers
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeName.Replace(' ', '_');
                 r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
-                r.RecipeType = model.RecipeType;
+                var recipeType = "";
+                    int counter = 0; 
+                foreach (var item in model.RecipeType)
+                {
+                    if (model.RecipeType.Count == counter)
+                    {
+                        recipeType += item;
+                    }
+                    else
+                    { 
+                    recipeType += item + ", ";
+                        counter++; 
+                    }
+                }
+                r.RecipeType = recipeType;
 
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
