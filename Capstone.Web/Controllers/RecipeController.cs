@@ -189,10 +189,11 @@ namespace Capstone.Web.Controllers
             rvm.RecipeDescription = recipe.Description;
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
             rvm.RecipeIngredient = recipeIngredients;
-              
-                //PrepSteps = new List<string>()
-            
-                if (steps != null)
+            rvm.RecipeName = recipe.Name; 
+
+            rvm.PrepSteps = new List<string>();
+            if (steps != null)
+                
             {
                 foreach(var step in steps)
                 {
