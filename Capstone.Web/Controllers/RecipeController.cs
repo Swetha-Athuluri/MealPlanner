@@ -40,7 +40,7 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult Detail(int recipeId)
         {
-            if (Session[SessionKeys.UserId] == null)
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
             {
                 return RedirectToAction("Login", "User");
             }

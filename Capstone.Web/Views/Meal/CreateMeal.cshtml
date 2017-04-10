@@ -18,7 +18,7 @@
                 @Html.TextBoxFor(m => m.MealName, new { placeholder = "Enter Meal Name" })
             </div>
         </div>
-        <div class="wrapper">
+        @*<div class="wrapper">
             @foreach (var item in Model.RecipeList)
             {
                 <div class="row">
@@ -30,7 +30,16 @@
                     </div>
                 </div>
             }
-        </div>
+        </div>*@
+
+        <div class="wrapper">
+                   <div class="col-md-6">
+                        @Html.DropDownList("Choose Rcipe Name", Model.RecipeList, new { placeholder="Please select Recipe to Meal"})
+                        @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal" })
+                       <input type="hidden" name="RecipeAndMealType" value=""><a href="#" class="add_field">Add</a>
+                    </div>
+                </div>
+      
         <button type="submit" class="btn btn-primary">Create Meal</button>
 
 
