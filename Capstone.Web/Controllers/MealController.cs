@@ -45,16 +45,28 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMeal(MealRecipeViewModel model)
         {
-            if (model != null && model.RecipeId != null && model.MealType != null)
+            if (model != null && model.RecipeId != 0 && model.MealType != null)
             {
-                model.UserId = (int)Session[SessionKeys.UserId];
-                mealDAL.SaveMeal(model);
-                //model.ListOfRecipies 
-                //foreach (var recipe in model.ListOfRecipies)
-                //{
-                //   // mealDAL.SaveMeal()
-                //}
+                int userId = (int)Session[SessionKeys.UserId];
+                List<int> recipeIds = new List<int>();
+                List<string> mealTypes = new List<string>(); 
+                foreach (var recipeMealType in model.RecipeIdMealType)
+                {
+                    List<string> recipeMeal = recipeMealType.Split(',').ToList();
+                    recipeIds.Add(Convert.ToInt32(recipeMeal[0]));
+                    mealTypes.Add(recipeMeal[1]);
+                }
 
+                Meal meal = new Meal()
+                {
+                    MealName = model.MealName,
+                    RecipeIds = recipeIds,
+                    MealTypes = mealTypes
+
+                };
+
+                mealDAL.SaveMeal(meal, userId);
+                
                 return View("SuccessfullyAddedRecipe", model);
             }
             return RedirectToAction("Login", "User");
