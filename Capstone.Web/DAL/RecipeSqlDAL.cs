@@ -168,8 +168,9 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
-        public bool ModifyRecipe(Recipe recipe)
+        public Recipe ModifyRecipe(int recipeId, int userId)
         {
+            Recipe recipe = new Recipe();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -182,10 +183,8 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("@image_name", recipe.ImageName);
                     cmd.Parameters.AddWithValue("@recipe_description", recipe.Description);
                     cmd.Parameters.AddWithValue("@cook_time", recipe.CookTimeInMinutes);
-
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return (rowsAffected > 0); //true if one row was affected
+                    
+                    return recipe; 
                 }
                 
             }

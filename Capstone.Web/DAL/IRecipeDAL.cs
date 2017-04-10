@@ -13,7 +13,7 @@ namespace Capstone.Web.DAL
         Recipe GetRecipe(int recipeId,int userId);
         void SaveRecipe(Recipe recipe);
         List<Recipe> GetUsersRecipes(int userId);
-        bool ModifyRecipe(Recipe recipe);
+        Recipe ModifyRecipe(int recipeId, int userId);
         List<Recipe> GetTop10RecentlyAddedRecipes();
         List<Recipe> GetTop10RecentlyAddedUserRecipes(int userId);
         List<string> GetRecipeNames(int userId);
