@@ -1,0 +1,43 @@
+﻿@using Capstone.Web.Models.ViewModels
+@model RecipeViewModel
+@{
+    ViewBag.Title = "DeleteRecipeView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteRecipeView</h2>
+<div>
+    @using (Html.BeginForm("DeleteRecipeView", "Recipe", FormMethod.Post))
+    {
+        
+
+
+
+            @*<button class='btn btn-danger btn-xs' type="submit" name="remove_levels" value="delete"><span class="fa fa-times"></span> delete</button>
+           
+             <div id="confirm" class="modal hide fade">
+                <div class="modal-body">
+                    Are you sure?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                </div>
+            </d*@iv>
+    }
+</div>
+@*<script>
+    $('button[name="remove_levels"]').on('click', function (e) {
+        var $form = $(this).closest('form');
+        e.preventDefault();
+        $('#confirm').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        .one('click', '#delete', function (e) {
+            $form.trigger('submit');
+        });
+    });
+
+</script>*@
+

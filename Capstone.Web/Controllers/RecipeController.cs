@@ -17,14 +17,16 @@ namespace Capstone.Web.Controllers
         private IRecipeIngredientDAL recipeIngredientDAL;
         private IIngredientDAL ingredientDAL;
         private IPreparationStepsDAL preparationStepsDAL;
+        private IMealDAL mealDAL;
 
-        public RecipeController(IRecipeDAL recipeDAL, IUserDAL userDal, IRecipeIngredientDAL recipeIngredientDAL, IIngredientDAL ingredientDAL, IPreparationStepsDAL preparationStepsDAL)
+        public RecipeController(IRecipeDAL recipeDAL, IUserDAL userDal, IRecipeIngredientDAL recipeIngredientDAL, IIngredientDAL ingredientDAL, IPreparationStepsDAL preparationStepsDAL, IMealDAL mealDAL)
         {
             this.recipeDAL = recipeDAL;
             this.userDAL = userDal;
             this.recipeIngredientDAL = recipeIngredientDAL;
             this.ingredientDAL = ingredientDAL;
             this.preparationStepsDAL = preparationStepsDAL;
+            this.mealDAL = mealDAL;
         }
 
         // GET: Recipe
@@ -315,6 +317,24 @@ namespace Capstone.Web.Controllers
             }
             return RedirectToAction("ModifyRecipeView", "Recipe");
         
+        }
+
+        [HttpGet]
+        public ActionResult DeleteRecipeView(RecipeViewModel rvm)
+        {
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            Recipe r = new Recipe();
+            r.RecipeId = rvm.RecipeId;
+            r.UserId = (int)Session[SessionKeys.UserId];
+            recipeIngredientDAL.DeleteFromRecipeIngredient(r.RecipeId);
+            preparationStepsDAL.DeleteFromPreparationSteps(r.RecipeId);
+            mealDAL.DeleteMealRecipe(r.UserId, r.RecipeId);
+            recipeDAL.DeleteRecipe(r);
+            TempData["action"] = "delete";
+            return RedirectToAction("Recipes");
         }
     }
 }
