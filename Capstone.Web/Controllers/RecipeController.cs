@@ -151,7 +151,7 @@ namespace Capstone.Web.Controllers
 
                     recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
                     preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
-                    TempData["action"] = "save";
+                    TempData["action"] = "save"; 
                     return RedirectToAction("Detail", new { recipeId = r.RecipeId });
 
                 }
@@ -181,11 +181,19 @@ namespace Capstone.Web.Controllers
             List<RecipeIngredient> recipeIngredients = recipeIngredientDAL.GetRecipeIngredients(recipeId);
             Recipe recipe = recipeDAL.GetRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipeId);
-            string[] arrayOfStrings = recipe.RecipeType.Split(',');
+            string[] recipeTypes = recipe.RecipeType.Split(',');
+
+          
             //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             RecipeViewModel rvm = new RecipeViewModel();
 
-            rvm.RecipeType = arrayOfStrings.ToList<string>();
+            for (int i = 0; i < recipeTypes.Length; i++)
+            {
+                //RecipeViewModel.RecipeTypes=RecipeViewModel.RecipeTypes.Select(recipeTypes[i], true);
+                
+             }
+            //rvm.RecipeType= recipeTypes.ToList<string>();
+
             rvm.RecipeImageName = recipe.ImageName;
             rvm.RecipeDescription = recipe.Description;
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;

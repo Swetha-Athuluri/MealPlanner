@@ -50,20 +50,10 @@ namespace Capstone.Web.Models.ViewModels
         public string Email { get; set; }
         public List<PreparationSteps> Steps { get; set; }
         public MultiSelectList RecipeSelectionTypes { get; set; }
-        //public static MultiSelectList RecipeTypes { get; } = new MultiSelectList(
-        //IEnumerable<object>
-        //new IEnumerable <SelectListItem> { { "Vegan", "Vegan" },
-        // { "Vegetarian", "Vegetarian" },
-        // { "Kid Friendly", "Kid Friendly" },
-        // { "Meat Lover", "Meat Lover" },
-        // { "Cheesy Deliciousness", "Cheesy Deliciousness" },
-        // { "Under 30 minutes", "Under 30 minutes" },
-        // { "Healthy", "Under 30 minutes" }
-
-        //}); 
+        
         public static List<SelectListItem> RecipeTypes { get; set; } = new List<SelectListItem>()
         { 
-            //new SelectListItem() {Text= "Vegan",Value= "Vegan" },
+            new SelectListItem() {Text= "Vegan",Value= "Vegan" },
             new SelectListItem() {Text= "Vegetarian",Value= "Vegetarian" },
             new SelectListItem() {Text= "Kid Friendly",Value= "Kid Friendly" },
             new SelectListItem() {Text= "Meat Lover",Value= "Meat Lover" },
@@ -71,16 +61,7 @@ namespace Capstone.Web.Models.ViewModels
             new SelectListItem() {Text= "Under 30 minutes",Value= "Under 30 minutes" },
             new SelectListItem() {Text= "Healthy",Value= "Healthy" },
             };
-            // { "Vegetarian", "Vegetarian" },
-            // { "Kid Friendly", "Kid Friendly" },
-            // { "Meat Lover", "Meat Lover" },
-            // { "Cheesy Deliciousness", "Cheesy Deliciousness" },
-            // { "Under 30 minutes", "Under 30 minutes" },
-            // { "Healthy", "Under 30 minutes" }
-
-            //}); 
-
-
+            
         public static List<SelectListItem> Measurements { get; } = new List<SelectListItem>()
         {
             new SelectListItem() {Text = "bunch(es)", Value = "bunch(es)" },
