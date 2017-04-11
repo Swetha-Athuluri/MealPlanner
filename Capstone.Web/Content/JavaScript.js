@@ -36,9 +36,7 @@
 
         })
     });
-    $(document).onload(function () {
-        if()
-        document.getElementById("recipeType").selected = "true";
+    
         
-    })
+  
   
