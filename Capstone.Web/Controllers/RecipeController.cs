@@ -182,6 +182,8 @@ namespace Capstone.Web.Controllers
             Recipe recipe = recipeDAL.GetRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             List<PreparationSteps> steps = preparationStepsDAL.GetPreparationStepsForRecipe(recipeId);
             string[] recipeTypes = recipe.RecipeType.Split(',');
+           
+           
 
 
             //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
@@ -204,7 +206,23 @@ namespace Capstone.Web.Controllers
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
             rvm.RecipeIngredient = recipeIngredients;
             rvm.RecipeName = recipe.Name;
+<<<<<<< HEAD
 
+=======
+            rvm.RecipeType = new List<string>();
+            foreach (var item in recipeTypes)
+            {
+                
+                if((item.Substring(0,1) == " ")&& (item !=" "))
+                {
+                    rvm.RecipeType.Add(item.Remove(0, 1));
+                }
+                else if (item != " ")
+                {
+                    rvm.RecipeType.Add(item); 
+                }
+            }
+>>>>>>> 2f02506f266d0ad40d209addb1fe0c4b5fda1793
             rvm.PrepSteps = new List<string>();
             if (steps != null)
 
