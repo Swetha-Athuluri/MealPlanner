@@ -17,6 +17,5 @@ namespace Capstone.Web.DAL
         List<Recipe> GetTop10RecentlyAddedRecipes();
         List<Recipe> GetTop10RecentlyAddedUserRecipes(int userId);
         List<string> GetRecipeNames(int userId);
-
     }
 }
