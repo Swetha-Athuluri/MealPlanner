@@ -46,11 +46,12 @@ namespace Capstone.Web.DAL
                     conn.Open();
                     meal.MealId = conn.QueryFirst<int>("INSERT INTO meal VALUES (@meal_name); Select CAST(SCOPE_IDENTITY() as int);",
                         new { meal_name = meal.MealName });
-
+                    var counter = 0; 
                     foreach (var recipe in meal.RecipeIds)
                     {
                         conn.Execute("Insert into meal_recipe values(@mealId, @recipeId, @userId, @mealType);",
-                            new { mealId = meal.MealId, recipeId = recipe, userId = userId, mealType = meal.MealTypes });
+                            new { mealId = meal.MealId, recipeId = recipe, userId = userId, mealType = meal.MealTypes[counter] });
+                        counter++;
                     }
                 }
                 
