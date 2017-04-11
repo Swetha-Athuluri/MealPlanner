@@ -4,7 +4,7 @@
         var max_fields = 15; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var add_button = $(".add_field_button"); //Add button ID
-        var counter = 0;
+        var counter = $(".input_fields_wrap input").length-1;
 
         var x = 1; //initlal text box count
         $(add_button).click(function (e) { //on add input button click
@@ -37,6 +37,6 @@
         })
     });
     
-        
+    
   
   

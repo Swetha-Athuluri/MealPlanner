@@ -188,27 +188,14 @@ namespace Capstone.Web.Controllers
 
             //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             RecipeViewModel rvm = new RecipeViewModel();
-
-            //for (int i = 0; i < recipeTypes.Length; i++)
-            //{
-            //    //RecipeViewModel.RecipeTypes.Select(recipeTypes[i], true);
-            //    if(RecipeViewModel.RecipeTypes.Text==recipeTypes[i])
-            //    {
-            //        RecipeViewModel.RecipeTypes.
-            //        //RecipeViewModel.RecipeTypes.Select(new SelectListItem() { Text = recipeTypes[i], Value = recipeTypes[i] },true);
-            //    }
-
-            // }
-            //rvm.RecipeType= recipeTypes.ToList<string>();
+          
             rvm.RecipeId = recipe.RecipeId;
             rvm.RecipeImageName = recipe.ImageName;
             rvm.RecipeDescription = recipe.Description;
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
             rvm.RecipeIngredient = recipeIngredients;
             rvm.RecipeName = recipe.Name;
-<<<<<<< HEAD
 
-=======
             rvm.RecipeType = new List<string>();
             foreach (var item in recipeTypes)
             {
@@ -222,7 +209,6 @@ namespace Capstone.Web.Controllers
                     rvm.RecipeType.Add(item); 
                 }
             }
->>>>>>> 2f02506f266d0ad40d209addb1fe0c4b5fda1793
             rvm.PrepSteps = new List<string>();
             if (steps != null)
 
@@ -241,7 +227,7 @@ namespace Capstone.Web.Controllers
         {
             if (model != null && model.QuantityMeasurementIngredient != null && model.PrepSteps != null)
             {
-                if (recipeImage.ContentLength > 0)
+                if (recipeImage!= null && recipeImage.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(recipeImage.FileName);
                     var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
@@ -260,7 +246,17 @@ namespace Capstone.Web.Controllers
                 List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
                 PreparationSteps pS = new PreparationSteps();
                 model.PrepSteps[0].Replace('\n', ' ');
-                List<string> prepSteps = model.PrepSteps[0].Split('\r').ToList();
+                List<string> prepSteps = new List<string>();
+           
+                foreach (string step in model.PrepSteps[0].Split('\r').ToList())
+                {
+                    if(step.Contains('\n') && step.Length > 2 && step != "")
+                    {
+                        string newStep = step.Remove(0,2);
+                        prepSteps.Add(newStep);
+                    }
+                    
+                }
 
                 foreach (var item in model.QuantityMeasurementIngredient)
                 {
@@ -280,7 +276,6 @@ namespace Capstone.Web.Controllers
                 string ingredient1 = recipeIngredients[0].Ingredient_Name;
 
                 Recipe r = new Recipe();
-                r.RecipeId = model.RecipeId;
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeImageName;
@@ -304,8 +299,7 @@ namespace Capstone.Web.Controllers
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
                     r.UserId = (int)Session[SessionKeys.UserId];
-                    recipeDAL.UpdateRecipe(r);
-
+                    recipeDAL.SaveRecipe(r);
                     recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
                     preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
                     TempData["action"] = "update";
