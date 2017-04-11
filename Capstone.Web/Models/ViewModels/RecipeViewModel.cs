@@ -49,7 +49,7 @@ namespace Capstone.Web.Models.ViewModels
         public List<string> RecipeType { get; set; }
         public string Email { get; set; }
         public List<PreparationSteps> Steps { get; set; }
-        public MultiSelectList RecipeSelectionTypes { get; set; }
+       // public MultiSelectList RecipeSelectionTypes { get; set; }
         
         public static List<SelectListItem> RecipeTypes { get; set; } = new List<SelectListItem>()
         { 

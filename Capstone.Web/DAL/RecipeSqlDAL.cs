@@ -22,7 +22,7 @@ namespace Capstone.Web.DAL
 
         private const string SqlGetUserRecipeSteps = @"select steps from preparation_steps inner join recipe on recipe.recipe_id=@recipeId;";
         private const string SqlGetRecipe = @"select * from recipe where user_id=@userId and recipe_id=@recipeId;";
-        private const string SqlModifyRecipe = @"update recipe set recipe_type = @recipe_type, image_name=@image_name, recipe_description=@recipe_description, cook_time=@cook_time where user_id=@user_id and recipe_id=@recipe_id;";
+        private const string SqlUpdateRecipe = @"update recipe set recipe_name=@recipe_name,recipe_type = @recipe_type, image_name=@image_name, recipe_description=@recipe_description, cook_time=@cook_time where user_id=@user_id and recipe_id=@recipe_id;";
 
         public RecipeSqlDAL(string connectionString)
         {
@@ -168,23 +168,25 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
-        public Recipe ModifyRecipe(int recipeId, int userId)
+        public void UpdateRecipe(Recipe recipe)
         {
-            Recipe recipe = new Recipe();
+            
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(SqlModifyRecipe, conn);
+                    SqlCommand cmd = new SqlCommand(SqlUpdateRecipe, conn);
                     cmd.Parameters.AddWithValue("@recipe_id", recipe.RecipeId);
                     cmd.Parameters.AddWithValue("@user_id", recipe.UserId);
+                    cmd.Parameters.AddWithValue("@recipe_name", recipe.Name);
                     cmd.Parameters.AddWithValue("@recipe_type", recipe.RecipeType);
                     cmd.Parameters.AddWithValue("@image_name", recipe.ImageName);
                     cmd.Parameters.AddWithValue("@recipe_description", recipe.Description);
                     cmd.Parameters.AddWithValue("@cook_time", recipe.CookTimeInMinutes);
-                    
-                    return recipe; 
+
+
+                    cmd.ExecuteNonQuery(); 
                 }
                 
             }

@@ -58,7 +58,7 @@ namespace Capstone.Web.Controllers
             rvm.RecipeDescription = r.Description;
             rvm.RecipeIngredient = recipeIngredients;
 
-            rvm.PrepSteps = new List<string>(); 
+            rvm.PrepSteps = new List<string>();
             if (steps != null)
             {
                 foreach (var step in steps)
@@ -151,7 +151,7 @@ namespace Capstone.Web.Controllers
 
                     recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
                     preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
-                    TempData["action"] = "save"; 
+                    TempData["action"] = "save";
                     return RedirectToAction("Detail", new { recipeId = r.RecipeId });
 
                 }
@@ -185,22 +185,17 @@ namespace Capstone.Web.Controllers
            
            
 
-          
+
             //Recipe r = recipeDAL.ModifyRecipe(recipeId, (int)Session[SessionKeys.UserId]);
             RecipeViewModel rvm = new RecipeViewModel();
-
-            for (int i = 0; i < recipeTypes.Length; i++)
-            {
-                //RecipeViewModel.RecipeTypes=RecipeViewModel.RecipeTypes.Select(recipeTypes[i], true);
-                
-             }
-            //rvm.RecipeType= recipeTypes.ToList<string>();
-
+          
+            rvm.RecipeId = recipe.RecipeId;
             rvm.RecipeImageName = recipe.ImageName;
             rvm.RecipeDescription = recipe.Description;
             rvm.RecipeCookTimeInMinutes = recipe.CookTimeInMinutes;
             rvm.RecipeIngredient = recipeIngredients;
             rvm.RecipeName = recipe.Name;
+
             rvm.RecipeType = new List<string>();
             foreach (var item in recipeTypes)
             {
@@ -216,16 +211,105 @@ namespace Capstone.Web.Controllers
             }
             rvm.PrepSteps = new List<string>();
             if (steps != null)
-                
+
             {
-                foreach(var step in steps)
+                foreach (var step in steps)
                 {
                     rvm.PrepSteps.Add(step.Steps);
                 }
             }
 
+
+            return View("ModifyRecipeView", rvm);
+        }
+        [HttpPost]
+        public ActionResult ModifyRecipeView(RecipeViewModel model, HttpPostedFileBase recipeImage)
+        {
+            if (model != null && model.QuantityMeasurementIngredient != null && model.PrepSteps != null)
+            {
+                if (recipeImage!= null && recipeImage.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(recipeImage.FileName);
+                    var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
+                    recipeImage.SaveAs(fullPath);
+                    model.RecipeImageName = fileName;
+
+                }
+                else
+                {
+                    model.RecipeImageName = model.RecipeImageName;
+                }
+
+                recipeIngredientDAL.DeleteFromRecipeIngredient(model.RecipeId);
+                preparationStepsDAL.DeleteFromPreparationSteps(model.RecipeId);
+
+                List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
+                PreparationSteps pS = new PreparationSteps();
+                model.PrepSteps[0].Replace('\n', ' ');
+                List<string> prepSteps = new List<string>();
+           
+                foreach (string step in model.PrepSteps[0].Split('\r').ToList())
+                {
+                    if(step.Contains('\n') && step.Length > 2 && step != "")
+                    {
+                        string newStep = step.Remove(0,2);
+                        prepSteps.Add(newStep);
+                    }
+                    
+                }
+
+                foreach (var item in model.QuantityMeasurementIngredient)
+                {
+
+                    if (item != "")
+                    {
+                        RecipeIngredient recipeIngredient = new RecipeIngredient()
+                        {
+                            Quantity = "",
+                            Measurement = "",
+                            Ingredient_Name = item,
+                        };
+
+                        recipeIngredients.Add(recipeIngredient);
+                    }
+                }
+                string ingredient1 = recipeIngredients[0].Ingredient_Name;
+
+                Recipe r = new Recipe();
+                r.Name = model.RecipeName;
+                r.Description = model.RecipeDescription;
+                r.ImageName = model.RecipeImageName;
+                r.CookTimeInMinutes = model.RecipeCookTimeInMinutes;
+                var recipeType = "";
+                int counter = 0;
+                foreach (var item in model.RecipeType)
+                {
+                    if (model.RecipeType.Count == counter)
+                    {
+                        recipeType += item;
+                    }
+                    else
+                    {
+                        recipeType += item + ", ";
+                        counter++;
+                    }
+                }
+                r.RecipeType = recipeType;
+
+                if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
+                {
+                    r.UserId = (int)Session[SessionKeys.UserId];
+                    recipeDAL.SaveRecipe(r);
+                    recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
+                    preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
+                    TempData["action"] = "update";
+                    return RedirectToAction("Detail", new { recipeId = r.RecipeId });
+
+                }
             
-                 return View("ModifyRecipeView", rvm); 
+            }
+            return RedirectToAction("ModifyRecipeView", "Recipe");
+        
         }
     }
 }

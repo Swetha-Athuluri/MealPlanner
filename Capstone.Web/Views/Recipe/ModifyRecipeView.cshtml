@@ -39,7 +39,7 @@
     }
 </style>
 
-@using (Html.BeginForm("ModifyRecipe", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ModifyRecipeView", "Recipe",FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
 
     <div class="row">
@@ -49,7 +49,8 @@
             <div class="row">
                 <div class="col-md-4">
                     <br />
-                   @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName, @class = "form-control form-control-lg" })
+                    @Html.HiddenFor(m=>m.RecipeId,new { Value=Model.RecipeId})
+                    @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName, @class = "form-control form-control-lg" })
                     <br />
                 </div>
 
@@ -103,7 +104,7 @@
 
                     @*<div><input type="text" name="QuantityMeasurementIngredient[0]" value=""><a href="#" class="remove_field">Remove</a></div>*@
                     @for (var i = 0; i < Model.RecipeIngredient.Count; i++)
-                {
+                    {
                         <div><input class="form-control form-control-lg" type="text" name="QuantityMeasurementIngredient[@i]" data-id="@i" value="@Model.RecipeIngredient[i].Ingredient_Name"><a href="#" class="remove_field">Remove</a></div>
 
                     }
