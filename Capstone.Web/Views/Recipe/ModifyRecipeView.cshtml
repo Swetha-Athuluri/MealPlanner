@@ -49,14 +49,14 @@
             <div class="row">
                 <div class="col-md-4">
                     <br />
-                    @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName, @class = "form-control form-control-lg" })
+                   @Html.TextBoxFor(m => m.RecipeName, new { Value = Model.RecipeName, @class = "form-control form-control-lg" })
                     <br />
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    @Html.TextAreaFor(m => m.RecipeDescription, new { Value = Model.RecipeDescription, @class = "form-control form-control-lg", @rows = 3 })
+                   @Html.TextAreaFor(m => m.RecipeDescription, new { Value = Model.RecipeDescription, @class = "form-control form-control-lg", @rows = 3 })
                     <br />
                 </div>
             </div>
@@ -90,8 +90,13 @@
 
                     @Html.ListBox("recipeType", RecipeViewModel.RecipeTypes, new { @class = "form-group", size = 7 })
                     @Html.Hidden("RecipeTypes", "recipeType")
-                    @*need to add logic to loop through and selet recipe types k*@
+                  
+
                 </div>
+          @for (int i = 0; i < Model.RecipeType.Count; i++)
+          {
+            <script>$("#recipeType option[value=@Model.RecipeType[i]]").prop("selected", "selected")</script>
+          }
 
             </div>
             <div class="row">
