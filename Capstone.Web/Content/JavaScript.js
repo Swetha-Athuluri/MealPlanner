@@ -12,7 +12,7 @@
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
                 counter++;
-                $(wrapper).append('<div><input type="text" data-id='+counter+' name="QuantityMeasurementIngredient[' + counter + ']"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                $(wrapper).append('<div><input class="form-control form-control-lg" type="text" data-id=' + counter + ' name="QuantityMeasurementIngredient[' + counter + ']"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
             }
         });
 
