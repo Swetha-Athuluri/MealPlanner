@@ -250,10 +250,14 @@ namespace Capstone.Web.Controllers
            
                 foreach (string step in model.PrepSteps[0].Split('\r').ToList())
                 {
-                    if(step.Contains('\n') && step.Length > 2 && step != "")
+                    if (step.Contains('\n') && step.Length > 2 && step != "")
                     {
-                        string newStep = step.Remove(0,2);
+                        string newStep = step.Remove(0, 1);
                         prepSteps.Add(newStep);
+                    }
+                    else if (!step.Contains('\n'))
+                    {
+                        prepSteps.Add(step); 
                     }
                     
                 }
@@ -276,6 +280,7 @@ namespace Capstone.Web.Controllers
                 string ingredient1 = recipeIngredients[0].Ingredient_Name;
 
                 Recipe r = new Recipe();
+                r.RecipeId = model.RecipeId;
                 r.Name = model.RecipeName;
                 r.Description = model.RecipeDescription;
                 r.ImageName = model.RecipeImageName;
@@ -299,7 +304,7 @@ namespace Capstone.Web.Controllers
                 if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
                 {
                     r.UserId = (int)Session[SessionKeys.UserId];
-                    recipeDAL.SaveRecipe(r);
+                    recipeDAL.UpdateRecipe(r);
                     recipeIngredientDAL.SaveRecipeIngredients(recipeIngredients, r.RecipeId);
                     preparationStepsDAL.SavePreparationSteps(r.RecipeId, prepSteps, pS); //might need to get RECIPEID from DAL
                     TempData["action"] = "update";
