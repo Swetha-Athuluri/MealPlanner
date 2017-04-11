@@ -12,6 +12,7 @@ namespace Capstone.Web.DAL
     {
         List<Recipe> GetAllMeals(int userId);
         void SaveMeal(Meal meal, int userId);
+        void DeleteMealRecipe(int userId, int recipeId);
         // void SaveMealRecipe(MealRecipeViewModel mealRecipeViewModel);
         
 

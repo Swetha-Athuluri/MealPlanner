@@ -13,6 +13,8 @@ namespace Capstone.Web.DAL
     {
         private readonly string connectionString;
 
+        private const string SqlDeleteMealRecipe = @"Delete from meal_recipe where recipe_id=@recipeId and user_id=@userId;";
+        
         public MealSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -57,6 +59,27 @@ namespace Capstone.Web.DAL
                 
             }
             catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public void DeleteMealRecipe(int userId, int recipeId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlDeleteMealRecipe, conn);
+                    cmd.Parameters.AddWithValue("userId", userId);
+                    cmd.Parameters.AddWithValue("recipeId", recipeId);
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+            catch(Exception ex)
             {
                 throw;
             }

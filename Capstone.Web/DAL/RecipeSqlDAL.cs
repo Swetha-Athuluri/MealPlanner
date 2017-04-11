@@ -23,7 +23,7 @@ namespace Capstone.Web.DAL
         private const string SqlGetUserRecipeSteps = @"select steps from preparation_steps inner join recipe on recipe.recipe_id=@recipeId;";
         private const string SqlGetRecipe = @"select * from recipe where user_id=@userId and recipe_id=@recipeId;";
         private const string SqlUpdateRecipe = @"update recipe set recipe_name=@recipe_name,recipe_type = @recipe_type, image_name=@image_name, recipe_description=@recipe_description, cook_time=@cook_time where user_id=@user_id and recipe_id=@recipe_id;";
-
+        private const string SqlDeleteRecipe = @"Delete from recipe where user_id=@userId and recipe_id=@recipeId;";
         public RecipeSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -170,7 +170,7 @@ namespace Capstone.Web.DAL
         }
         public void UpdateRecipe(Recipe recipe)
         {
-            
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -186,9 +186,9 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("@cook_time", recipe.CookTimeInMinutes);
 
 
-                    cmd.ExecuteNonQuery(); 
+                    cmd.ExecuteNonQuery();
                 }
-                
+
             }
             catch (SqlException ex)
             {
@@ -206,7 +206,7 @@ namespace Capstone.Web.DAL
                     SqlCommand cmd = new SqlCommand(SqlGetTop10Recipes, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         Recipe r = new Recipe();
                         r.UserId = Convert.ToInt32(reader["user_id"]);
@@ -219,7 +219,7 @@ namespace Capstone.Web.DAL
                         recipes.Add(r);
                     }
                 }
-                    
+
             }
             catch (SqlException ex)
             {
@@ -262,5 +262,26 @@ namespace Capstone.Web.DAL
             return recipes;
         }
 
+        public void DeleteRecipe(Recipe recipe)
+        {
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlDeleteRecipe, conn);
+                    cmd.Parameters.AddWithValue("@recipeId", recipe.RecipeId);
+                    cmd.Parameters.AddWithValue("@userId", recipe.UserId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
+            
