@@ -14,6 +14,7 @@ namespace Capstone.Web.DAL
         private readonly string connectionString;
         private const string SqlGetUserRecipeIngredient = @"select * from recipe_ingredient where recipe_id=@recipe_id;";
         private const string SqlModifyRecipeIngredient = @"update recipe_ingredient set ingredient_name=@ingredient_name, quantity=@quantity, measurement=@measurement where recipe_id=@recipe_id and ingredient_name=@ingredient_name;";
+        private const string SqlDeleteRecipeIngredient = @"delete from recipe_ingredient where recipe_id=@recipeId;";
         public RecipeIngredientSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -75,50 +76,24 @@ namespace Capstone.Web.DAL
         }
 
 
-        public bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount)
+        public void DeleteFromRecipeIngredient(int recipeId)
         {
-            throw new NotImplementedException();
-        }
-
-
-        //public bool ModifyRecipeIngredient(List<RecipeIngredient> recipeIngredients, int existingIngredientCount, int modifiedIngredientCount)
-        //{
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-        //            if (modifiedIngredientCount > existingIngredientCount)
-        //            {
-        //                for (int i = 1; i < existingIngredientCount; i++)
-        //                {
-
-        //                }
-
-        //            }
-        //        }
-
-        //              return true;
-        //            catch
-            
-
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlDeleteRecipeIngredient, conn);
+                    cmd.Parameters.AddWithValue("recipeId", recipeId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch(SqlException ex)
+            {
+                throw;
             }
         }
 
+    }
+}
 
-        //            }
-
-
-        //        }
-
-
-
-        //    }
-        //     return true;
-
-
-        //    catch
-        //    {
-
-        //    }
-        //}

@@ -12,7 +12,7 @@ namespace Capstone.Web.DAL
     {
         private readonly string connectionString;
         private const string SqlRecipeIngredientQuery = @"select * from preparation_steps where recipe_id=@recipe_id;";
-
+        private const string SqlDeletePreparationSteps = @"delete from preparation_steps where recipe_id=@recipeId;";
         public PreparationStepsSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -66,6 +66,23 @@ namespace Capstone.Web.DAL
                                            new { recipe_idValue = recipeId, stepValue = step });
 
                     }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+        public void DeleteFromPreparationSteps(int recipeId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlDeletePreparationSteps, conn);
+                    cmd.Parameters.AddWithValue("recipeId", recipeId);
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException ex)

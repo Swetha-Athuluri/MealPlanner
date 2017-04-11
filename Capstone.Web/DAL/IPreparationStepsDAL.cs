@@ -10,6 +10,7 @@ namespace Capstone.Web.DAL
     public interface IPreparationStepsDAL
     {
         List<PreparationSteps> GetPreparationStepsForRecipe(int recipeId);
-        void SavePreparationSteps(int recipeId, List<string> prepSteps, PreparationSteps prepStep); 
+        void SavePreparationSteps(int recipeId, List<string> prepSteps, PreparationSteps prepStep);
+        void DeleteFromPreparationSteps(int recipeId);
     }
 }

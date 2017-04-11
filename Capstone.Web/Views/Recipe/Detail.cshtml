@@ -1,29 +1,33 @@
 ﻿@using Capstone.Web.Models.ViewModels
 @model RecipeViewModel
-
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <head>
 </head>
-
 <section>
-    @if (TempData["action"] != null)
+    @if (TempData["action"] == "save")
     {
         <div class="alert alert-success" role="alert">
             <h5>Succesfully added recipe!</h5>
         </div>
 
-        
+    }
+
+    @if (TempData["action"] == "update")
+    {
+        <div class="alert alert-success" role="alert">
+            <h5>Succesfully Updated recipe!</h5>
+        </div>
+
     }
     <div class="flex-item1">
-        
+
         <div class="div-image">
-        <img src="~/Recipe-Images/@(Model.RecipeImageName)" />
-    </div>
+            <img src="~/Recipe-Images/@(Model.RecipeImageName)" />
+        </div>
         <div class="div-content">
             <h2><strong>@Model.RecipeName</strong></h2>
             <p>@Model.RecipeType</p>
@@ -31,7 +35,6 @@
             <p>@Model.RecipeDescription</p>
         </div>
     </div>
-
     <div class="flex-item2">
         <p><strong>Ingredients</strong></p>
         <ul>
@@ -41,7 +44,6 @@
             }
         </ul>
     </div>
-
     <div class="flex-item3">
         <p><strong>Preparation</strong></p>
         <ol>
@@ -54,16 +56,22 @@
         </ol>
         <br />
         <br />
+    </div>
+    @*@if (TempData["action"] == "update")
+    {
+        
+
+    }
+    else
+    {*@
         <div class="row">
             <div class="col-md-2 col-md-offset-5">
                 @*<input type="Modify" value="Modify" class="createButton btn-primary" autofocus>*@
-                <a href ="/Recipe/ModifyRecipeView?RecipeId=@Model.RecipeId" class="btn btn-primary">Modify</a>
-               
-                
+                <a href="/Recipe/ModifyRecipeView?RecipeId=@Model.RecipeId" class="btn btn-primary">Modify</a>
+
+
             </div>
-
         </div>
+    @*}*@
 </section>
-
-
 
