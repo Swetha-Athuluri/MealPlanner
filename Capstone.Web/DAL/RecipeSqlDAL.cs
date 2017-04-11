@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
     public class RecipeSqlDAL : IRecipeDAL
     {
         private readonly string connectionString;
-        private const string SqlGetUserRecipes = @"Select * from recipe where user_id=@userId;";
+        private const string SqlGetUserRecipes = @"Select * from recipe where user_id=@userId order by recipe_name;";
         private const string SqlGetTop10Recipes = @"Select top 10 * from recipe order by recipe_id desc;";
         private const string SqlGetTop10UserRecipes = @"Select top 10 * from recipe where user_id=@userId order by recipe_id desc;";
         private const string SqlGetUserRecipeIngredient = @"select ingredient.ingredient_name,recipe_ingredient.quantity,recipe_ingredient.measurement from recipe_ingredient
