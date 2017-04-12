@@ -108,38 +108,42 @@ namespace Capstone.Web.Controllers
         // GET: Meal
         public ActionResult Index()
         {
-            List<MealRecipeViewModel> mrvm = new List<MealRecipeViewModel>();
+            List<Meal> modelList = new List<Meal>();
             if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
             {
                 int userId = (int)Session[SessionKeys.UserId];
-                List<Meal> modelList = mealDAL.GetAllMeals(userId);
-                List<Recipe> recipes = new List<Recipe>();
+                modelList = mealDAL.GetAllMeals(userId);
+                //List<Recipe> recipes = new List<Recipe>();
                 
-                foreach (var meal in modelList)
-                {
-                    recipes.Add(recipeDAL.GetRecipe(meal.MealId, userId));
+                //foreach (var meal in modelList)
+                //{
+                //    recipes.Add(recipeDAL.GetRecipe(meal.MealId, userId));
                  
-                }
+                //}
 
-                List<string> recipeNames = new List<string>();
-                for (int i = 0; i < recipes.Count; i++)
-                {
-                    recipeNames.Add(recipes[i].Name);
-                }
+                //List<string> recipeNames = new List<string>();
+                //for (int i = 0; i < recipes.Count; i++)
+                //{
+                //    recipeNames.Add(recipes[i].Name);
+                //}
                 
-                foreach (var meal in modelList)
-                {
-                    MealRecipeViewModel mv = new MealRecipeViewModel();
-                    mv.MealName = meal.MealName;
-                    mv.MealType = meal.MealTypes;
-                    mv.MealId = meal.MealId;
-                    mv.UserId = userId; 
-                    mrvm.Add(mv); 
-                }
-                 
+               
+                //foreach (var meal in modelList)
+                //{
+                //    MealRecipeViewModel mv = new MealRecipeViewModel();
+                //    mv.MealName = meal.MealName;
+                //    mv.MealType = meal.MealTypes;
+                //    mv.MealId = meal.MealId;
+                //    mv.UserId = userId;
+                    
+                //    mv.ListOfRecipies = recipes;
+                //    mv.RecipeNames = recipeNames;
 
+                //    mrvm.Add(mv); 
+                //}
+              
             }
-            return View("Meals", mrvm);
+            return View("Meals", modelList);
 
 
         }

@@ -42,8 +42,8 @@ namespace Capstone.Web.DAL
             {
                 Meal m = new Meal();
                 m.MealTypes = new List<string>();
-                m.RecipeIds = new List<int>(); 
-                 
+                m.RecipeIds = new List<int>();
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -76,32 +76,43 @@ namespace Capstone.Web.DAL
             {
 
                 List<Meal> meals = new List<Meal>();
-                
-                
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue"), conn);
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT Distinct meal.meal_id, meal_name from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue", connection);
                     cmd.Parameters.AddWithValue("@userIdValue", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
-
                     while (reader.Read())
                     {
                         Meal m = new Meal();
-                        m.MealTypes = new List<string>();
-                        m.RecipeIds = new List<int>();    
-                                  
-                        m.MealId = Convert.ToInt32(reader["meal_id"]); 
                         m.MealName = Convert.ToString(reader["meal_name"]);
-                        m.MealTypes.Add(Convert.ToString(reader["meal_type"]));
-                        m.RecipeIds.Add(Convert.ToInt32(reader["recipe_id"]));
+                        m.MealId = Convert.ToInt32(reader["meal_id"]);
                         meals.Add(m);
                     }
+                    reader.Close();
+                    foreach (var meal in meals)
+                    {
+                        SqlCommand cmd2 = new SqlCommand("Select recipe_name, meal_recipe.recipe_id, meal_type from recipe inner join meal_recipe on recipe.recipe_id = meal_recipe.recipe_id where meal_id = @mealIdValue", connection);
+                        cmd2.Parameters.AddWithValue("@mealIdValue", meal.MealId);
 
+                        SqlDataReader sdr = cmd2.ExecuteReader();
+                        while (sdr.Read())
+                        {
+                            meal.Recipes.Add(new MealRecipe()
+                            {
+                                MealType = Convert.ToString(sdr["meal_type"]),
+                                RecipeName = Convert.ToString(sdr["recipe_name"])
+
+                            });
+                        }
+                        sdr.Close();
+                    }
 
                 }
-                return meals; 
+                return meals;
 
             }
             catch (SqlException ex)

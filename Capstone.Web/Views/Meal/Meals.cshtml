@@ -1,5 +1,5 @@
-﻿@using Capstone.Web.Models.ViewModels
-@model List<MealRecipeViewModel>
+﻿@using Capstone.Web.Models
+@model List<Meal>
 
 @{
     ViewBag.Title = "Meals";
@@ -26,20 +26,31 @@
 
 
 @{
-    foreach (MealRecipeViewModel meal in Model)
-    {
-        <p>@meal.MealName</p>
-        @*<div class="row recipeTile">
-            <div class="col-lg-4 recipeList">
-                <div class="col-lg-12">
-                    <a href="/Recipe/Detail?RecipeId=@meal.MealId"><img src="~/Recipe-Images/@(meal.MealImageName)" class="img-circle" /> </a>
-                    <div class="col-lg-12">
-                        <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.MealName</h2></a>
-                        <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.RecipeName></h2>
-                    </div>
-                </div>
-            </div>
-        </div>*@
 
+    for (int i = 0; i < Model.Count; i++)
+    {
+        <h2>@Model[i].MealName</h2>
+        for (int j = 0; j < Model[i].Recipes.Count; j++)
+        {
+            <p>@Model[i].Recipes[j].RecipeName</p>
+        }
     }
+
+   
+
+    
 }
+
+            @*<div class="row recipeTile">
+                    <div class="col-lg-4 recipeList">
+                        <div class="col-lg-12">
+                            <a href="/Recipe/Detail?RecipeId=@meal.MealId"><img src="~/Recipe-Images/@(meal.MealImageName)" class="img-circle" /> </a>
+                            <div class="col-lg-12">
+                                <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.MealName</h2></a>
+                                <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.RecipeName></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            
