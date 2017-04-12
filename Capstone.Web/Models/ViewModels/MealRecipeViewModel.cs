@@ -31,6 +31,7 @@ namespace Capstone.Web.Models.ViewModels
         public List<int> RecipeIds { get; set; }
         public List<SelectListItem> RecipeList { get; set; } = new List<SelectListItem>();
         public List<string> RecipeIdMealType { get; set; }
+        public string MealImageName { get; set; }
 
 
 
