@@ -213,6 +213,7 @@
     <Content Include="Views\Recipe\SuccessfullyAddedMeal.cshtml" />
     <Content Include="Views\Recipe\DeleteRecipeView.cshtml" />
     <Content Include="Views\Meal\Detail.cshtml" />
+    <Content Include="Views\Meal\Meals.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

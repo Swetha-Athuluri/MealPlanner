@@ -20,19 +20,37 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        public List<Recipe> GetAllMeals(int userId)
+        public List<Meal> GetAllMeals(int userId)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    return conn.Query<Recipe>
-                    ("SELECT * FROM meal WHERE userId = @userIdValue",
+                    return conn.Query<Meal>
+                    ("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue",
                         new { userIdValue = userId }).ToList();     
                 }
             }
             catch (SqlException ex)
             {
+                throw;
+            }
+        }
+        public Meal GetMeal(int mealId, int userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    Meal result = conn.QueryFirstOrDefault<Meal>("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where meal.meal_id = @mealValueId AND user_id = @userIdValue", 
+                        new { mealValueId = mealId, userIdValue = userId});
+                    return result;
+                }
+            }
+            catch (SqlException ex)
+            {
+
                 throw;
             }
         }

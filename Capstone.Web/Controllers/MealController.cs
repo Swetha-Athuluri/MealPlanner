@@ -68,9 +68,41 @@ namespace Capstone.Web.Controllers
 
                 mealDAL.SaveMeal(meal, userId);
                 
-                return View("SuccessfullyAddedRecipe", model);
+                return View("Detail", model);
             }
             return RedirectToAction("Login", "User");
+        }
+        [HttpGet]
+        public ActionResult Detail(int mealId)
+        {
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            int userId = (int)Session[SessionKeys.UserId];
+            Meal m = mealDAL.GetMeal(mealId, userId);
+            List<Recipe> recipes = new List<Recipe>();
+            List<string>recipeNames = new List<string>(); 
+            foreach (var recipe in m.RecipeIds)
+            {
+                recipes.Add(recipeDAL.GetRecipe(recipe, userId)); 
+            }
+            for (int i = 0; i < recipes.Count; i++)
+            {
+                recipeNames.Add(recipes[i].Name); 
+            }
+
+            MealRecipeViewModel mrvm = new MealRecipeViewModel();
+            mrvm.MealName = m.MealName;
+            mrvm.MealImageName = recipes[0].ImageName;
+            mrvm.MealId = m.MealId;
+            mrvm.MealType = m.MealTypes;
+            mrvm.RecipeNames = recipeNames;
+
+            
+
+
+            return View("Detail", rvm);
         }
 
         // GET: Meal
