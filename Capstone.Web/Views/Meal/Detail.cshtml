@@ -40,9 +40,9 @@
 <div class="flex-item2">
     <p><strong>Ingredients</strong></p>
     <ul>
-        @*@for (int i = 0; i < Model.RecipeIngredient.Count; i++)
+        @for (int i = 0; i < Model.RecipeIngredient.Count; i++)
             {
-            @*<li>@@@Model.RecipeIngredient[i].Quantity @@Model.RecipeIngredient[i].Measurement @@Model.RecipeIngredient[i].Ingredient_Name</li>*@
+            <li>Model.RecipeIngredient[i].Quantity Model.RecipeIngredient[i].Measurement Model.RecipeIngredient[i].Ingredient_Name</li>
         }*@*@
     </ul>
 </div>
