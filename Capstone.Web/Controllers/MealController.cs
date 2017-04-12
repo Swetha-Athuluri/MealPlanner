@@ -102,13 +102,53 @@ namespace Capstone.Web.Controllers
             
 
 
-            return View("Detail", rvm);
+            return View("Detail", mrvm);
         }
 
         // GET: Meal
         public ActionResult Index()
         {
-            return View();
+            List<MealRecipeViewModel> mrvm = new List<MealRecipeViewModel>();
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
+            {
+                
+                int userId = (int)Session[SessionKeys.UserId];
+                List<Meal> modelList = mealDAL.GetAllMeals(userId);
+                List<Recipe> recipes = new List<Recipe>();
+                foreach (var meal in modelList)
+                {
+                    recipes.Add(recipeDAL.GetRecipe(meal.MealId, userId));
+                }
+                List<string> recipeNames = new List<string>();
+                for (int i = 0; i < recipes.Count; i++)
+                {
+                    recipeNames.Add(recipes[i].Name);
+                }
+                foreach (var recipe in m.recipeIds)
+                {
+                    recipes.Add(recipeDAL.GetRecipe(recipe, userId));
+                }
+
+
+                //int counter = 0;
+                //foreach (var meal in modelList)
+                //{
+                //    mrvm[counter].MealId = meal.MealId;
+                //    mrvm[counter].MealImageName = recipes[0].ImageName;
+                //    mrvm[counter].MealName = meal.MealName;
+                //    mrvm[counter].RecipeName = recipeNames[counter];
+                //    counter++;
+                //}
+
+
+            }
+            return View("Meals", mrvm);
+
+
+            }
+
+            
+           
+
         }
     }
-}
