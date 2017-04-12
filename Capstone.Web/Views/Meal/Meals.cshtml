@@ -28,18 +28,18 @@
 @{
     foreach (MealRecipeViewModel meal in Model)
     {
-
-        <div class="row recipeTile">
+        <p>@meal.MealName</p>
+        @*<div class="row recipeTile">
             <div class="col-lg-4 recipeList">
                 <div class="col-lg-12">
                     <a href="/Recipe/Detail?RecipeId=@meal.MealId"><img src="~/Recipe-Images/@(meal.MealImageName)" class="img-circle" /> </a>
                     <div class="col-lg-12">
                         <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.MealName</h2></a>
-                        <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.></h2>
-</div>
+                        <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.RecipeName></h2>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
     }
 }

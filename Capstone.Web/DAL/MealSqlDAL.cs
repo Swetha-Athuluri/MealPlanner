@@ -20,22 +20,22 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        public List<Meal> GetAllMeals(int userId)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    return conn.Query<Meal>
-                    ("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue",
-                        new { userIdValue = userId }).ToList();
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-        }
+        //public List<Meal> GetAllMeals(int userId)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            return conn.Query<Meal>
+        //            ("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue",
+        //                new { userIdValue = userId }).ToList();
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw;
+        //    }
+        //}
         public Meal GetMeal(int mealId, int userId)
         {
             try
@@ -62,6 +62,46 @@ namespace Capstone.Web.DAL
 
                 }
                 return m;
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw;
+            }
+        }
+        public List<Meal> GetAllMeals(int userId)
+        {
+            try
+            {
+
+                List<Meal> meals = new List<Meal>();
+                
+                
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue"), conn);
+                    cmd.Parameters.AddWithValue("@userIdValue", userId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Meal m = new Meal();
+                        m.MealTypes = new List<string>();
+                        m.RecipeIds = new List<int>();    
+                                  
+                        m.MealId = Convert.ToInt32(reader["meal_id"]); 
+                        m.MealName = Convert.ToString(reader["meal_name"]);
+                        m.MealTypes.Add(Convert.ToString(reader["meal_type"]));
+                        m.RecipeIds.Add(Convert.ToInt32(reader["recipe_id"]));
+                        meals.Add(m);
+                    }
+
+
+                }
+                return meals; 
 
             }
             catch (SqlException ex)

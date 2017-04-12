@@ -83,7 +83,7 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "User");
             }
             int userId = (int)Session[SessionKeys.UserId];
-                Meal m = mealDAL.GetMeal(mealId, userId);
+            Meal m = mealDAL.GetMeal(mealId, userId);
             List<Recipe> recipes = new List<Recipe>();
             List<string> recipeNames = new List<string>();
             foreach (var recipe in m.RecipeIds)
@@ -102,12 +102,6 @@ namespace Capstone.Web.Controllers
             mrvm.MealType = m.MealTypes;
             mrvm.RecipeNames = recipeNames;
 
-<<<<<<< HEAD
-            
-
-
-=======
->>>>>>> c81590d4d007b35e6a6b33ca0e168520edb481f3
             return View("Detail", mrvm);
         }
 
@@ -117,44 +111,41 @@ namespace Capstone.Web.Controllers
             List<MealRecipeViewModel> mrvm = new List<MealRecipeViewModel>();
             if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
             {
-                
                 int userId = (int)Session[SessionKeys.UserId];
                 List<Meal> modelList = mealDAL.GetAllMeals(userId);
                 List<Recipe> recipes = new List<Recipe>();
+                
                 foreach (var meal in modelList)
                 {
                     recipes.Add(recipeDAL.GetRecipe(meal.MealId, userId));
+                 
                 }
+
                 List<string> recipeNames = new List<string>();
                 for (int i = 0; i < recipes.Count; i++)
                 {
                     recipeNames.Add(recipes[i].Name);
                 }
-                foreach (var recipe in m.recipeIds)
+                
+                foreach (var meal in modelList)
                 {
-                    recipes.Add(recipeDAL.GetRecipe(recipe, userId));
+                    MealRecipeViewModel mv = new MealRecipeViewModel();
+                    mv.MealName = meal.MealName;
+                    mv.MealType = meal.MealTypes;
+                    mv.MealId = meal.MealId;
+                    mv.UserId = userId; 
+                    mrvm.Add(mv); 
                 }
-
-
-                //int counter = 0;
-                //foreach (var meal in modelList)
-                //{
-                //    mrvm[counter].MealId = meal.MealId;
-                //    mrvm[counter].MealImageName = recipes[0].ImageName;
-                //    mrvm[counter].MealName = meal.MealName;
-                //    mrvm[counter].RecipeName = recipeNames[counter];
-                //    counter++;
-                //}
-
+                 
 
             }
             return View("Meals", mrvm);
 
 
-            }
-
-            
-           
-
         }
+
+
+
+
     }
+}
