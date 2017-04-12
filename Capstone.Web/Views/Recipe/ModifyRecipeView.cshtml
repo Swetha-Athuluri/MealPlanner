@@ -72,6 +72,7 @@
 
                 <div class="thumbnail col-md-2 col-md-offset-1">
                     <img src="~/Recipe-Images/@(Model.RecipeImageName)" />
+                    @Html.HiddenFor(m=>m.RecipeImageName, new { Value=Model.RecipeImageName})
                 </div>
             </div>
             <div class="row">
