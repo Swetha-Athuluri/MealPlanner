@@ -90,7 +90,7 @@ namespace Capstone.Web.Controllers
 
             if (model != null && model.QuantityMeasurementIngredient != null && model.PrepSteps != null)
             {
-                if (recipeImage.ContentLength > 0)
+                if (recipeImage != null && recipeImage.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(recipeImage.FileName);
                     var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
@@ -99,7 +99,10 @@ namespace Capstone.Web.Controllers
                 }
                 else
                 {
-                    model.RecipeImageName = "stock.jpg";
+                    var fileName = "stock.jpg";
+                    var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
+                    recipeImage.SaveAs(fullPath);
+                    model.RecipeImageName = fileName;
                 }
 
 
