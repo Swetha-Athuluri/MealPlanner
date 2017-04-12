@@ -30,6 +30,7 @@
         <img src="~/Recipe-Images/@(Model.MealImageName)" />
     </div>
     <div class="div-content">
+<<<<<<< HEAD
         <h2><strong>@Model.RecipeName</strong></h2>
         <p>@Model.MealType[0]</p>
         @*<p><strong>Cook Time </strong> @(Model.RecipeCookTimeInMinutes) minutes </p>
@@ -58,6 +59,14 @@
     <br />
     <br />
 </div>
+=======
+        <h2><strong>@Model.MealName</strong></h2>
+        <p>@Model.RecipeNames[0]</p><p>@Model.MealType[0]</p>
+       
+    </div>
+</div>
+
+>>>>>>> c81590d4d007b35e6a6b33ca0e168520edb481f3
 @*@if (TempData["action"] == "update")
     {
 
