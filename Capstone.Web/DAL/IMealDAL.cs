@@ -10,7 +10,7 @@ namespace Capstone.Web.DAL
 {
     public interface IMealDAL
     {
-        List<Recipe> GetAllMeals(int userId);
+        List<Meal> GetAllMeals(int userId);
         void SaveMeal(Meal meal, int userId);
         void DeleteMealRecipe(int userId, int recipeId);
         Meal GetMeal(int mealId, int userId);

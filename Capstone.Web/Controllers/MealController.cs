@@ -31,7 +31,7 @@ namespace Capstone.Web.Controllers
             }
             List<Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
             MealRecipeViewModel mRVM = new MealRecipeViewModel();
-           
+
 
             foreach (var recipe in r)
             {
@@ -50,14 +50,14 @@ namespace Capstone.Web.Controllers
                 int userId = (int)Session[SessionKeys.UserId];
                 List<int> recipeIds = new List<int>();
                 List<string> mealTypes = new List<string>();
-                
+
                 foreach (var mt in model.MealType)
                 {
                     //List<string> recipeMeal = recipeMealType.Split(',').ToList();
                     //recipeIds.Add(Convert.ToInt32(recipeMeal[0]));
                     mealTypes.Add(mt);
                 }
-                
+
                 Meal meal = new Meal()
                 {
                     MealName = model.MealName,
@@ -67,8 +67,11 @@ namespace Capstone.Web.Controllers
                 };
 
                 mealDAL.SaveMeal(meal, userId);
-                
-                return View("Detail", model);
+                if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
+                {
+                    return RedirectToAction("Detail", "Meal", new { mealId = meal.MealId });
+                }
+
             }
             return RedirectToAction("Login", "User");
         }
@@ -80,16 +83,16 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "User");
             }
             int userId = (int)Session[SessionKeys.UserId];
-            Meal m = mealDAL.GetMeal(mealId, userId);
+                Meal m = mealDAL.GetMeal(mealId, userId);
             List<Recipe> recipes = new List<Recipe>();
-            List<string>recipeNames = new List<string>(); 
+            List<string> recipeNames = new List<string>();
             foreach (var recipe in m.RecipeIds)
             {
-                recipes.Add(recipeDAL.GetRecipe(recipe, userId)); 
+                recipes.Add(recipeDAL.GetRecipe(recipe, userId));
             }
             for (int i = 0; i < recipes.Count; i++)
             {
-                recipeNames.Add(recipes[i].Name); 
+                recipeNames.Add(recipes[i].Name);
             }
 
             MealRecipeViewModel mrvm = new MealRecipeViewModel();
@@ -99,10 +102,7 @@ namespace Capstone.Web.Controllers
             mrvm.MealType = m.MealTypes;
             mrvm.RecipeNames = recipeNames;
 
-            
-
-
-            return View("Detail", rvm);
+            return View("Detail", mrvm);
         }
 
         // GET: Meal

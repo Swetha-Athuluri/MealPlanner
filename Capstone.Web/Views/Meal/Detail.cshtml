@@ -27,37 +27,15 @@
 <div class="flex-item1">
 
     <div class="div-image thumbnail">
-        <img src="~/Recipe-Images/@(Model.RecipeImageName)" />
+        <img src="~/Recipe-Images/@(Model.MealImageName)" />
     </div>
     <div class="div-content">
-        <h2><strong>@Model.RecipeName</strong></h2>
-        <p>@Model.RecipeType</p>
-        <p><strong>Cook Time </strong> @(Model.RecipeCookTimeInMinutes) minutes </p>
-        <p>@Model.RecipeDescription</p>
+        <h2><strong>@Model.MealName</strong></h2>
+        <p>@Model.RecipeNames[0]</p><p>@Model.MealType[0]</p>
+       
     </div>
 </div>
-<div class="flex-item2">
-    <p><strong>Ingredients</strong></p>
-    <ul>
-        @for (int i = 0; i < Model.RecipeIngredient.Count; i++)
-            {
-            <li>@*@Model.RecipeIngredient[i].Quantity @Model.RecipeIngredient[i].Measurement*@ @Model.RecipeIngredient[i].Ingredient_Name</li>
-        }
-    </ul>
-</div>
-<div class="flex-item3">
-    <p><strong>Preparation</strong></p>
-    <ol>
-        @foreach (var step in Model.PrepSteps)
-            {
-            <li>
-                @step
-            </li>
-        }
-    </ol>
-    <br />
-    <br />
-</div>
+
 @*@if (TempData["action"] == "update")
     {
 

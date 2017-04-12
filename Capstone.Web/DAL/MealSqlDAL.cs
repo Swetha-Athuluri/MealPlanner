@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
         private readonly string connectionString;
 
         private const string SqlDeleteMealRecipe = @"Delete from meal_recipe where recipe_id=@recipeId and user_id=@userId;";
-        
+
         public MealSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -28,7 +28,7 @@ namespace Capstone.Web.DAL
                 {
                     return conn.Query<Meal>
                     ("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where user_id = @userIdValue",
-                        new { userIdValue = userId }).ToList();     
+                        new { userIdValue = userId }).ToList();
                 }
             }
             catch (SqlException ex)
@@ -40,13 +40,29 @@ namespace Capstone.Web.DAL
         {
             try
             {
+                Meal m = new Meal();
+                m.MealTypes = new List<string>();
+                m.RecipeIds = new List<int>(); 
+                 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    Meal result = conn.QueryFirstOrDefault<Meal>("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where meal.meal_id = @mealValueId AND user_id = @userIdValue", 
-                        new { mealValueId = mealId, userIdValue = userId});
-                    return result;
+                    SqlCommand cmd = new SqlCommand(("SELECT * from meal INNER JOIN meal_recipe on meal.meal_id = meal_recipe.meal_id where meal.meal_id = @mealValueId AND user_id = @userIdValue"), conn);
+                    cmd.Parameters.AddWithValue("@mealValueId", mealId);
+                    cmd.Parameters.AddWithValue("@userIdValue", userId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        m.MealId = mealId;
+                        m.MealName = Convert.ToString(reader["meal_name"]);
+                        m.MealTypes.Add(Convert.ToString(reader["meal_type"]));
+                        m.RecipeIds.Add(Convert.ToInt32(reader["recipe_id"]));
+                    }
+
+
                 }
+                return m;
+
             }
             catch (SqlException ex)
             {
@@ -55,7 +71,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-       
+
 
         public void SaveMeal(Meal meal, int userId)
         {
@@ -66,7 +82,7 @@ namespace Capstone.Web.DAL
                     conn.Open();
                     meal.MealId = conn.QueryFirst<int>("INSERT INTO meal VALUES (@meal_name); Select CAST(SCOPE_IDENTITY() as int);",
                         new { meal_name = meal.MealName });
-                    var counter = 0; 
+                    var counter = 0;
                     foreach (var recipe in meal.RecipeIds)
                     {
                         conn.Execute("Insert into meal_recipe values(@mealId, @recipeId, @userId, @mealType);",
@@ -74,7 +90,7 @@ namespace Capstone.Web.DAL
                         counter++;
                     }
                 }
-                
+
             }
             catch (SqlException ex)
             {
@@ -97,17 +113,17 @@ namespace Capstone.Web.DAL
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
         }
 
-        
+
 
     }
 
-   
+
 }
 
 

@@ -12,6 +12,7 @@ namespace Capstone.Web.Models
         public string MealName { get; set; }
         public List<string> MealTypes { get; set; }
         public int MealId { get; set; }
+        
 
     }
 }
