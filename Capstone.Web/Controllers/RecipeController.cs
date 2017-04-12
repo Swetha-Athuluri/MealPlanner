@@ -99,10 +99,10 @@ namespace Capstone.Web.Controllers
                 }
                 else
                 {
-                    //var fileName ="stock.jpg";
-                    //var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
-                    //recipeImage.SaveAs(fullPath);
-                    model.RecipeImageName = "stock.jpg";
+                    var fileName = "stock.jpg";
+                    var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
+                    recipeImage.SaveAs(fullPath);
+                    model.RecipeImageName = fileName;
                 }
 
 
