@@ -6,64 +6,196 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Meals</h2>
+<div class="container-fluid">
+    <h2>Meals</h2>
 
-@if (TempData["action"] == "delete")
-{
-    <div class="alert alert-success" role="alert">
-        <h5>Succesfully deleted meal!</h5>
-    </div>
+    @if (TempData["action"] == "delete")
+    {
+        <div class="alert alert-success" role="alert">
+            <h5>Succesfully deleted meal!</h5>
+        </div>
 
-}
-@*<div class="row">
-    <div class="col-lg-6 col-lg-offset-1">
+    }
+    @*<div class="row">
+            <div class="col-lg-6 col-lg-offset-1">
 
-        <h1>Meals</h1>
-    </div>
+                <h1>Meals</h1>
+            </div>
 
-</div>*@
+        </div>*@
 
 
 
-@{
-    <div class="row">
-        <div class="col-lg-offset-1">
+    
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="meal-photo" style="display: inline-block; width: 30%;">
+                    <a href="/Meal/Detail?MealId=@Model[i].MealId">
+                        <img src="~/Recipe-Images/@(Model[i].Recipes[0].RecipeImageName)" height="236" class="img-thumbnail" /> 
+                    </a>
+                </div>
+                <div class="meal-data" style="display: inline-block; width: 60%; vertical-align: top;">
+                    <h4><a href="/Meal/Detail?MealId=@Model[i].MealId">@Model[i].MealName</a></h4>
+                    @{
+                        var entree = Model[i].Recipes.Where(r => r.MealType == "Entree").FirstOrDefault();
+                        var appetizer = Model[i].Recipes.Where(r => r.MealType == "Appetizer").FirstOrDefault();
+                        var sidedish = Model[i].Recipes.Where(r => r.MealType == "Sidedish").FirstOrDefault();
+                        var dessert = Model[i].Recipes.Where(r => r.MealType == "Dessert").FirstOrDefault();
+                    }
+
+                    <table class="table meal-recipes" style="width: 50%;">
+                        <tr>
+                            <td><strong>Entree</strong></td>
+                            @if (entree == null)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @entree.RecipeName
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <td><strong>Appetizer</strong></td>
+                            @if (appetizer == null)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @appetizer.RecipeName
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <td><strong>Sidedish</strong></td>
+                            @if (sidedish == null)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @sidedish.RecipeName
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <td><strong>Dessert</strong></td>
+                            @if (dessert == null)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @dessert.RecipeName
+                                </td>
+                            }
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        }
+
+
+
+        @*<div class="row">
+
+
+
             @for (int i = 0; i < Model.Count; i++)
             {
 
-                <div class="col-lg-4">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>@Model[i].MealName</h2> 
-                        </div>
-                        
-                    </div>
-                    @for (int j = 0; j < Model[i].Recipes.Count; j++)
-                    {
-                        <div class="row">
-                            <div class="col-lg-12">
-                                @*<a href=""><img src="~/Recipe-Images/@(Model[i].Recipes[j].RecipeImageName)" class="img-circle" /> </a>*@
+                <div class="col-md-4">
+                    <div class="row text-center"><a href="/Meal/Detail?MealId=@Model[i].MealId"><h2>@Model[i].MealName</h2></a></div>
+                    <div class="row"><a href="/Meal/Detail?MealId=@Model[i].MealId"><img src="~/Recipe-Images/@(Model[i].Recipes[0].RecipeImageName)" height="236" class="img-thumbnail" /> </a></div>
+                    <div class="row text-center">
+                        @{
+                            var entree = Model[i].Recipes.Where(r => r.MealType == "Entree").FirstOrDefault();
+                            var appetizer = Model[i].Recipes.Where(r => r.MealType == "Appetizer").FirstOrDefault();
+                            var sidedish = Model[i].Recipes.Where(r => r.MealType == "Sidedish").FirstOrDefault();
+                            var dessert = Model[i].Recipes.Where(r => r.MealType == "Dessert").FirstOrDefault();
+                        }
 
-                                <p>@Model[i].Recipes[j].RecipeName</p>
-                            </div>
-                        </div>
-                    }
+                        <table class="table" style="width: 50%; margin: 0 auto;">
+                            <tr>
+                                <td><strong>Entree</strong></td>
+                                @if (entree == null)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @entree.RecipeName
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td><strong>Appetizer</strong></td>
+                                @if (appetizer == null)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @appetizer.RecipeName
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td><strong>Sidedish</strong></td>
+                                @if (sidedish == null)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @sidedish.RecipeName
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td><strong>Dessert</strong></td>
+                                @if (dessert == null)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @dessert.RecipeName
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            }
+                            }
         </div>
-    </div>
-}
 
-            @*<div class="row recipeTile">
-                    <div class="col-lg-4 recipeList">
-                        <div class="col-lg-12">
-                            <a href="/Recipe/Detail?RecipeId=@meal.MealId"><img src="~/Recipe-Images/@(meal.MealImageName)" class="img-circle" /> </a>
-                            <div class="col-lg-12">
-                                <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.MealName</h2></a>
-                                <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.RecipeName></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+    }
 
-            
+</div>*@
+
+@*<div class="row recipeTile">
+        <div class="col-lg-4 recipeList">
+            <div class="col-lg-12">
+                <a href="/Recipe/Detail?RecipeId=@meal.MealId"><img src="~/Recipe-Images/@(meal.MealImageName)" class="img-circle" /> </a>
+                <div class="col-lg-12">
+                    <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.MealName</h2></a>
+                    <a href="/Recipe/Detail?RecipeId=@meal.MealId"><h2 class="recipeText">@meal.RecipeName></h2>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+

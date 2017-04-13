@@ -13,6 +13,8 @@
                 x++; //text box increment
                 counter++;
                 $(wrapper).append('<div><input class="form-control form-control-lg" type="text" data-id=' + counter + ' name="QuantityMeasurementIngredient[' + counter + ']"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                $(`input[name='QuantityMeasurementIngredient[${counter}]']`).focus();
+                
             }
         });
 
@@ -48,10 +50,14 @@
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
                 counter++;
-                var currentDropDowns = $(".cloneCheckBox").last().clone();
-                //currentDropDowns.attr("data-id") = counter + 1; 
-                //currentDropDowns.attr("name") = 'RecipeIdMealType[' + counter + ']';
-                $(".cloneCheckBox").last().append(currentDropDowns); //add input box
+
+                var lastRow = $(this).parent().children(".cloneCheckBox").last();
+                var newRow = lastRow.clone();
+                lastRow.after(newRow);
+
+
+                
+                
             }
         });
 

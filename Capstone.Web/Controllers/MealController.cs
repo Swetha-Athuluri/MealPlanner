@@ -102,7 +102,7 @@ namespace Capstone.Web.Controllers
             mrvm.MealId = m.MealId;
             mrvm.MealType = m.MealTypes;
             mrvm.RecipeNames = recipeNames;
-
+      
             return View("Detail", mrvm);
         }
 
@@ -114,36 +114,7 @@ namespace Capstone.Web.Controllers
             {
                 int userId = (int)Session[SessionKeys.UserId];
                 modelList = mealDAL.GetAllMeals(userId);
-                //List<Recipe> recipes = new List<Recipe>();
-                
-                //foreach (var meal in modelList)
-                //{
-                //    recipes.Add(recipeDAL.GetRecipe(meal.MealId, userId));
-                 
-                //}
-
-                //List<string> recipeNames = new List<string>();
-                //for (int i = 0; i < recipes.Count; i++)
-                //{
-                //    recipeNames.Add(recipes[i].Name);
-                //}
-                
-               
-                //foreach (var meal in modelList)
-                //{
-                //    MealRecipeViewModel mv = new MealRecipeViewModel();
-                //    mv.MealName = meal.MealName;
-                //    mv.MealType = meal.MealTypes;
-                //    mv.MealId = meal.MealId;
-                //    mv.UserId = userId;
-                    
-                //    mv.ListOfRecipies = recipes;
-                //    mv.RecipeNames = recipeNames;
-
-                //    mrvm.Add(mv); 
-                //}
-              
-            }
+             }
             return View("Meals", modelList);
 
 

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2><strong>@Model.MealName</strong></h2>
+
 
 
 @if (TempData["action"] == "save")
@@ -23,43 +23,33 @@
     </div>
 
 }
-
-<div class="flex-item1">
-
-    <div class="div-image thumbnail">
-        <img src="~/Recipe-Images/@(Model.MealImageName)" />
-    </div>
-    <div class="div-content">
-@for (int i = 0; i < Model.RecipeNames.Count; i++)
-{
-    <p><strong>@Model.RecipeNames[i]</strong>  @Model.MealType[i]</p>
-}
-    
-    </div>
-</div>
-
-    <br />
-    <br />
-</div>
-
-       
-    </div>
-</div>
-
-@*@if (TempData["action"] == "update")
-    {
-
-
-    }
-    else
-    {*@
 <div class="row">
-    <div class="col-md-2 col-md-offset-5">
-        @*<input type="Modify" value="Modify" class="createButton btn-primary" autofocus>*@
-        <a href="/Recipe/ModifyRecipeView?RecipeId=@Model.RecipeId" class="btn btn-primary">Modify</a>
-        <a href="/Recipe/DeleteRecipeView?RecipeId=@Model.RecipeId" class="btn btn-primary">Delete</a>
+    <div class="col-lg-10 col-lg-offset-1">
+        <h2><strong>@Model.MealName</strong></h2>
+        <div class="flex-item1">
+
+            <div class="div-image thumbnail">
+                <img src="~/Recipe-Images/@(Model.MealImageName)" />
+            </div>
+            <div class="div-content">
+                @for (int i = 0; i < Model.RecipeNames.Count; i++)
+            {
+                <p><strong>@Model.RecipeNames[i]</strong>  @Model.MealType[i]</p>
+                }
+
+            </div>
+        </div>
 
     </div>
-</div>
-@*}*@
-</section>
+   
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <p style="color:white">aaa</p>
+                <p style="color:white">aaa</p>
+                <p style="color:white">aaa</p>
+                <a href="/Recipe/DeleteMealView?MealId=@Model.MealId" class="btn btn-primary createButton">Delete</a>
+                <a href="/Recipe/ModifyMealView?MealId=@Model.MealId" class="btn btn-primary createButton">Modify</a>
+
+            </div>
+        </div>
+    </div>
