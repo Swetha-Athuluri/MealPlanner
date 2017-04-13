@@ -50,7 +50,7 @@ namespace Capstone.Web.Controllers
                 int userId = (int)Session[SessionKeys.UserId];
                 List<int> recipeIds = new List<int>();
                 List<string> mealTypes = new List<string>();
-
+               
                 foreach (var mt in model.MealType)
                 {
                     //List<string> recipeMeal = recipeMealType.Split(',').ToList();
@@ -62,8 +62,9 @@ namespace Capstone.Web.Controllers
                 {
                     MealName = model.MealName,
                     RecipeIds = model.RecipeIds,
-                    MealTypes = mealTypes
-
+                    MealTypes = mealTypes,
+                    RecipeNames = model.RecipeNames
+                    
                 };
 
                 mealDAL.SaveMeal(meal, userId);

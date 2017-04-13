@@ -22,5 +22,7 @@ namespace Capstone.Web.Models
     {
         public string RecipeName { get; set; }
         public string MealType { get; set; }
+        public string RecipeImageName { get; set; }
+
     }
 }

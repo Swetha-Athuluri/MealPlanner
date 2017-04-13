@@ -108,9 +108,11 @@ namespace Capstone.Web.DAL
                             meal.Recipes.Add(new MealRecipe()
                             {
                                 MealType = Convert.ToString(sdr["meal_type"]),
-                                RecipeName = Convert.ToString(sdr["recipe_name"])
+                                RecipeName = Convert.ToString(sdr["recipe_name"]), 
+                                RecipeImageName = Convert.ToString(sdr["image_name"])
 
                             });
+                            
                         }
                         sdr.Close();
                     }

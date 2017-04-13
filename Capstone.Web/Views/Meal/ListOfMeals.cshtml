@@ -1,0 +1,31 @@
+﻿@using Capstone.Web.Models;
+@model List<Meal>
+
+@{
+    ViewBag.Title = "ListOfMeals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListOfMeals</h2>
+
+<div>
+   @{ 
+       foreach(Meal meal in Model)
+       {
+           <div class="row mealTile">
+               <div class="col container-fluid mealList">
+                   <a href="/Meal/Detail?MealId=@meal.MealId"><img src="~/Recipe-Images/@(meal.ImageName)" class="img-thumbnail"/></a>
+                   <a hreff="/Meal/Detail?MealId=@meal.MealId "><h2 class="mealText">@meal.MealName</h2></a>
+                   @{
+                       foreach (string recipename in meal.RecipeNames)
+                       {
+                             <p class="mealText"> @recipename</p>
+                       }
+                }
+                   
+                </div>
+           </div>
+       }
+   }  
+</div>
+

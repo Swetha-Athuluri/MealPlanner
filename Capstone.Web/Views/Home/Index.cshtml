@@ -7,50 +7,50 @@
 @using Capstone.Web.Models.ViewModels
 @model List<RecipeViewModel>
 
-<h2>HOME PAGE</h2>
+<h2>Welcome!</h2>
 
 @{
     foreach (RecipeViewModel recipeViewModel in Model)
     {
-<div class="flex-item1">
-        
-        <div class="div-image">
-        
-        <img src="~/Recipe-Images/@(recipeViewModel.RecipeImageName)" />
-    </div>
-        <div class="div-content">
-            <h2><strong>@recipeViewModel.RecipeName</strong></h2>
-            <p>@recipeViewModel.RecipeType</p>
-            <p><strong>Cook Time </strong> @(recipeViewModel.RecipeCookTimeInMinutes) minutes </p>
-            <p>@recipeViewModel.RecipeDescription</p>
+        <div class="flex-item1">
+
+            <div class="div-image">
+
+                <img src="~/Recipe-Images/@(recipeViewModel.RecipeImageName)" />
+            </div>
+            <div class="div-content">
+                <h2><strong>@recipeViewModel.RecipeName</strong></h2>
+                <p>@recipeViewModel.RecipeType</p>
+                <p><strong>Cook Time </strong> @(recipeViewModel.RecipeCookTimeInMinutes) minutes </p>
+                <p>@recipeViewModel.RecipeDescription</p>
+            </div>
         </div>
-    </div>
 
-    <div class="flex-item2">
-        <p><strong>Ingredients</strong></p>
-        <ul>
-            @for (int i = 0; i < recipeViewModel.RecipeIngredient.Count; i++)
-            {
-                <li>@recipeViewModel.RecipeIngredient[i].Ingredient_Name</li>
-            }
-        </ul>
-    </div>
+        <div class="flex-item2">
+            <p><strong>Ingredients</strong></p>
+            <ul>
+                @for (int i = 0; i < recipeViewModel.RecipeIngredient.Count; i++)
+                {
+                    <li>@recipeViewModel.RecipeIngredient[i].Ingredient_Name</li>
+                }
+            </ul>
+        </div>
 
-        
 
-    <div class="flex-item3">
-        <p><strong>Preparation</strong></p>
-        <ol>
-            @foreach (var step in recipeViewModel.PrepSteps)
-            {
-                <li>
-                    @step
-                </li>
-            }
-        </ol>
-     
-        <br/>
 
-    </div>
+        <div class="flex-item3">
+            <p><strong>Preparation</strong></p>
+            <ol>
+                @foreach (var step in recipeViewModel.PrepSteps)
+                {
+                    <li>
+                        @step
+                    </li>
+                }
+            </ol>
+
+            <br />
+
+        </div>
     }
 }
