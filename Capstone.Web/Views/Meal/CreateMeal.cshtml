@@ -6,16 +6,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row" style="margin:10px">
-    <div class="row">
-        <div class="col-lg-6 col-lg-offset-3">
-            <h2>Create Meal</h2>
-        </div>
-    </div>
+   
     @using (Html.BeginForm("CreateMeal", "Meal", FormMethod.Post))
     {
 
         <div class="row">
-            <div class="col-md-6 col-lg-offset-3"><h1>Add a new meal</h1></div>
+            <div class="col-md-6 col-md-offset-1"><h1>Add a new meal</h1></div>
 
             <div class="col-md-10 col-md-offset-1" style="border:1px solid grey">
                 <div class="row">
@@ -37,22 +33,28 @@
                             </div>
 
                     </div>*@
+                <div class="row">
+                    <div class="wrapper">
+                        <div class="col-md-12 col-md-offset-1 checkbox_fields_wrap">
 
-                <div class="wrapper">
-                    <div class="col-md-6 checkbox_fields_wrap">
+                            <div class="cloneCheckBox">
+                                @Html.DropDownList("RecipeIds", Model.RecipeList, new { placeholder = "Please select Recipe to Meal" })
+                                @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal", @id = "mealtype" })
+                                <a href="#" class="remove_checkbox">Remove</a>
+                            </div>
+                            <input type="hidden" name="RecipeAndMealType[0]" value=""><button class="add_checkbox_button btn btn-success" style="margin:5px">Add Another Recipe</button>
 
-                        <div class="cloneCheckBox">
-                            @Html.DropDownList("RecipeIds", Model.RecipeList, new { placeholder = "Please select Recipe to Meal" })
-                            @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal", @id = "mealtype" })
-                            <a href="#" class="remove_checkbox">Remove</a>
+
                         </div>
-                        <input type="hidden" name="RecipeAndMealType[0]" value=""><button class="add_checkbox_button btn btn-success">Add Another Recipe</button>
-
-
                     </div>
+
                 </div>
 
-                <button type="submit" class="btn btn-primary">Create Meal</button>
+                <div class="row">
+                    <div class="col-lg-3 col-lg-offset-5">
+                        <button type="submit" class="btn btn-primary" style="text-align:center; margin: 15px">Create Meal</button>
+                    </div>
+                </div>
 
             </div>
         </div>

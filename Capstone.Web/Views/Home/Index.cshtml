@@ -11,12 +11,12 @@
 @{
     if (Model.Count == 0)
     {
-        <h2>Welcome! @Html.ActionLink("Create a new Recipe", "CreateRecipe", "Recipe")</h2>
+        <h2 style="text-align:center;">Welcome! @Html.ActionLink("Create a new Recipe", "CreateRecipe", "Recipe")</h2>
 
     }
     else
     {
-        <h2>Welcome!</h2>
+        <h2 style="text-align:center;">Welcome!</h2>
     }
     foreach (RecipeViewModel recipeViewModel in Model)
     {

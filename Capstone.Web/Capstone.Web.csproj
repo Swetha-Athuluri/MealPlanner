@@ -121,6 +121,7 @@
     <Content Include="Content\img\shrimp-banner.jpeg" />
     <Content Include="Content\img\steakandpotatoes.jpg" />
     <Content Include="Content\img\stock.jpg" />
+    <Content Include="Content\img\Webpage-under-construction.jpg" />
     <Content Include="Content\JavaScript.js" />
     <Content Include="Content\styleSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -229,6 +230,7 @@
     <Content Include="Views\Recipe\DeleteRecipeView.cshtml" />
     <Content Include="Views\Meal\Detail.cshtml" />
     <Content Include="Views\Meal\Meals.cshtml" />
+    <Content Include="Views\Meal\UnderConstruction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

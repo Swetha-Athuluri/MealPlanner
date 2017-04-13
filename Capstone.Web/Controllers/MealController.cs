@@ -22,6 +22,12 @@ namespace Capstone.Web.Controllers
             this.userDAL = userDAL;
             this.mealDAL = mealDAL;
         }
+
+        public ActionResult UnderConstruction()
+        {
+            return View ("UnderConstruction");
+        }
+
         [HttpGet]
         public ActionResult CreateMeal()
         {
