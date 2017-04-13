@@ -15,30 +15,43 @@
     </div>
 
 }
-<div class="row">
+@*<div class="row">
     <div class="col-lg-6 col-lg-offset-1">
 
         <h1>Meals</h1>
     </div>
 
-</div>
+</div>*@
 
 
 
 @{
+    <div class="row">
+        <div class="col-lg-offset-1">
+            @for (int i = 0; i < Model.Count; i++)
+            {
 
-    for (int i = 0; i < Model.Count; i++)
-    {
-        <h2>@Model[i].MealName</h2>
-        for (int j = 0; j < Model[i].Recipes.Count; j++)
-        {
-            <p>@Model[i].Recipes[j].RecipeName</p>
-        }
-    }
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2>@Model[i].MealName</h2> 
+                        </div>
+                        
+                    </div>
+                    @for (int j = 0; j < Model[i].Recipes.Count; j++)
+                    {
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @*<a href=""><img src="~/Recipe-Images/@(Model[i].Recipes[j].RecipeImageName)" class="img-circle" /> </a>*@
 
-   
-
-    
+                                <p>@Model[i].Recipes[j].RecipeName</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
 }
 
             @*<div class="row recipeTile">
