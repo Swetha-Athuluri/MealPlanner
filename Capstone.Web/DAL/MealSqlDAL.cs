@@ -101,6 +101,10 @@ namespace Capstone.Web.DAL
                         SqlDataReader sdr = cmd2.ExecuteReader();
                         while (sdr.Read())
                         {
+                            if(meal.MealImageName==null)
+                            {
+                                meal.MealImageName = Convert.ToString(sdr["image_name"]);
+                            }
                             meal.Recipes.Add(new MealRecipe()
                             {
                                 MealType = Convert.ToString(sdr["meal_type"]),
