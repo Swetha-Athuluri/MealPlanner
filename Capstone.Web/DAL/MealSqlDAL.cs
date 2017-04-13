@@ -95,7 +95,7 @@ namespace Capstone.Web.DAL
                     reader.Close();
                     foreach (var meal in meals)
                     {
-                        SqlCommand cmd2 = new SqlCommand("Select recipe_name, meal_recipe.recipe_id, meal_type from recipe inner join meal_recipe on recipe.recipe_id = meal_recipe.recipe_id where meal_id = @mealIdValue", connection);
+                        SqlCommand cmd2 = new SqlCommand("Select recipe_name, meal_recipe.recipe_id, meal_type, image_name from recipe inner join meal_recipe on recipe.recipe_id = meal_recipe.recipe_id where meal_id = @mealIdValue", connection);
                         cmd2.Parameters.AddWithValue("@mealIdValue", meal.MealId);
 
                         SqlDataReader sdr = cmd2.ExecuteReader();
@@ -104,9 +104,11 @@ namespace Capstone.Web.DAL
                             meal.Recipes.Add(new MealRecipe()
                             {
                                 MealType = Convert.ToString(sdr["meal_type"]),
-                                RecipeName = Convert.ToString(sdr["recipe_name"])
+                                RecipeName = Convert.ToString(sdr["recipe_name"]), 
+                                RecipeImageName = Convert.ToString(sdr["image_name"])
 
                             });
+                            
                         }
                         sdr.Close();
                     }
