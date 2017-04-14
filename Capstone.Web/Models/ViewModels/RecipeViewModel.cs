@@ -12,7 +12,9 @@ namespace Capstone.Web.Models.ViewModels
         public int UserId { get; set; }
         [Required]
         public string RecipeName { get; set; }
+        [MaxLength(255,ErrorMessage = "Max length = 255 characters")]
         public string RecipeDescription { get; set; }
+
         public string RecipeImageName { get; set; }
         public int RecipeId { get; set; }
         [Required]
@@ -22,7 +24,7 @@ namespace Capstone.Web.Models.ViewModels
 
 
 
-        //[Required]
+        [Required]
         public int RecipeCookTimeInMinutes { get; set; }
 
 
@@ -45,7 +47,7 @@ namespace Capstone.Web.Models.ViewModels
         //public string QuantityOfIngredients { get; set; }
 
         public List<RecipeIngredient> RecipeIngredient { get; set; }
-
+        [Required]
         public List<string> RecipeType { get; set; }
         public string Email { get; set; }
         public List<PreparationSteps> Steps { get; set; }

@@ -101,7 +101,7 @@ namespace Capstone.Web.Controllers
                 {
                     var fileName = "stock.jpg";
                     var fullPath = Path.Combine(Server.MapPath("~/Recipe-Images"), fileName);
-                    recipeImage.SaveAs(fullPath);
+                    //recipeImage.SaveAs(fullPath);
                     model.RecipeImageName = fileName;
                 }
 
