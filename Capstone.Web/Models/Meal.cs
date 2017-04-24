@@ -8,21 +8,23 @@ namespace Capstone.Web.Models
 {
     public class Meal
     {
-        public List<int> RecipeIds { get; set; }
+        public List<int> RecipeIds { get; set; } // added
         public string MealName { get; set; }
         public List<string> MealTypes { get; set; }
         public int MealId { get; set; }
         public List<string> RecipeNames { get; set; }
         public string MealImageName { get; set; }
+       
         public List<MealRecipe> Recipes { get; set; } = new List<MealRecipe>(); //Read Only DO NOT USE FOR ADD AND MODIFY
-
-
+ 
     }
     public class MealRecipe
     {
         public string RecipeName { get; set; }
         public string MealType { get; set; }
         public string RecipeImageName { get; set; }
+//added to get recipe detail if we click on the link at MealDetail
+        public int RecipeId { get; set; } //added 
 
     }
 }

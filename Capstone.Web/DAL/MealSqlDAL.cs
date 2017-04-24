@@ -13,7 +13,8 @@ namespace Capstone.Web.DAL
     {
         private readonly string connectionString;
 
-        private const string SqlDeleteMealRecipe = @"Delete from meal_recipe where recipe_id=@recipeId and user_id=@userId;";
+        private const string SqlDeleteMealRecipe = @"Delete from meal_recipe where meal_id=@mealId and user_id=@userId;";
+        private const string SqlDeleteMeal = @"Delete from meal where meal_id=@meal_Id;";
 
         public MealSqlDAL(string connectionString)
         {
@@ -95,7 +96,7 @@ namespace Capstone.Web.DAL
                     reader.Close();
                     foreach (var meal in meals)
                     {
-                        SqlCommand cmd2 = new SqlCommand("Select recipe_name, meal_recipe.recipe_id, meal_type, image_name from recipe inner join meal_recipe on recipe.recipe_id = meal_recipe.recipe_id where meal_id = @mealIdValue", connection);
+                        SqlCommand cmd2 = new SqlCommand("Select recipe_name, meal_recipe.recipe_id as recipe_id, meal_type, image_name from recipe inner join meal_recipe on recipe.recipe_id = meal_recipe.recipe_id where meal_id = @mealIdValue", connection);
                         cmd2.Parameters.AddWithValue("@mealIdValue", meal.MealId);
 
                         SqlDataReader sdr = cmd2.ExecuteReader();
@@ -109,7 +110,8 @@ namespace Capstone.Web.DAL
                             {
                                 MealType = Convert.ToString(sdr["meal_type"]),
                                 RecipeName = Convert.ToString(sdr["recipe_name"]), 
-                                RecipeImageName = Convert.ToString(sdr["image_name"])
+                                RecipeImageName = Convert.ToString(sdr["image_name"]),
+                                RecipeId=Convert.ToInt32(sdr["recipe_id"])
 
                             });
                             
@@ -155,7 +157,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public void DeleteMealRecipe(int userId, int recipeId)
+        public void DeleteMealRecipe(int userId, int mealId)
         {
             try
             {
@@ -164,9 +166,12 @@ namespace Capstone.Web.DAL
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(SqlDeleteMealRecipe, conn);
                     cmd.Parameters.AddWithValue("userId", userId);
-                    cmd.Parameters.AddWithValue("recipeId", recipeId);
+                    cmd.Parameters.AddWithValue("mealId", mealId);
                     cmd.ExecuteNonQuery();
-
+                    //changed
+                    SqlCommand cmd1= new SqlCommand(SqlDeleteMeal,conn);
+                    cmd1.Parameters.AddWithValue("meal_Id", mealId);
+                    cmd1.ExecuteNonQuery();
                 }
 
             }

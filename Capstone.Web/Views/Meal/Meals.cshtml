@@ -6,16 +6,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (TempData["action"] == "delete")
+{
+    <div class="alert alert-success" role="alert">
+        <h5>Succesfully deleted Meal!</h5>
+    </div>
+
+}
+
 <div class="container-fluid">
     <h2 style="text-align:center;">Meals</h2>
 
-    @if (TempData["action"] == "delete")
+    @*@if (TempData["action"] == "delete")
     {
         <div class="alert alert-success" role="alert">
             <h5>Succesfully deleted meal!</h5>
         </div>
 
-    }
+    }*@
     @*<div class="row">
             <div class="col-lg-6 col-lg-offset-1">
 

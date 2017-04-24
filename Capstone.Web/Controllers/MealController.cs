@@ -93,6 +93,7 @@ namespace Capstone.Web.Controllers
             Meal m = mealDAL.GetMeal(mealId, userId);
             List<Recipe> recipes = new List<Recipe>();
             List<string> recipeNames = new List<string>();
+            List<int> recipeIds = new List<int>(); //added 
             foreach (var recipe in m.RecipeIds)
             {
                 recipes.Add(recipeDAL.GetRecipe(recipe, userId));
@@ -100,6 +101,7 @@ namespace Capstone.Web.Controllers
             for (int i = 0; i < recipes.Count; i++)
             {
                 recipeNames.Add(recipes[i].Name);
+                recipeIds.Add(recipes[i].RecipeId); //added
             }
 
             MealRecipeViewModel mrvm = new MealRecipeViewModel();
@@ -108,6 +110,7 @@ namespace Capstone.Web.Controllers
             mrvm.MealId = m.MealId;
             mrvm.MealType = m.MealTypes;
             mrvm.RecipeNames = recipeNames;
+            mrvm.RecipeIds = recipeIds; //added
       
             return View("Detail", mrvm);
         }
@@ -125,7 +128,22 @@ namespace Capstone.Web.Controllers
 
 
         }
+        //added 
 
+        [HttpGet]
+        public ActionResult DeleteMealView(MealRecipeViewModel mrvm)
+        {
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+           Meal m = new Meal();
+            m.MealId = mrvm.MealId;
+            int userId = (int)Session[SessionKeys.UserId];
+            mealDAL.DeleteMealRecipe(userId,m.MealId );
+            TempData["action"] = "delete";
+            return RedirectToAction("Index");
+        }
 
 
 

@@ -34,21 +34,24 @@
             <div class="div-content">
                 @for (int i = 0; i < Model.RecipeNames.Count; i++)
             {
-                <p><strong>@Model.RecipeNames[i]</strong>  @Model.MealType[i]</p>
+                    <p> <a href="/Recipe/Detail?RecipeId=@Model.RecipeIds[i]"><strong>@Model.RecipeNames[i]</strong></a>  @Model.MealType[i] </p>
+                    @*<p><strong>@Model.RecipeNames[i]</strong>  @Model.MealType[i]</p>*@
+
                 }
 
             </div>
+
         </div>
 
     </div>
    
         <div class="row">
             <div class="col-md-2 col-md-offset-5">
+                @*<p style="color:white">aaa</p>
                 <p style="color:white">aaa</p>
-                <p style="color:white">aaa</p>
-                <p style="color:white">aaa</p>
-                <a href="~/Meal/UnderConstruction" class="btn btn-primary createButton">Delete</a>
-                                <a href="~/Meal/UnderConstruction" class="btn btn-primary createButton">Modify</a>
+                <p style="color:white">aaa</p>*@
+                <a href="~/Meal/DeleteMealView?MealId=@Model.MealId" class="btn btn-primary createButton" onclick="return confirm('Are You sure you want to Delete?')">Delete</a>
+                <a href="~/Meal/UnderConstruction" class="btn btn-primary createButton">Modify</a>
 
             </div>
         </div>
