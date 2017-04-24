@@ -15,6 +15,7 @@ namespace Capstone.Web.DAL
 
         private const string SqlDeleteMealRecipe = @"Delete from meal_recipe where meal_id=@mealId and user_id=@userId;";
         private const string SqlDeleteMeal = @"Delete from meal where meal_id=@meal_Id;";
+        private const string SqlUpdateMeal = @"Update meal set meal_name=@mealName where meal_Id=@mealId;";
 
         public MealSqlDAL(string connectionString)
         {
@@ -59,6 +60,23 @@ namespace Capstone.Web.DAL
                         m.MealTypes.Add(Convert.ToString(reader["meal_type"]));
                         m.RecipeIds.Add(Convert.ToInt32(reader["recipe_id"]));
                     }
+                    reader.Close();
+
+                    SqlCommand cmd2 = new SqlCommand("Select recipe_name, meal_recipe.recipe_id as recipe_id, meal_type, image_name from recipe inner join meal_recipe on recipe.recipe_id = meal_recipe.recipe_id where meal_id = @mealIdValue", conn);
+                    cmd2.Parameters.AddWithValue("@mealIdValue", m.MealId);
+
+                    SqlDataReader sdr = cmd2.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        m.Recipes.Add(new MealRecipe()
+                        {
+                            MealType = Convert.ToString(sdr["meal_type"]),
+                            RecipeName = Convert.ToString(sdr["recipe_name"]),
+                            RecipeImageName = Convert.ToString(sdr["image_name"]),
+                            RecipeId = Convert.ToInt32(sdr["recipe_id"])
+                        });
+
+                    }
 
 
                 }
@@ -102,19 +120,19 @@ namespace Capstone.Web.DAL
                         SqlDataReader sdr = cmd2.ExecuteReader();
                         while (sdr.Read())
                         {
-                            if(meal.MealImageName==null)
+                            if (meal.MealImageName == null)
                             {
                                 meal.MealImageName = Convert.ToString(sdr["image_name"]);
                             }
                             meal.Recipes.Add(new MealRecipe()
                             {
                                 MealType = Convert.ToString(sdr["meal_type"]),
-                                RecipeName = Convert.ToString(sdr["recipe_name"]), 
+                                RecipeName = Convert.ToString(sdr["recipe_name"]),
                                 RecipeImageName = Convert.ToString(sdr["image_name"]),
-                                RecipeId=Convert.ToInt32(sdr["recipe_id"])
+                                RecipeId = Convert.ToInt32(sdr["recipe_id"])
 
                             });
-                            
+
                         }
                         sdr.Close();
                     }
@@ -130,7 +148,65 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public void DeleteRecipesForMeal(int userId, int mealId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlDeleteMealRecipe, conn);
+                    cmd.Parameters.AddWithValue("userId", userId);
+                    cmd.Parameters.AddWithValue("mealId", mealId);
+                    cmd.ExecuteNonQuery();
 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        public void UpdateMeal(int mealId,string mealName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SqlUpdateMeal, conn);
+                    cmd.Parameters.AddWithValue("mealId", mealId);
+                    cmd.Parameters.AddWithValue("mealName", mealName);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+        public void UpdateMealRecipe(Meal meal,int userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    var counter = 0;
+                    foreach (var recipe in meal.RecipeIds)
+                    {
+                        conn.Execute("Insert into meal_recipe values(@mealId, @recipeId, @userId, @mealType);",
+                            new { mealId = meal.MealId, recipeId = recipe, userId = userId, mealType = meal.MealTypes[counter] });
+                        counter++;
+                    }
+                }
+            }
+            catch(SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         public void SaveMeal(Meal meal, int userId)
         {
@@ -169,7 +245,7 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("mealId", mealId);
                     cmd.ExecuteNonQuery();
                     //changed
-                    SqlCommand cmd1= new SqlCommand(SqlDeleteMeal,conn);
+                    SqlCommand cmd1 = new SqlCommand(SqlDeleteMeal, conn);
                     cmd1.Parameters.AddWithValue("meal_Id", mealId);
                     cmd1.ExecuteNonQuery();
                 }
@@ -180,7 +256,6 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
-
 
 
     }

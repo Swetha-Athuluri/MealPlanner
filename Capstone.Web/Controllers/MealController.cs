@@ -25,7 +25,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult UnderConstruction()
         {
-            return View ("UnderConstruction");
+            return View("UnderConstruction");
         }
 
         [HttpGet]
@@ -56,7 +56,7 @@ namespace Capstone.Web.Controllers
                 int userId = (int)Session[SessionKeys.UserId];
                 List<int> recipeIds = new List<int>();
                 List<string> mealTypes = new List<string>();
-               
+
                 foreach (var mt in model.MealType)
                 {
                     //List<string> recipeMeal = recipeMealType.Split(',').ToList();
@@ -70,7 +70,7 @@ namespace Capstone.Web.Controllers
                     RecipeIds = model.RecipeIds,
                     MealTypes = mealTypes,
                     RecipeNames = model.RecipeNames
-                    
+
                 };
 
                 mealDAL.SaveMeal(meal, userId);
@@ -111,7 +111,7 @@ namespace Capstone.Web.Controllers
             mrvm.MealType = m.MealTypes;
             mrvm.RecipeNames = recipeNames;
             mrvm.RecipeIds = recipeIds; //added
-      
+
             return View("Detail", mrvm);
         }
 
@@ -123,7 +123,7 @@ namespace Capstone.Web.Controllers
             {
                 int userId = (int)Session[SessionKeys.UserId];
                 modelList = mealDAL.GetAllMeals(userId);
-             }
+            }
             return View("Meals", modelList);
 
 
@@ -137,15 +137,80 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-           Meal m = new Meal();
+            Meal m = new Meal();
             m.MealId = mrvm.MealId;
             int userId = (int)Session[SessionKeys.UserId];
-            mealDAL.DeleteMealRecipe(userId,m.MealId );
+            mealDAL.DeleteMealRecipe(userId, m.MealId);
             TempData["action"] = "delete";
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult ModifyMealView(int mealId)
+        {
+            if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            Meal meal = mealDAL.GetMeal(mealId, (int)Session[SessionKeys.UserId]);
+
+            MealRecipeViewModel mrvm = new MealRecipeViewModel();
+
+            List<Recipe> r = recipeDAL.GetUsersRecipes((int)Session[SessionKeys.UserId]);
 
 
 
+            foreach (var recipe in r)
+            {
+                mrvm.RecipeList.Add(new SelectListItem { Text = recipe.Name, Value = Convert.ToString(recipe.RecipeId) });
+
+            }
+            mrvm.MealId = meal.MealId;
+            mrvm.MealName = meal.MealName;
+            mrvm.RecipeIds = meal.RecipeIds;
+
+            mrvm.ListOfRecipes = meal.Recipes;
+
+
+            mrvm.RecipeNames = meal.RecipeNames;
+            mrvm.RecipeIdMealType = meal.MealTypes;
+            mrvm.MealImageName = meal.MealImageName;
+
+            return View("ModifyMealView", mrvm);
+        }
+        [HttpPost]
+        public ActionResult ModifyMealView(MealRecipeViewModel model)
+        {
+            if (model != null && model.MealType != null)
+            {
+                int userId = (int)Session[SessionKeys.UserId];
+                List<int> recipeIds = new List<int>();
+                List<string> mealTypes = new List<string>();
+
+                foreach (var mt in model.MealType)
+                {
+                    mealTypes.Add(mt);
+                }
+
+                Meal meal = new Meal()
+                {
+                    MealName = model.MealName,
+                    RecipeIds = model.RecipeIds,
+                    MealTypes = mealTypes,
+                    RecipeNames = model.RecipeNames,
+                    MealId = model.MealId
+
+                };
+                mealDAL.DeleteRecipesForMeal(userId, meal.MealId);
+                mealDAL.UpdateMeal(meal.MealId, meal.MealName);
+                mealDAL.UpdateMealRecipe(meal,userId);
+                if (userDAL.GetUser((string)Session[SessionKeys.EmailAddress]) != null)
+                {
+                    return RedirectToAction("Detail", "Meal", new { mealId = meal.MealId });
+                }
+
+            }
+            return RedirectToAction("Login", "User");
+        }
     }
 }

@@ -42,24 +42,34 @@
         var max_fields = 10; //maximum input boxes allowed
         var wrapper = $(".checkbox_fields_wrap"); //Fields wrapper
         var add_button = $(".add_checkbox_button"); //Add button ID
-        var counter = $(".checkbox_fields_wrap input").length - 1;
+        
 
-        var x = 1; //initlal text box count
+        
         $(add_button).click(function (e) { //on add input button click
+            var numberOfExistingFields = $(".meal_recipe_input").length;
+
             e.preventDefault();
-            if (x < max_fields) { //max input box allowed
-                x++; //text box increment
-                counter++;
+            if (numberOfExistingFields < max_fields) { //max input box allowed
+                var lastInput = $(".meal_recipe_input").last();
+                var newInput = lastInput.clone();
+                lastInput.after(newInput);
 
-                var lastRow = $(this).parent().children(".cloneCheckBox").last();
-                var newRow = lastRow.clone();
-                lastRow.after(newRow);
-
-
-                
+                // Reset to the first item
+                newInput.children("select")[0].selectedIndex = 0;
+                newInput.children("select")[1].selectedIndex = 0;
                 
             }
         });
+
+        $("#modify-meal, #create-meal").on("click", ".remove_checkbox", function (e) {
+            e.preventDefault();
+            var recipeToRemove = $(this).parent();
+
+            if (recipeToRemove.siblings(".meal_recipe_input").length > 0) {
+                recipeToRemove.remove();
+            }
+        });
+
 
         $(wrapper).on("click", ".remove_checkbox", function (e) { //user click on remove text
             //get the id of the one you are removing and then update the other IDs corresponding. 

@@ -58,21 +58,19 @@
         <br />
         <br />
     </div>
-    @*@if (TempData["action"] == "update")
-    {
-        
-
-    }
-    else
-    {*@
+   
         <div class="row">
             <div class="col-md-2 col-md-offset-5">
                 @*<input type="Modify" value="Modify" class="createButton btn-primary" autofocus>*@
                 <a href="/Recipe/ModifyRecipeView?RecipeId=@Model.RecipeId" class="btn btn-primary">Modify</a>
                 <a href="/Recipe/DeleteRecipeView?RecipeId=@Model.RecipeId" class="btn btn-primary" onclick="return confirm('Are You sure you want to Delete?')">Delete</a>
+                @if(Request.QueryString["mealId"]!=null)
+                {
+                    <a href="~/Meal/Detail?mealId=@Request.QueryString["mealId"]" class=" btn btn-primary">Back to Meal Detail</a>
+                }
 
             </div>
         </div>
-    @*}*@
+   
 </section>
 

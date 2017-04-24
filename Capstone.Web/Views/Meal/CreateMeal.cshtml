@@ -7,7 +7,7 @@
 }
 <div class="row" style="margin:10px">
    
-    @using (Html.BeginForm("CreateMeal", "Meal", FormMethod.Post))
+    @using (Html.BeginForm("CreateMeal", "Meal", FormMethod.Post, new { id = "create-meal" }))
     {
 
         <div class="row">
@@ -35,9 +35,9 @@
                     </div>*@
                 <div class="row">
                     <div class="wrapper">
-                        <div class="col-md-12 col-md-offset-1 checkbox_fields_wrap">
+                        <div class="col-md-12 col-md-offset-1">
 
-                            <div class="cloneCheckBox">
+                            <div class="meal_recipe_input">
                                 @Html.DropDownList("RecipeIds", Model.RecipeList, new { placeholder = "Please select Recipe to Meal" })
                                 @Html.DropDownList("MealType", MealRecipeViewModel.MealTypes, new { placeholder = "please select type of meal", @id = "mealtype" })
                                 <a href="#" class="remove_checkbox">Remove</a>

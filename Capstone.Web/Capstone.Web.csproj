@@ -231,6 +231,7 @@
     <Content Include="Views\Meal\Detail.cshtml" />
     <Content Include="Views\Meal\Meals.cshtml" />
     <Content Include="Views\Meal\UnderConstruction.cshtml" />
+    <Content Include="Views\Meal\ModifyMealView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
